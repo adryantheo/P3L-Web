@@ -1,5 +1,5 @@
 P3L-Web
 
 # DON'T FORGET !!!!!!!!!!!!!!!!!
--composer install
+- composer install/ update
 - copy any .env file
