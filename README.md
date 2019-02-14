@@ -1,5 +1,5 @@
 P3L-Web
 
 # DON'T FORGET !!!!!!!!!!!!!!!!!
-- composer install/ update
+- composer install/ update (Power Shell/ CMD)
 - copy any .env file
