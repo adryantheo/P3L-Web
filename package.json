@@ -20,6 +20,12 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
-        "vue": "^2.6.6"
+        "vue": "^2.6.7",
+        "vue-template-compiler": "^2.6.7"
+    },
+    "dependencies": {
+        "vue-router": "^3.0.2",
+        "vuetify": "^1.5.4",
+        "webpack-dev-server": "^3.2.1"
     }
 }
