@@ -1905,7 +1905,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  el: '#app',
+  data: function data() {
+    return {
+      links: ['Home', 'About Us', 'Team', 'Blog', 'Contact Us']
+    };
+  }
+});
 
 /***/ }),
 
@@ -1922,7 +1956,137 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  el: '#app',
+  data: function data() {
+    return {
+      drawer: null,
+      items: [{
+        src: 'http://cdn2.tstatic.net/jogja/foto/bank/images/Ban-tubeless.jpg'
+      }, {
+        src: 'https://3.bp.blogspot.com/-lEYgg8uzVNE/WC8giS6wVrI/AAAAAAAAI6k/GyhrQ3CK_p04FcYB74TxvaNyrL_lmr_UACK4B/s1600/busi%2Biridium%2Bbosch.jpg'
+      }, {
+        src: 'http://rotamec.com/wp-content/uploads/2017/02/motovario-in-line.jpg'
+      }, {
+        src: 'http://cdn.elevenia.co.id/g/0/5/5/4/8/7/20055487_B_V1.png'
+      }],
+      links: ['Home', 'About Us', 'Services', 'Blog', 'Contact Us']
+    };
+  }
+});
 
 /***/ }),
 
@@ -2535,7 +2699,7 @@ var render = function() {
                             attrs: {
                               "prepend-icon": "person",
                               name: "email",
-                              label: "Username",
+                              label: "Email",
                               type: "text",
                               rules: [_vm.rules.email]
                             }
@@ -2616,9 +2780,11 @@ var render = function() {
             [
               _c("v-toolbar-side-icon"),
               _vm._v(" "),
-              _c("v-toolbar-title", [_vm._v("Login")]),
+              _c("v-toolbar-title", [_vm._v("Admin")]),
               _vm._v(" "),
               _c("v-spacer"),
+              _vm._v(" "),
+              _c("v-btn", { attrs: { flat: "" } }, [_vm._v("Login")]),
               _vm._v(" "),
               _c("v-toolbar-items", { staticClass: "hidden-sm-and-down" })
             ],
@@ -2629,11 +2795,49 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-footer",
-            { staticClass: "pa-3" },
+            { attrs: { height: "auto", color: "primary" } },
             [
-              _c("v-spacer"),
-              _vm._v(" "),
-              _c("div", [_vm._v("© " + _vm._s(new Date().getFullYear()))])
+              _c(
+                "v-layout",
+                { attrs: { "justify-center": "", row: "", wrap: "" } },
+                [
+                  _vm._l(_vm.links, function(link) {
+                    return _c(
+                      "v-btn",
+                      {
+                        key: link,
+                        attrs: { color: "white", flat: "", round: "" }
+                      },
+                      [
+                        _vm._v(
+                          "\r\n                " +
+                            _vm._s(link) +
+                            "\r\n                "
+                        )
+                      ]
+                    )
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    {
+                      attrs: {
+                        primary: "",
+                        "lighten-1": "",
+                        "py-3": "",
+                        "text-xs-center": "",
+                        "white--text": "",
+                        xs12: ""
+                      }
+                    },
+                    [
+                      _vm._v("\r\n                ©2019 — "),
+                      _c("strong", [_vm._v("Atma Auto")])
+                    ]
+                  )
+                ],
+                2
+              )
             ],
             1
           )
@@ -2666,7 +2870,237 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("p", [_vm._v("ppq")])
+  return _c(
+    "div",
+    { attrs: { id: "app" } },
+    [
+      _c(
+        "v-app",
+        { attrs: { id: "inspire" } },
+        [
+          _c(
+            "v-navigation-drawer",
+            {
+              attrs: { fixed: "", app: "" },
+              model: {
+                value: _vm.drawer,
+                callback: function($$v) {
+                  _vm.drawer = $$v
+                },
+                expression: "drawer"
+              }
+            },
+            [
+              _c(
+                "v-list",
+                { attrs: { dense: "" } },
+                [
+                  _c(
+                    "v-list-tile",
+                    { on: { click: function($event) {} } },
+                    [
+                      _c("v-list-tile-action"),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-tile-content",
+                        [_c("v-list-tile-title", [_vm._v("Home")])],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-tile",
+                    { on: { click: function($event) {} } },
+                    [
+                      _c("v-list-tile-action"),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-tile-content",
+                        [_c("v-list-tile-title", [_vm._v("Jasa Services")])],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-tile",
+                    { on: { click: function($event) {} } },
+                    [
+                      _c("v-list-tile-action"),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-tile-content",
+                        [_c("v-list-tile-title", [_vm._v("Spareparts")])],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-tile",
+                    { on: { click: function($event) {} } },
+                    [
+                      _c("v-list-tile-action"),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-tile-content",
+                        [
+                          _c("v-list-tile-title", [_vm._v("History Transaksi")])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-tile",
+                    { on: { click: function($event) {} } },
+                    [
+                      _c("v-list-tile-action"),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-tile-content",
+                        [_c("v-list-tile-title", [_vm._v("Contact Us")])],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-toolbar",
+            { attrs: { color: "indigo", dark: "", fixed: "", app: "" } },
+            [
+              _c("v-toolbar-side-icon", {
+                on: {
+                  click: function($event) {
+                    $event.stopPropagation()
+                    _vm.drawer = !_vm.drawer
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("v-toolbar-title", [_vm._v("Atma Auto")]),
+              _vm._v(" "),
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-layout",
+                {
+                  staticStyle: { "max-width": "250px" },
+                  attrs: { row: "", "align-center": "" }
+                },
+                [
+                  _c("v-text-field", {
+                    attrs: {
+                      placeholder: "Search",
+                      "single-line": "",
+                      "append-icon": "search",
+                      "append-icon-cb": function() {},
+                      color: "white",
+                      "hide-details": ""
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-content",
+            [
+              _c(
+                "v-container",
+                { attrs: { fluid: "", "fill-height": "" } },
+                [
+                  _c(
+                    "v-carousel",
+                    _vm._l(_vm.items, function(item, i) {
+                      return _c("v-carousel-item", {
+                        key: i,
+                        attrs: {
+                          src: item.src,
+                          "reverse-transition": "fade",
+                          transition: "fade"
+                        }
+                      })
+                    }),
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-footer",
+            { attrs: { height: "auto", color: "primary" } },
+            [
+              _c(
+                "v-layout",
+                { attrs: { "justify-center": "", row: "", wrap: "" } },
+                [
+                  _vm._l(_vm.links, function(link) {
+                    return _c(
+                      "v-btn",
+                      {
+                        key: link,
+                        attrs: { color: "white", flat: "", round: "" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(link) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    {
+                      attrs: {
+                        primary: "",
+                        "lighten-1": "",
+                        "py-3": "",
+                        "text-xs-center": "",
+                        "white--text": "",
+                        xs12: ""
+                      }
+                    },
+                    [
+                      _vm._v("\n                ©2019 — "),
+                      _c("strong", [_vm._v("Atma Auto")])
+                    ]
+                  )
+                ],
+                2
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

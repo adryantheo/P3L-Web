@@ -12,7 +12,7 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
-                  <v-text-field prepend-icon="person" name="email" label="Username" type="text" :rules="[rules.email]"></v-text-field>
+                  <v-text-field prepend-icon="person" name="email" label="Email" type="text" :rules="[rules.email]"></v-text-field>
                   <v-text-field prepend-icon="lock" name="password" label="Password" id="password" type="password" :rules="[rules.password, rules.length(6)]"></v-text-field>
                 </v-form>
               </v-card-text>

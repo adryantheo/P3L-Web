@@ -3,10 +3,11 @@
     <v-app>
         <v-toolbar dark color="primary">
             <v-toolbar-side-icon></v-toolbar-side-icon>
-            <v-toolbar-title>Login</v-toolbar-title>
+            <v-toolbar-title>Admin</v-toolbar-title>
+            
             <v-spacer></v-spacer>
-            <v-toolbar-items class="hidden-sm-and-down">
-           
+            <v-btn flat>Login</v-btn>
+            <v-toolbar-items class="hidden-sm-and-down">           
             </v-toolbar-items>
         </v-toolbar>
         <v-content>
@@ -14,16 +15,53 @@
         
                
         </v-content>
-         <v-footer class="pa-3">
-            <v-spacer></v-spacer>
-            <div>&copy; {{ new Date().getFullYear() }}</div>
-        </v-footer>
+        <v-footer
+            height="auto"
+            color="primary"
+            >
+            <v-layout
+                justify-center
+                row
+                wrap
+            >
+                <v-btn
+                v-for="link in links"
+                :key="link"
+                color="white"
+                flat
+                round
+                >
+                {{ link }}
+                </v-btn>
+                <v-flex
+                primary
+                lighten-1
+                py-3
+                text-xs-center
+                white--text
+                xs12
+                >
+                &copy;2019 — <strong>Atma Auto</strong>
+                </v-flex>
+            </v-layout>
+    </v-footer>
     </v-app>
 </div>
 </template>
 
 <script>
 export default {
+    el: '#app',
+  data: () => ({
     
+    links: [
+      'Home',
+      'About Us',
+      'Team',
+      'Blog',
+      'Contact Us'
+    ]
+    
+  }),
 }
 </script>
