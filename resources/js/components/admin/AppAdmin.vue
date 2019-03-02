@@ -3,10 +3,10 @@
     <v-app>
         <v-toolbar dark color="primary">
             <v-toolbar-side-icon></v-toolbar-side-icon>
-            <v-toolbar-title>Admin</v-toolbar-title>
+            <v-toolbar-title>Admin Auto Atma</v-toolbar-title>
             
             <v-spacer></v-spacer>
-            <v-btn flat>Login</v-btn>
+            <v-btn flat v-for="link in links" :key="link.text" router :to="link.route">Login</v-btn>
             <v-toolbar-items class="hidden-sm-and-down">           
             </v-toolbar-items>
         </v-toolbar>
@@ -15,36 +15,21 @@
         
                
         </v-content>
-        <v-footer
-            height="auto"
-            color="primary"
-            >
-            <v-layout
-                justify-center
-                row
-                wrap
-            >
-                <v-btn
-                v-for="link in links"
-                :key="link"
-                color="white"
-                flat
-                round
-                >
-                {{ link }}
-                </v-btn>
-                <v-flex
-                primary
-                lighten-1
-                py-3
-                text-xs-center
-                white--text
-                xs12
-                >
-                &copy;2019 — <strong>Atma Auto</strong>
-                </v-flex>
-            </v-layout>
-    </v-footer>
+        
+        <v-footer height="auto" color="indigo">          
+                
+          <v-flex
+          indigo
+          py-3
+          text-xs-center
+          white--text
+          xs12
+          >
+          &copy;2019 — <strong>Atma Auto</strong>
+          </v-flex>
+            
+      </v-footer>
+
     </v-app>
 </div>
 </template>
@@ -55,11 +40,10 @@ export default {
   data: () => ({
     
     links: [
-      'Home',
-      'About Us',
-      'Team',
-      'Blog',
-      'Contact Us'
+      {
+        text: 'Login',
+        route: 'admin/login'
+      },
     ]
     
   }),
