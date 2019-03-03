@@ -20,8 +20,9 @@
         
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar color="indigo" dark fixed app>
+    <v-toolbar color="white" app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <img src="../../../../public/Logo.png" alt="" >
       <v-toolbar-title>Atma Auto</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-layout row align-center style="max-width: 250px">

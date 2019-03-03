@@ -1917,10 +1917,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   el: '#app',
   data: function data() {
     return {
+      drawer: null,
       links: [{
         text: 'Login',
         route: 'admin/login'
@@ -1940,6 +1947,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -2769,15 +2777,28 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { attrs: { id: "app" } },
     [
       _c(
         "v-app",
+        { attrs: { id: "inspire" } },
         [
           _c(
             "v-toolbar",
-            { attrs: { dark: "", color: "primary" } },
+            { attrs: { color: "white", app: "" } },
             [
-              _c("v-toolbar-side-icon"),
+              _c("v-toolbar-side-icon", {
+                on: {
+                  click: function($event) {
+                    $event.stopPropagation()
+                    _vm.drawer = !_vm.drawer
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                attrs: { src: __webpack_require__(/*! ../../../../public/Logo.png */ "./public/Logo.png"), alt: "" }
+              }),
               _vm._v(" "),
               _c("v-toolbar-title", [_vm._v("Admin Auto Atma")]),
               _vm._v(" "),
@@ -2788,7 +2809,13 @@ var render = function() {
                   "v-btn",
                   {
                     key: link.text,
-                    attrs: { flat: "", router: "", to: link.route }
+                    attrs: {
+                      dark: "",
+                      color: "primary",
+                      flat: "",
+                      router: "",
+                      to: link.route
+                    }
                   },
                   [_vm._v("Login")]
                 )
@@ -2901,7 +2928,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-toolbar",
-            { attrs: { color: "indigo", dark: "", fixed: "", app: "" } },
+            { attrs: { color: "white", app: "" } },
             [
               _c("v-toolbar-side-icon", {
                 on: {
@@ -2910,6 +2937,10 @@ var render = function() {
                     _vm.drawer = !_vm.drawer
                   }
                 }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                attrs: { src: __webpack_require__(/*! ../../../../public/Logo.png */ "./public/Logo.png"), alt: "" }
               }),
               _vm._v(" "),
               _c("v-toolbar-title", [_vm._v("Atma Auto")]),
@@ -43774,6 +43805,17 @@ try {
 
 module.exports = g;
 
+
+/***/ }),
+
+/***/ "./public/Logo.png":
+/*!*************************!*\
+  !*** ./public/Logo.png ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/Logo.png?70b5df8c1e4666c15c539f8ed01af595";
 
 /***/ }),
 

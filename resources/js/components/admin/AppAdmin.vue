@@ -1,12 +1,18 @@
 <template>
-<div>
-    <v-app>
-        <v-toolbar dark color="primary">
-            <v-toolbar-side-icon></v-toolbar-side-icon>
+<div id="app">
+    <v-app id="inspire">
+
+      
+
+      
+
+        <v-toolbar  color="white" app>
+            <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+            <img src="../../../../public/Logo.png" alt="" >
             <v-toolbar-title>Admin Auto Atma</v-toolbar-title>
             
             <v-spacer></v-spacer>
-            <v-btn flat v-for="link in links" :key="link.text" router :to="link.route">Login</v-btn>
+            <v-btn dark color="primary" flat v-for="link in links" :key="link.text" router :to="link.route">Login</v-btn>
             <v-toolbar-items class="hidden-sm-and-down">           
             </v-toolbar-items>
         </v-toolbar>
@@ -38,6 +44,8 @@
 export default {
     el: '#app',
   data: () => ({
+
+    drawer:null,
     
     links: [
       {
