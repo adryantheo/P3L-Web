@@ -1793,6 +1793,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -1923,11 +1926,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   el: '#app',
   data: function data() {
     return {
       drawer: null,
+      menus: [{
+        text: 'Home',
+        route: 'admin'
+      }, {
+        text: 'Kelola Pegawai',
+        route: 'admin/edit'
+      }, {
+        text: 'Transaksi',
+        route: ''
+      }, {
+        text: 'Laporan',
+        route: ''
+      }],
       links: [{
         text: 'Login',
         route: 'admin/login'
@@ -1947,10 +1979,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
 //
 //
 //
@@ -2643,7 +2671,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("p", [_vm._v("iki Edit")])])
+    return _c("div", [
+      _c("p", [_vm._v("Histroy Transaksi Page")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Still Under Development")])
+    ])
   }
 ]
 render._withStripped = true
@@ -2784,6 +2816,57 @@ var render = function() {
         { attrs: { id: "inspire" } },
         [
           _c(
+            "v-navigation-drawer",
+            {
+              attrs: { fixed: "", app: "" },
+              model: {
+                value: _vm.drawer,
+                callback: function($$v) {
+                  _vm.drawer = $$v
+                },
+                expression: "drawer"
+              }
+            },
+            [
+              _c(
+                "v-list",
+                { attrs: { dense: "" } },
+                _vm._l(_vm.menus, function(menu) {
+                  return _c(
+                    "v-list-tile",
+                    {
+                      key: menu.text,
+                      attrs: {
+                        dark: "",
+                        color: "primary",
+                        flat: "",
+                        router: "",
+                        to: menu.route
+                      }
+                    },
+                    [
+                      _c("v-list-tile-action"),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-tile-content",
+                        [
+                          _c("v-list-tile-title", [
+                            _vm._v(" " + _vm._s(menu.text))
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                }),
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
             "v-toolbar",
             { attrs: { color: "white", app: "" } },
             [
@@ -2826,7 +2909,18 @@ var render = function() {
             2
           ),
           _vm._v(" "),
-          _c("v-content", [_c("router-view")], 1),
+          _c(
+            "v-content",
+            [
+              _c(
+                "v-container",
+                { attrs: { fluid: "", "fill-height": "" } },
+                [_c("router-view")],
+                1
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
           _c(
             "v-footer",

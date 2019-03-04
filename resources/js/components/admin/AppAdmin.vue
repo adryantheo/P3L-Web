@@ -1,8 +1,20 @@
 <template>
+
 <div id="app">
     <v-app id="inspire">
 
-      
+      <v-navigation-drawer fixed v-model="drawer" app>
+    
+      <v-list dense>
+        <v-list-tile dark color="primary" flat v-for="menu in menus" :key="menu.text" router :to="menu.route">
+          <v-list-tile-action>            
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title> {{menu.text}}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>      
+        </v-list>
+    </v-navigation-drawer>
 
       
 
@@ -17,9 +29,13 @@
             </v-toolbar-items>
         </v-toolbar>
         <v-content>
-        <router-view></router-view>
-        
-               
+
+          <v-container fluid fill-height>
+
+            <router-view></router-view>
+            
+          </v-container>
+
         </v-content>
         
         <v-footer height="auto" color="indigo">          
@@ -46,6 +62,31 @@ export default {
   data: () => ({
 
     drawer:null,
+
+    menus: [
+      {
+        text: 'Home',
+        route: 'admin'
+      },
+
+      {
+        text: 'Kelola Pegawai',
+        route: 'admin/edit'
+      },
+      
+      {
+        text: 'Transaksi',
+        route: ''
+      },
+
+      {
+        text: 'Laporan',
+        route: ''
+      },
+
+      
+
+    ],
     
     links: [
       {

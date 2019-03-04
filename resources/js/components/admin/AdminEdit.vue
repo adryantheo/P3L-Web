@@ -1,5 +1,8 @@
 <template>
-    <div><p>iki Edit</p></div>
+    <div>
+        <p>Histroy Transaksi Page</p>
+        <p>Still Under Development</p>
+    </div>
 </template>
 <script>
 export default {
