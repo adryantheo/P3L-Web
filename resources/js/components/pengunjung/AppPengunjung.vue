@@ -33,26 +33,27 @@
       </v-layout>
     </v-toolbar>
     <v-content>
-      <v-container fluid fill-height>
+      <v-container >
         <router-view></router-view>
       </v-container>
     </v-content>
-    
-      <v-footer height="auto" color="indigo">          
-                
-          <v-flex
-          indigo
-          py-3
-          text-xs-center
-          white--text
-          xs12
-          >
-          &copy;2019 — <strong>Atma Auto</strong>
-          </v-flex>
-            
-      </v-footer>
 
-  </v-app>
+        
+    <v-footer height="auto" color="indigo">          
+              
+        <v-flex
+        indigo
+        py-3
+        text-xs-center
+        white--text
+        xs12
+        >
+        &copy;2019 — <strong>Atma Auto</strong>
+        </v-flex>
+          
+    </v-footer>
+
+</v-app>
 </div>
 </template>
 

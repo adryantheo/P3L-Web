@@ -14,6 +14,8 @@ import ContactUs from '../components/pengunjung/PengunjungContact.vue'
 import AppAdmin from '../components/admin/AppAdmin.vue'
 import AdminLogin from '../components/admin/AdminLogin.vue'
 import AdminEdit from '../components/admin/AdminEdit.vue'
+import AdminTransaksi from '../components/admin/AdminTransaksi.vue'
+import AdminLaporan from '../components/admin/AdminLaporan.vue'
 
 Vue.use(VueRouter)
 
@@ -62,6 +64,16 @@ const routes = [
 
             path:'edit',
             component: AdminEdit,
+        },
+        {
+
+            path:'transaksi',
+            component: AdminTransaksi,
+        },
+        {
+
+            path:'laporan',
+            component: AdminLaporan,
         },
         
             

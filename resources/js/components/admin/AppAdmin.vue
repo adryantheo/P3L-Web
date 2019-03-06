@@ -24,7 +24,7 @@
             <v-toolbar-title>Admin Auto Atma</v-toolbar-title>
             
             <v-spacer></v-spacer>
-            <v-btn dark color="primary" flat v-for="link in links" :key="link.text" router :to="link.route">Login</v-btn>
+            <v-btn dark color="primary" flat v-for="link in links" :key="link.text" router-link :to="link.route">Login</v-btn>
             <v-toolbar-items class="hidden-sm-and-down">           
             </v-toolbar-items>
         </v-toolbar>
@@ -76,12 +76,12 @@ export default {
       
       {
         text: 'Transaksi',
-        route: ''
+        route: 'admin/transaksi'
       },
 
       {
         text: 'Laporan',
-        route: ''
+        route: 'admin/laporan'
       },
 
       

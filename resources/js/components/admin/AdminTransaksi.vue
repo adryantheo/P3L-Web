@@ -2,7 +2,7 @@
     <div>
     <v-app>
 
-        <p>Sparepart Page</p>
+        <p>Transaksi Page</p>
         <p>Still Under Development</p>
         
 
