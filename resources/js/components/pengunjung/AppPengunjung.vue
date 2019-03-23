@@ -60,7 +60,7 @@
 <script>
 
 export default {
-  el: '#app',
+  
   data: () => ({
     
     drawer: null,  

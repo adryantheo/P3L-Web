@@ -12,10 +12,9 @@
 
 <script>
 export default {
-  el: '#app',
+  
   data: () => ({
-    
-      
+          
       items: [
         {
           src: 'http://cdn2.tstatic.net/jogja/foto/bank/images/Ban-tubeless.jpg'
@@ -29,9 +28,7 @@ export default {
         {
           src: 'http://cdn.elevenia.co.id/g/0/5/5/4/8/7/20055487_B_V1.png'
         }
-      ],
-
-    
+      ],   
     
   }),
 }  

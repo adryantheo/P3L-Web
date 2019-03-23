@@ -1823,7 +1823,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  el: '#app',
   data: function data() {
     return {
       show: false
@@ -1931,7 +1930,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  el: '#app',
   data: function data() {
     return {
       show: false
@@ -2009,7 +2007,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  el: '#app',
   data: function data() {
     return {
       drawer: null,
@@ -2018,17 +2015,17 @@ __webpack_require__.r(__webpack_exports__);
         route: 'admin'
       }, {
         text: 'Kelola Pegawai',
-        route: 'admin/edit'
+        route: '/admin/edit'
       }, {
         text: 'Transaksi',
-        route: 'admin/transaksi'
+        route: '/admin/transaksi'
       }, {
         text: 'Laporan',
-        route: 'admin/laporan'
+        route: '/admin/laporan'
       }],
       links: [{
         text: 'Login',
-        route: 'admin/login'
+        route: '/admin/login'
       }]
     };
   }
@@ -2105,7 +2102,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  el: '#app',
   data: function data() {
     return {
       drawer: null,
@@ -2174,7 +2170,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  el: '#app',
   data: function data() {
     return {
       items: [{
@@ -2196,11 +2191,9 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pengunjung/PengunjungSparepart.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
 //
 //
 //
@@ -2214,14 +2207,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({
-  el: '#app',
-  data: function data() {
-    return {
-      show: false
-    };
-  }
-});
 
 /***/ }),
 
@@ -44831,14 +44816,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************************************!*\
   !*** ./resources/js/components/pengunjung/PengunjungSparepart.vue ***!
   \********************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PengunjungSparepart_vue_vue_type_template_id_349a6ae6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PengunjungSparepart.vue?vue&type=template&id=349a6ae6& */ "./resources/js/components/pengunjung/PengunjungSparepart.vue?vue&type=template&id=349a6ae6&");
 /* harmony import */ var _PengunjungSparepart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PengunjungSparepart.vue?vue&type=script&lang=js& */ "./resources/js/components/pengunjung/PengunjungSparepart.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _PengunjungSparepart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _PengunjungSparepart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -44868,13 +44854,15 @@ component.options.__file = "resources/js/components/pengunjung/PengunjungSparepa
 /*!*********************************************************************************************!*\
   !*** ./resources/js/components/pengunjung/PengunjungSparepart.vue?vue&type=script&lang=js& ***!
   \*********************************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PengunjungSparepart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./PengunjungSparepart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pengunjung/PengunjungSparepart.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PengunjungSparepart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PengunjungSparepart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PengunjungSparepart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PengunjungSparepart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PengunjungSparepart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PengunjungSparepart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -44952,23 +44940,23 @@ var routes = [{
     path: 'contactus',
     component: _components_pengunjung_PengunjungContact_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
   }, {
-    path: 'home',
+    path: '/',
     component: _components_pengunjung_PengunjungHome_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   }]
 }, {
   path: '/admin',
   component: _components_admin_AppAdmin_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
   children: [{
-    path: 'login',
+    path: '/admin/login',
     component: _components_admin_AdminLogin_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
   }, {
-    path: 'edit',
+    path: '/admin/edit',
     component: _components_admin_AdminEdit_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
   }, {
-    path: 'transaksi',
+    path: '/admin/transaksi',
     component: _components_admin_AdminTransaksi_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
   }, {
-    path: 'laporan',
+    path: '/admin/laporan',
     component: _components_admin_AdminLaporan_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
   }]
 }];

@@ -22,6 +22,7 @@ Vue.use(VueRouter)
 const routes = [
     {
         path:'/',
+        
         component: AppPengunjung,
         children:[
             {
@@ -45,7 +46,7 @@ const routes = [
 
             },
             {
-                path: 'home',
+                path: '/',
                 component: Home,
 
             },
@@ -57,22 +58,22 @@ const routes = [
         children:[
             {
 
-            path:'login',
+            path:'/admin/login',
             component: AdminLogin,
         },
         {
 
-            path:'edit',
+            path:'/admin/edit',
             component: AdminEdit,
         },
         {
 
-            path:'transaksi',
+            path:'/admin/transaksi',
             component: AdminTransaksi,
         },
         {
 
-            path:'laporan',
+            path:'/admin/laporan',
             component: AdminLaporan,
         },
         

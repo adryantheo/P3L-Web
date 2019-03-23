@@ -12,10 +12,5 @@
 </template>
 
 <script>
-export default {
-     el: '#app',
-  data: () => ({
-    show: false
-  })
-}
+
 </script>

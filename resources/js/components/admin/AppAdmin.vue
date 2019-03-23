@@ -58,7 +58,7 @@
 
 <script>
 export default {
-    el: '#app',
+    
   data: () => ({
 
     drawer:null,
@@ -71,17 +71,17 @@ export default {
 
       {
         text: 'Kelola Pegawai',
-        route: 'admin/edit'
+        route: '/admin/edit'
       },
       
       {
         text: 'Transaksi',
-        route: 'admin/transaksi'
+        route: '/admin/transaksi'
       },
 
       {
         text: 'Laporan',
-        route: 'admin/laporan'
+        route: '/admin/laporan'
       },
 
       
@@ -91,7 +91,7 @@ export default {
     links: [
       {
         text: 'Login',
-        route: 'admin/login'
+        route: '/admin/login'
       },
     ]
     
