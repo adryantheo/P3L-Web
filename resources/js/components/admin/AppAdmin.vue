@@ -66,7 +66,7 @@ export default {
     menus: [
       {
         text: 'Home',
-        route: 'admin'
+        route: '/admin'
       },
 
       {

@@ -67,7 +67,7 @@ export default {
     links: [
       {
         text: 'Home', 
-        route: 'home',
+        route: '/',
       },
       {
         text: 'Jasa Service', 
