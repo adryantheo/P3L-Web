@@ -1,7 +1,8 @@
 <template>
     <div>
-    <v-app>
-
+    
+    
+  
     <v-toolbar flat color="white">
         <v-toolbar-title>Pegawai CRUD</v-toolbar-title>
         <v-divider
@@ -93,10 +94,12 @@
           Your search for "{{ search }}" found no results.
           </v-alert>
       </v-data-table>
-              
+
+    
+             
 
 
-    </v-app>
+    
     
     </div>
 </template>

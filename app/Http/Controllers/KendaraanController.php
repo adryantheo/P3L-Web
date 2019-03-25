@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\kendaraan;
+use App\Kendaraan;
 use Illuminate\Http\Request;
 
 class KendaraanController extends Controller
@@ -10,13 +10,13 @@ class KendaraanController extends Controller
     
     public function index()
     {
-        return response()->json(kendaraan::all(),200);
+        return response()->json(Kendaraan::all(),200);
     }
 
 
     public function store(Request $request)
     {
-        $kendaraan = kendaraan::create([
+        $kendaraan = Kendaraan::create([
             'Plat_kendaraan' => $request->Plat_kendaraan,
             'Merk' => $request->Merk,
             'Tipe' => $request->Tipe,
@@ -32,12 +32,12 @@ class KendaraanController extends Controller
         ]);
     }
 
-    public function show(kendaraan $kendaraan)
+    public function show(Kendaraan $kendaraan)
     {
         return response()->json($kendaraan,200);
     }
 
-    public function update(Request $request, kendaraan $kendaraan)
+    public function update(Request $request, Kendaraan $kendaraan)
     {
         $status = $kendaraan->update(
             $request->only([
@@ -54,7 +54,7 @@ class KendaraanController extends Controller
         ]);
     }
 
-    public function destroy(kendaraan $kendaraan)
+    public function destroy(Kendaraan $kendaraan)
     {
         $status = $kendaraan->delete();
 

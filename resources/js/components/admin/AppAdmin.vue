@@ -21,7 +21,7 @@
         <v-toolbar  color="white" app>
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <img src="../../../../public/Logo.png" alt="" >
-            <v-toolbar-title>Admin Auto Atma</v-toolbar-title>
+            <v-toolbar-title>Admin Atma Auto</v-toolbar-title>
             
             <v-spacer></v-spacer>
             <v-btn dark color="primary" flat v-for="link in links" :key="link.text" router-link :to="link.route">Login</v-btn>

@@ -15,7 +15,7 @@ class kendaraan extends Model
     ];
 
     public function user(){
-        return $this->belongsTo(kustomer::class, 'Id_Kustomer');
+        return $this->belongsTo(Kustomer::class, 'Id_Kustomer');
     }
 
    

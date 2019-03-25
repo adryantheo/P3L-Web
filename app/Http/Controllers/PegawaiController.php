@@ -33,6 +33,22 @@ class PegawaiController extends Controller
         ]);
     }
 
+    public function login(Request $request)
+        {
+            $status = 401;
+            $response = ['error' => 'Unauthorised'];
+
+            if (Auth::attempt($request->only(['email', 'password']))) {
+                $status = 200;
+                $response = [
+                    'user' => Auth::user(),
+                    'token' => Auth::user()->createToken('AtmaAuto')->accessToken,
+                ];
+            }
+
+            return response()->json($response, $status);
+        }
+
     
     public function show(Pegawai $pegawai)
     {
