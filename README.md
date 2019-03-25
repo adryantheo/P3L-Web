@@ -7,5 +7,5 @@ P3L-Web
 4. php artisan migrate (Power Shell/ CMD)
 5. php artisan key:generate (Power Shell/ CMD)
 6. npm install (Power Shell/ CMD)
-8. npm run dev (Power Shell/ CMD)
+8. npm run watch/dev (Power Shell/ CMD)
 9. php artisan serve (Power Shell/ CMD)
