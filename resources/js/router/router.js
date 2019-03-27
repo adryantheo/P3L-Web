@@ -16,6 +16,7 @@ import AdminLogin from '../components/admin/AdminLogin.vue'
 import AdminEdit from '../components/admin/AdminEdit.vue'
 import AdminTransaksi from '../components/admin/AdminTransaksi.vue'
 import AdminLaporan from '../components/admin/AdminLaporan.vue'
+import AdminRegister from '../components/admin/AdminRegister.vue'
 
 Vue.use(VueRouter)
 
@@ -56,10 +57,15 @@ const routes = [
         path:'/admin',
         component: AppAdmin,
         children:[
-            {
+        {
 
             path:'/admin/login',
             component: AdminLogin,
+        },
+        {
+
+            path:'/admin/register',
+            component: AdminRegister,
         },
         {
 

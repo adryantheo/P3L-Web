@@ -24,7 +24,7 @@
             <v-toolbar-title>Admin Atma Auto</v-toolbar-title>
             
             <v-spacer></v-spacer>
-            <v-btn dark color="primary" flat v-for="link in links" :key="link.text" router-link :to="link.route">Login</v-btn>
+            <v-btn dark color="primary" flat v-for="link in links" :key="link.text" router-link :to="link.route">{{link.text}}</v-btn>
             <v-toolbar-items class="hidden-sm-and-down">           
             </v-toolbar-items>
         </v-toolbar>
@@ -92,6 +92,10 @@ export default {
       {
         text: 'Login',
         route: '/admin/login'
+      },
+      {
+        text: 'Register',
+        route: '/admin/register'
       },
     ]
     
