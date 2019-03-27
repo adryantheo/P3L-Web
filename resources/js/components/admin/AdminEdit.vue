@@ -1,6 +1,7 @@
 <template>
-    <div>
-    
+
+    <v-layout align-space-around justify-center fill-height>
+    <v-flex>
     
   
     <v-toolbar flat color="white">
@@ -100,8 +101,8 @@
 
 
     
-    
-    </div>
+    </v-flex>
+    </v-layout>
 </template>
 
 <script>

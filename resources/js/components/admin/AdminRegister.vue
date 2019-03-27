@@ -12,6 +12,7 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
+                  <v-text-field prepend-icon="person" name="name" label="Nama" type="text" :rules="[rules.name]"></v-text-field>
                   <v-text-field prepend-icon="person" name="email" label="Email" type="text" :rules="[rules.email]"></v-text-field>
                   <v-text-field prepend-icon="lock" name="password" label="Password" id="password" type="password" :rules="[rules.password, rules.length(6)]"></v-text-field>
                 </v-form>
@@ -40,6 +41,7 @@
       password: undefined,
       phone: undefined,
       rules: {
+        name: v => (v || '') || 'Please enter a valid name',
         email: v => (v || '').match(/@/) || 'Please enter a valid email',
         length: len => v => (v || '').length >= len || `Invalid character length, required ${len}`,
         password: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) ||
