@@ -12,7 +12,7 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
-                  <v-text-field prepend-icon="person" name="plat" label="Plat" type="text" :rules="[rules.plat]"></v-text-field>
+                  <v-text-field prepend-icon="person" name="plat" label="Nomor Polisi/ Plat Nomor" type="text" :rules="[rules.plat]"></v-text-field>
                   
                 </v-form>
               </v-card-text>

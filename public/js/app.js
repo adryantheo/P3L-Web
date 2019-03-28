@@ -4211,7 +4211,7 @@ var render = function() {
                         attrs: {
                           "prepend-icon": "person",
                           name: "plat",
-                          label: "Plat",
+                          label: "Nomor Polisi/ Plat Nomor",
                           type: "text",
                           rules: [_vm.rules.plat]
                         }
