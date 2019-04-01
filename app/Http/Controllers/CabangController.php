@@ -7,79 +7,60 @@ use Illuminate\Http\Request;
 
 class CabangController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function index()
     {
-        //
+        return response()->json(Cabang::all(),200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //
+        $cabang = Cabang::create([
+            'Nama_Cabang' => $request->Nama_Cabang,
+            'Alamat_Cabang' => $request->Alamat_Cabang,
+          
+            
+            
+        ]);
+
+        return response()->json([
+            'status' => (bool) $cabang,
+            'data'   => $cabang,
+            'message' => $cabang ? 'Cabang Baru Berhasil Ditambahkan!' : 'Error Menambahkan Cabang Baru'
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Cabang  $cabang
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show(Cabang $cabang)
     {
-        //
+        return response()->json($cabang,200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Cabang  $cabang
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Cabang $cabang)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cabang  $cabang
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Cabang $cabang)
     {
-        //
+        $status = $cabang->update(
+            $request->only([
+                'Nama_Cabang', 
+                'Alamat_Cabang', 
+               
+        
+            ])
+        );
+        return response()->json([
+            'status' => $status,
+            'message' => $status ? 'Cabang Diupdate!' : 'Error Mengupdate Cabang'
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Cabang  $cabang
-     * @return \Illuminate\Http\Response
-     */
+  
     public function destroy(Cabang $cabang)
     {
-        //
+        $status = $cabang->delete();
+
+        return response()->json([
+            'status' => $status,
+            'message' => $status ? 'Cabang Berhasil di Hapus!' : 'Error Menghapus Cabang'
+        ]);
     }
 }
