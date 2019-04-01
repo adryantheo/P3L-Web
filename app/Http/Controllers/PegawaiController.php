@@ -4,34 +4,38 @@ namespace App\Http\Controllers;
 
 use App\Pegawai;
 use Illuminate\Http\Request;
+use Validator;
+use Illuminate\Support\Facades\Auth;
 
 class PegawaiController extends Controller
 {
+
+    
     
     public function index()
     {
         return response()->json(Pegawai::all(),200);
     }
 
-    public function store(Request $request)
-    {
-        $pegawai = Pegawai::create([
-            'Nama' => $request->Nama,
-            'Email' => $request->Email,
-            'Alamat' => $request->Alamat,
-            'Gaji' => $request->Gaji,
-            'Role' => $request->Role,
-            'Password' => $request->Password          
+    // public function store(Request $request)
+    // {
+    //     $pegawai = Pegawai::create([
+    //         'Nama' => $request->Nama,
+    //         'Email' => $request->Email,
+    //         'Alamat' => $request->Alamat,
+    //         'Gaji' => $request->Gaji,
+    //         'Role' => $request->Role,
+    //         'Password' => $request->Password          
            
            
-        ]);
+    //     ]);
 
-        return response()->json([
-            'status' => (bool) $pegawai,
-            'data'   => $pegawai,
-            'message' => $pegawai ? 'Pegawai Berhasil Ditambahkan!' : 'Error Menambahkan Pegawai'
-        ]);
-    }
+    //     return response()->json([
+    //         'status' => (bool) $pegawai,
+    //         'data'   => $pegawai,
+    //         'message' => $pegawai ? 'Pegawai Berhasil Ditambahkan!' : 'Error Menambahkan Pegawai'
+    //     ]);
+    // }
 
     public function login(Request $request)
         {
@@ -41,15 +45,40 @@ class PegawaiController extends Controller
             if (Auth::attempt($request->only(['email', 'password']))) {
                 $status = 200;
                 $response = [
-                    'user' => Auth::user(),
-                    'token' => Auth::user()->createToken('AtmaAuto')->accessToken,
+                    'pegawai' => Auth::pegawai(),
+                    'token' => Auth::pegawai()->createToken('AtmaAuto')->accessToken,
                 ];
             }
 
             return response()->json($response, $status);
         }
 
-    
+        public function register(Request $request)
+        {
+            $validator = Validator::make($request->all(), [
+                'Nama' => 'required|max:50',
+                'Email' => 'required|email',
+                'Password' => 'required|min:6',
+                'Alamat' => 'required|max:50',
+                'Gaji' => 'required',
+                'Role' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(['error' => $validator->errors()], 401);
+            }
+
+            $data = $request->only(['Nama', 'Email', 'Password', 'Alamat', 'Gaji', 'Role']);
+            
+
+            $pegawai = Pegawai::create($data);
+            
+
+            return response()->json([
+                'pegawai' => $pegawai,
+                'token' => $pegawai->createToken('AtmaAuto')->accessToken,
+            ]);
+        }
     public function show(Pegawai $pegawai)
     {
         return response()->json($pegawai,200);

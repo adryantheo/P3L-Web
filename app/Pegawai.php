@@ -4,11 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pegawai extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasApiTokens;
     protected $fillable = [
         'Nama',
         'Email',
@@ -20,13 +21,10 @@ class Pegawai extends Model
 
     
     protected $hidden = [
-        'Password'
+        'Password', 'remember_token',
     ];
 
-    
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+
 
     public function transaksi_service(){
         return $this->hasMany(Pegawai::class);

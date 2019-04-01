@@ -3,11 +3,16 @@
 use Illuminate\Http\Request;
 
 Route::post('/login', 'PegawaiController@login');
+Route::post('/register', 'PegawaiController@register');
 Route::post('/upload-gambar', 'SparepartController@uploadGambar');
 
 
 Route::resource('/kustomer', 'KustomerController');
 Route::resource('/kendaraan', 'KendaraanController');
-Route::resource('/pegawai', 'PegawaiController')->except(['login']);;
-Route::resource('/jasa-service', 'JasaServiceController');
-Route::resource('/sparepart', 'SparepartController')->except(['uploadGambar']);;
+
+Route::resource('/service', 'ServiceController');
+Route::resource('/sparepart', 'SparepartController')->except(['uploadGambar']);
+
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::resource('/pegawai', 'PegawaiController')->except(['login', 'register']);
+});
