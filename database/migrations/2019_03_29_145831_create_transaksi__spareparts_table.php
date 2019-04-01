@@ -6,24 +6,21 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTransaksiSparepartsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+    
     public function up()
     {
         Schema::create('transaksi__spareparts', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('Jumlah_Dibeli');
+            $table->double('Subtotal');
+            $table->integer('Sisa_Stok');
+            $table->unsignedInteger('Transaksi_Id');
+            $table->unsignedInteger('Sparepart_Id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('transaksi__spareparts');

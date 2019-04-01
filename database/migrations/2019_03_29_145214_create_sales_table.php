@@ -6,24 +6,19 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateSalesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+    
     public function up()
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('Nomor_Telphone_Sales');
+            $table->string('Nama_Sales');
+            $table->string('Nama_Supplier');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('sales');

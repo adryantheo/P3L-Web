@@ -14,6 +14,9 @@ class CreateKendaraansTable extends Migration
             $table->string('Plat_kendaraan');
             $table->string('Merk');
             $table->string('Tipe');
+            $table->unsignedInteger('Kustomer_Id');
+           
+            $table->softDeletes();
             $table->timestamps();
         });
     }

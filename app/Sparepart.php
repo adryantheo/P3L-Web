@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Sparepart extends Model
 {
+    use SoftDeletes;
     protected $fillable = [
         'Kode_Sparepart',
         'Nama',
@@ -18,6 +20,11 @@ class Sparepart extends Model
         'Stok',
         'Stok_Min'
     ];
+
+
+    public function transaksi_sparepart(){
+        return $this->hasMany(Transaksi_Sparepart::class);
+    }
 
 
 }

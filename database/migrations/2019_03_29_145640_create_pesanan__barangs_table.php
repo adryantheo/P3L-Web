@@ -6,24 +6,22 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreatePesananBarangsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+   
     public function up()
     {
         Schema::create('pesanan__barangs', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('Nama_Barang');
+            $table->string('Status');
+            $table->string('Tanggal_Pesan');
+            $table->string('Tanggal_Terima');
+            $table->unsignedInteger('Sales_Id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+   
     public function down()
     {
         Schema::dropIfExists('pesanan__barangs');

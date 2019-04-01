@@ -17,6 +17,7 @@ class CreatePegawaisTable extends Migration
             $table->double('Gaji');
             $table->string('Role');
             $table->string('Password');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

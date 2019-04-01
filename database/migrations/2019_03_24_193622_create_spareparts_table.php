@@ -11,6 +11,17 @@ class CreateSparepartsTable extends Migration
     {
         Schema::create('spareparts', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('Kode_Sparepart');
+            $table->string('Nama');
+            $table->string('Tipe');
+            $table->string('Merk');
+            $table->string('Gambar');
+            $table->double('Harga_Beli');
+            $table->double('Harga_Jual');
+            $table->string('Letak');
+            $table->unsignedInteger('Stok');
+            $table->unsignedInteger('Stok_Min');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

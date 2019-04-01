@@ -6,24 +6,21 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTransaksiServicesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+   
     public function up()
     {
         Schema::create('transaksi__services', function (Blueprint $table) {
             $table->increments('id');
+            $table->double('Total_Biaya');
+            $table->integer('Jumlah_Service');
+            $table->string('Status');
+            $table->unsignedInteger('Pegawai_Id');
+            $table->unsignedInteger('Transaksi_Id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('transaksi__services');

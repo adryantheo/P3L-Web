@@ -14,6 +14,7 @@ class CreateKustomersTable extends Migration
             $table->string('Nama_Kustomer');
             $table->string('Alamat_Kustomer');
             $table->string('Telepon_Kustomer');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
