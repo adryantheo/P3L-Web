@@ -2199,6 +2199,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2230,6 +2232,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2242,9 +2248,6 @@ __webpack_require__.r(__webpack_exports__);
       password: undefined,
       phone: undefined,
       rules: {
-        name: function name(v) {
-          return v || '' || 'Please enter a valid name';
-        },
         email: function email(v) {
           return (v || '').match(/@/) || 'Please enter a valid email';
         },
@@ -2263,7 +2266,30 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    register: function register() {}
+    register: function register() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/register/', {
+        Nama: this.Nama,
+        Email: this.Email,
+        Password: this.Password,
+        Alamat: this.Alamat,
+        Gaji: this.Gaji,
+        Role: this.Role
+      }).then(function (response) {
+        var data = response.data;
+        localStorage.setItem('AtmaAuto.pegawai', JSON.stringify(data.pegawai));
+        localStorage.setItem('AtmaAuto.jwt', data.token);
+
+        if (localStorage.getItem('AtmaAuto.jwt') != null) {
+          _this.$emit('loggedIn');
+
+          var nextUrl = _this.$route.params.nextUrl;
+
+          _this.$router.push(nextUrl != null ? nextUrl : '/admin');
+        }
+      });
+    }
   }
 });
 
@@ -3791,7 +3817,7 @@ var render = function() {
         [
           _c(
             "v-flex",
-            { attrs: { xs12: "", sm8: "", md4: "" } },
+            { attrs: { xs12: "", sm8: "" } },
             [
               _c(
                 "v-card",
@@ -3819,31 +3845,93 @@ var render = function() {
                           _c("v-text-field", {
                             attrs: {
                               "prepend-icon": "person",
-                              name: "name",
                               label: "Nama",
-                              type: "text",
-                              rules: [_vm.rules.name]
+                              type: "text"
+                            },
+                            model: {
+                              value: _vm.Nama,
+                              callback: function($$v) {
+                                _vm.Nama = $$v
+                              },
+                              expression: "Nama"
                             }
                           }),
                           _vm._v(" "),
                           _c("v-text-field", {
                             attrs: {
                               "prepend-icon": "person",
-                              name: "email",
                               label: "Email",
                               type: "text",
                               rules: [_vm.rules.email]
+                            },
+                            model: {
+                              value: _vm.Email,
+                              callback: function($$v) {
+                                _vm.Email = $$v
+                              },
+                              expression: "Email"
                             }
                           }),
                           _vm._v(" "),
                           _c("v-text-field", {
                             attrs: {
                               "prepend-icon": "lock",
-                              name: "password",
                               label: "Password",
                               id: "password",
                               type: "password",
                               rules: [_vm.rules.password, _vm.rules.length(6)]
+                            },
+                            model: {
+                              value: _vm.Password,
+                              callback: function($$v) {
+                                _vm.Password = $$v
+                              },
+                              expression: "Password"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: {
+                              "prepend-icon": "person",
+                              label: "Alamat",
+                              type: "text"
+                            },
+                            model: {
+                              value: _vm.Alamat,
+                              callback: function($$v) {
+                                _vm.Alamat = $$v
+                              },
+                              expression: "Alamat"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: {
+                              "prepend-icon": "person",
+                              label: "Gaji",
+                              type: "text"
+                            },
+                            model: {
+                              value: _vm.Gaji,
+                              callback: function($$v) {
+                                _vm.Gaji = $$v
+                              },
+                              expression: "Gaji"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: {
+                              "prepend-icon": "person",
+                              label: "Role",
+                              type: "text"
+                            },
+                            model: {
+                              value: _vm.Role,
+                              callback: function($$v) {
+                                _vm.Role = $$v
+                              },
+                              expression: "Role"
                             }
                           })
                         ],
@@ -3858,9 +3946,14 @@ var render = function() {
                     [
                       _c("v-spacer"),
                       _vm._v(" "),
-                      _c("v-btn", { attrs: { color: "primary" } }, [
-                        _vm._v("Register")
-                      ])
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "primary" },
+                          on: { click: _vm.register }
+                        },
+                        [_vm._v("Register")]
+                      )
                     ],
                     1
                   )
@@ -45127,11 +45220,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _router_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router/router */ "./resources/js/router/router.js");
 /* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuetify */ "./node_modules/vuetify/dist/vuetify.js");
 /* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuetify__WEBPACK_IMPORTED_MODULE_2__);
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); //window.axios = require('axios');
 
 
 
+
+
+window.axios = axios__WEBPACK_IMPORTED_MODULE_3___default.a.create();
 Vue.use(vuetify__WEBPACK_IMPORTED_MODULE_2___default.a, {
   iconfont: 'md'
 });
@@ -45494,14 +45591,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************************************!*\
   !*** ./resources/js/components/admin/AdminRegister.vue ***!
   \*********************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AdminRegister_vue_vue_type_template_id_8e1c9592___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminRegister.vue?vue&type=template&id=8e1c9592& */ "./resources/js/components/admin/AdminRegister.vue?vue&type=template&id=8e1c9592&");
 /* harmony import */ var _AdminRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminRegister.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/AdminRegister.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _AdminRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _AdminRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -45531,7 +45629,7 @@ component.options.__file = "resources/js/components/admin/AdminRegister.vue"
 /*!**********************************************************************************!*\
   !*** ./resources/js/components/admin/AdminRegister.vue?vue&type=script&lang=js& ***!
   \**********************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
