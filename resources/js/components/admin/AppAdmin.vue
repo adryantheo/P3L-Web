@@ -80,6 +80,16 @@ export default {
       },
 
       {
+        text: 'Tambah Jasa Service',
+        route: '/admin/jasa-service'
+      },
+
+      {
+        text: 'Tambah Sparepart',
+        route: '/admin/sparepart'
+      },
+
+      {
         text: 'Laporan',
         route: '/admin/laporan'
       },

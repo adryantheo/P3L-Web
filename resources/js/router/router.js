@@ -17,6 +17,8 @@ import AdminEdit from '../components/admin/AdminEdit.vue'
 import AdminTransaksi from '../components/admin/AdminTransaksi.vue'
 import AdminLaporan from '../components/admin/AdminLaporan.vue'
 import AdminRegister from '../components/admin/AdminRegister.vue'
+import AdminJasaService from '../components/admin/AdminJasaService.vue'
+import AdminSparepart from '../components/admin/AdminSparepart.vue'
 
 Vue.use(VueRouter)
 
@@ -76,6 +78,16 @@ const routes = [
 
             path:'/admin/transaksi',
             component: AdminTransaksi,
+        },
+        {
+
+            path:'/admin/jasa-service',
+            component: AdminJasaService,
+        },
+        {
+
+            path:'/admin/sparepart',
+            component: AdminSparepart,
         },
         {
 
