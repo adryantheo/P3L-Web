@@ -42,7 +42,7 @@ class PegawaiController extends Controller
             $status = 401;
             $response = ['error' => 'Unauthorised'];
 
-            if (Auth::attempt($request->only(['email', 'password']))) {
+            if (Auth::attempt($request->only(['Email', 'Password']))) {
                 $status = 200;
                 $response = [
                     'pegawai' => Auth::pegawai(),
