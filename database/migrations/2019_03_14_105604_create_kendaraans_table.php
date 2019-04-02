@@ -10,7 +10,7 @@ class CreateKendaraansTable extends Migration
     {
         Schema::create('kendaraans', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('Id_Kustomer');
+            
             $table->string('Plat_kendaraan');
             $table->string('Merk');
             $table->string('Tipe');
