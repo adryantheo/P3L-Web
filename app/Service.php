@@ -11,11 +11,12 @@ class Service extends Model
     protected $fillable = [
         'Nama_Service', 
         'Tarif', 
-        'Transaksi_Service_Id'
+        
  ];
 
- public function transaksi_service
+ public function transaksi_service()
  {
-     return $this->belongsTo(Transaksi_Service::class, 'Transaksi_Service_Id');
+     return $this->hasMany(Transaksi_Service::class);
  }
+
 }

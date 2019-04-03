@@ -19,7 +19,7 @@ class ServiceController extends Controller
         $service = Service::create([
             'Nama_Service' => $request->Nama_Service,
             'Tarif' => $request->Tarif,
-            'Transaksi_Service_Id' => $request->Transaksi_Service_Id,
+            
           
             
             

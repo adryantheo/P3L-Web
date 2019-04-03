@@ -24,8 +24,7 @@ Vue.use(VueRouter)
 
 const routes = [
     {
-        path:'/',
-        
+        path:'/',        
         component: AppPengunjung,
         children:[
             {

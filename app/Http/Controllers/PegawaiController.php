@@ -17,25 +17,6 @@ class PegawaiController extends Controller
         return response()->json(Pegawai::all(),200);
     }
 
-    // public function store(Request $request)
-    // {
-    //     $pegawai = Pegawai::create([
-    //         'Nama' => $request->Nama,
-    //         'Email' => $request->Email,
-    //         'Alamat' => $request->Alamat,
-    //         'Gaji' => $request->Gaji,
-    //         'Role' => $request->Role,
-    //         'Password' => $request->Password          
-           
-           
-    //     ]);
-
-    //     return response()->json([
-    //         'status' => (bool) $pegawai,
-    //         'data'   => $pegawai,
-    //         'message' => $pegawai ? 'Pegawai Berhasil Ditambahkan!' : 'Error Menambahkan Pegawai'
-    //     ]);
-    // }
 
     public function login(Request $request)
         {

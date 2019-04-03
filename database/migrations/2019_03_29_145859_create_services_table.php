@@ -13,7 +13,6 @@ class CreateServicesTable extends Migration
             $table->increments('id');
             $table->string('Nama_Service');
             $table->double('Tarif');
-            $table->unsignedInteger('Transaksi_Service_Id');
             $table->softDeletes();
             $table->timestamps();
         });
