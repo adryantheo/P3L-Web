@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Pegawai;
 use Illuminate\Http\Request;
 use Validator;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 class PegawaiController extends Controller
 {
@@ -20,8 +20,7 @@ class PegawaiController extends Controller
 
     public function login(Request $request)
         {
-            $status = 401;
-            $response = ['error' => 'Unauthorised'];
+           
 
             if (Auth::attempt($request->only(['Email', 'Password']))) {
                 $status = 200;
@@ -29,25 +28,26 @@ class PegawaiController extends Controller
                     'pegawai' => Auth::pegawai(),
                     'token' => Auth::pegawai()->createToken('AtmaAuto')->accessToken,
                 ];
+                return response()->json([$response, $status]);
             }
 
-            return response()->json($response, $status);
+            
         }
 
         public function register(Request $request)
         {
-            $validator = Validator::make($request->all(), [
-                'Nama' => 'required|max:50',
-                'Email' => 'required|email',
-                'Password' => 'required|min:6',
-                'Alamat' => 'required|max:50',
-                'Gaji' => 'required',
-                'Role' => 'required',
-            ]);
+            // $validator = Validator::make($request->all(), [
+            //     'Nama' => 'required|max:50',
+            //     'Email' => 'required|email',
+            //     'Password' => 'required|min:6',
+            //     'Alamat' => 'required|max:50',
+            //     'Gaji' => 'required',
+            //     'Role' => 'required',
+            // ]);
 
-            if ($validator->fails()) {
-                return response()->json(['error' => $validator->errors()], 401);
-            }
+            // if ($validator->fails()) {
+            //     return response()->json(['error' => $validator->errors()], 401);
+            // }
 
             $data = $request->only(['Nama', 'Email', 'Password', 'Alamat', 'Gaji', 'Role']);
             
@@ -57,7 +57,7 @@ class PegawaiController extends Controller
 
             return response()->json([
                 'pegawai' => $pegawai,
-                'token' => $pegawai->createToken('AtmaAuto')->accessToken,
+                
             ]);
         }
     public function show(Pegawai $pegawai)

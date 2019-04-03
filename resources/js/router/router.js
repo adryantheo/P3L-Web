@@ -19,6 +19,7 @@ import AdminLaporan from '../components/admin/AdminLaporan.vue'
 import AdminRegister from '../components/admin/AdminRegister.vue'
 import AdminJasaService from '../components/admin/AdminJasaService.vue'
 import AdminSparepart from '../components/admin/AdminSparepart.vue'
+import AdminLogout from '../components/admin/AdminLogout.vue'
 
 Vue.use(VueRouter)
 
@@ -62,6 +63,11 @@ const routes = [
 
             path:'/admin/login',
             component: AdminLogin,
+        },
+        {
+
+            path:'/admin/logout',
+            component: AdminLogout,
         },
         {
 

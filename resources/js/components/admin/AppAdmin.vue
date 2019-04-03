@@ -61,6 +61,11 @@ export default {
     
   data: () => ({
 
+    return: {
+      isLoggedIn: localStorage.getItem('AtmaAuto.jwt') != null
+
+    },
+
     drawer:null,
 
     menus: [
@@ -107,8 +112,30 @@ export default {
         text: 'Register',
         route: '/admin/register'
       },
-    ]
+    ],
+
+    
     
   }),
+  methods:{
+    setDefaults() {
+                if (this.isLoggedIn) {
+                    let user = JSON.parse(localStorage.getItem('AtmaAuto.user'))
+                    this.name = user.name
+                    this.user_type = user.is_admin
+                }
+            },
+            change() {
+                this.isLoggedIn = localStorage.getItem('AtmaAuto.jwt') != null
+                this.setDefaults()
+            },
+            logout(){
+                localStorage.removeItem('AtmaAuto.jwt')
+                localStorage.removeItem('AtmaAuto.user')
+                this.change()
+                this.$router.push('/')
+            }
+  }
 }
+
 </script>

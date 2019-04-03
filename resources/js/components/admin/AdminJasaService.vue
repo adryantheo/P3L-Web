@@ -22,7 +22,7 @@
           hide-details
         ></v-text-field>
         <v-spacer></v-spacer>
-            <v-btn color="primary" dark class="mb-2" v-on="on" >New Item</v-btn>
+            <v-btn color="primary" dark class="mb-2" v-on="on">New Service</v-btn>
           </template>
           
           <v-card>
@@ -54,15 +54,16 @@
       </v-toolbar>
       <v-data-table
         :headers="headers"
-        :items="Service"
+        :items="service"
         :search="search"
         class="elevation-1"
       >
         <template v-slot:items="props">
-          <td>{{ props.item.name }}</td>
-          <td class="text-xs-right">{{ props.item.calories }}</td>
          
-          <td class="justify-center layout px-0">
+          <td >{{ props.item.Nama_Service }}</td>
+          <td >Rp. {{ props.item.Tarif }}</td>
+         
+          <td class=" layout px-0">
             <v-icon
               small
               class="mr-2"
@@ -86,16 +87,9 @@
           </v-alert>
       </v-data-table>
 
-    
-             
-
-
-    
     </v-flex>
     </v-layout>
 </template>
-
-
 
 <script>
 export default {
@@ -104,26 +98,17 @@ export default {
     dialog: false,
     search: '',
     headers: [
-      {
-        text: 'Nama Service',
-        align: 'left',
-        sortable: true,
-        value: 'Nama_Service'
-      },
-      { text: 'Tarif', value: 'Tarif' },
       
-      { text: 'Actions', value: 'name', sortable: false }
+      { text: 'Nama Service', value: 'Nama_Service', sortable: true },
+      { text: 'Harga', value: 'Tarif', sortable: true },      
+      { text: 'Actions', value: 'id', sortable: false }
     ],
-    Service: [],
+    service: [],
     editedIndex: -1,
     editedItem: {
-      Nama_Service: '',
-      Tarif: 0,
-      
+     
     },
     defaultItem: {
-      Nama_Service: '',
-      Tarif: 0,
       
     }
   }),
@@ -145,19 +130,31 @@ export default {
   },
 
   methods: {
-    initialize () {
-      return axios.get('api/service')
+    fetchservice() {
+      axios.get('/api/service/')
+      .then(response => this.service = response.data)
+
+    },
+    
+    initialize() {
+      this.fetchservice();
     },
 
     editItem (item) {
-      this.editedIndex = this.Service.indexOf(item)
+      this.editedIndex = this.service.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem (item) {
-      const index = this.Service.indexOf(item)
-      confirm('Are you sure you want to delete this item?') && this.Service.splice(index, 1)
+      const index = this.service.indexOf(item)
+      confirm('Are you sure you want to delete this item?') && this.service.splice(index, 1)
+      console.log('deleted data');
+
+      axios.delete('/api/service/'+item.id)
+        .then(response => {
+          console.log(response);
+        })
     },
 
     close () {
@@ -170,13 +167,21 @@ export default {
 
     save () {
       if (this.editedIndex > -1) {
-        Object.assign(this.Service[this.editedIndex], this.editedItem)
+        console.log('Edited Data');
+
+        axios.patch('/api/service/'+this.editedItem.id,{Nama_Service:this.editedItem.Nama_Service, Tarif:this.editedItem.Tarif})
+        .then(response => {
+          console.log(response);
+        })
+       
+        Object.assign(this.service[this.editedIndex], this.editedItem)
       } else {
-        axios.post('api/service',{
-          Nama_Service: this.Nama_Service,
-          Tarif: this.Tarif
-        } 
-        );
+        console.log('created Data');
+        axios.post('/api/service/',{Nama_Service:this.editedItem.Nama_Service, Tarif:this.editedItem.Tarif})
+        .then(response => {
+          console.log(response);
+        })
+        this.service.push(this.editedItem)
       }
       this.close()
     }

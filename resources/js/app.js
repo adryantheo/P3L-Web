@@ -10,6 +10,8 @@ import axios from 'axios'
 window.axios = axios.create()
 
 
+
+
 Vue.use(Vuetify,{
     iconfont: 'md'
 });
