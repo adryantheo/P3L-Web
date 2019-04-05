@@ -5,7 +5,7 @@
     
   
     <v-toolbar flat color="white">
-        <v-toolbar-title>Jasa Service CRUD</v-toolbar-title>
+        <v-toolbar-title>Jasa Service</v-toolbar-title>
         <v-divider
           class="mx-2"
           inset
@@ -130,10 +130,10 @@ export default {
   },
 
   methods: {
+    
     fetchservice() {
       axios.get('/api/service/')
       .then(response => this.service = response.data)
-
     },
     
     initialize() {

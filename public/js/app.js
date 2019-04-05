@@ -1903,43 +1903,34 @@ __webpack_require__.r(__webpack_exports__);
       dialog: false,
       search: '',
       headers: [{
-        text: 'Dessert (100g serving)',
-        align: 'left',
-        sortable: false,
-        value: 'name'
+        text: 'Nama',
+        value: 'Nama',
+        sortable: true
       }, {
-        text: 'Calories',
-        value: 'calories'
+        text: 'Email',
+        value: 'Email',
+        sortable: true
       }, {
-        text: 'Fat (g)',
-        value: 'fat'
+        text: 'Alamat',
+        value: 'Alamat',
+        sortable: true
       }, {
-        text: 'Carbs (g)',
-        value: 'carbs'
+        text: 'Gaji',
+        value: 'Gaji',
+        sortable: true
       }, {
-        text: 'Protein (g)',
-        value: 'protein'
+        text: 'Role',
+        value: 'Role',
+        sortable: true
       }, {
         text: 'Actions',
-        value: 'name',
+        value: 'id',
         sortable: false
       }],
-      desserts: [],
+      pegawai: [],
       editedIndex: -1,
-      editedItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0
-      },
-      defaultItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0
-      }
+      editedItem: {},
+      defaultItem: {}
     };
   },
   computed: {
@@ -1956,92 +1947,44 @@ __webpack_require__.r(__webpack_exports__);
     this.initialize();
   },
   methods: {
+    fetchpegawai: function fetchpegawai() {
+      var _this = this;
+
+      axios.get('/api/pegawai/').then(function (response) {
+        return _this.pegawai = response.data;
+      });
+    },
     initialize: function initialize() {
-      this.desserts = [{
-        name: 'Frozen Yogurt',
-        calories: 159,
-        fat: 6.0,
-        carbs: 24,
-        protein: 4.0
-      }, {
-        name: 'Ice cream sandwich',
-        calories: 237,
-        fat: 9.0,
-        carbs: 37,
-        protein: 4.3
-      }, {
-        name: 'Eclair',
-        calories: 262,
-        fat: 16.0,
-        carbs: 23,
-        protein: 6.0
-      }, {
-        name: 'Cupcake',
-        calories: 305,
-        fat: 3.7,
-        carbs: 67,
-        protein: 4.3
-      }, {
-        name: 'Gingerbread',
-        calories: 356,
-        fat: 16.0,
-        carbs: 49,
-        protein: 3.9
-      }, {
-        name: 'Jelly bean',
-        calories: 375,
-        fat: 0.0,
-        carbs: 94,
-        protein: 0.0
-      }, {
-        name: 'Lollipop',
-        calories: 392,
-        fat: 0.2,
-        carbs: 98,
-        protein: 0
-      }, {
-        name: 'Honeycomb',
-        calories: 408,
-        fat: 3.2,
-        carbs: 87,
-        protein: 6.5
-      }, {
-        name: 'Donut',
-        calories: 452,
-        fat: 25.0,
-        carbs: 51,
-        protein: 4.9
-      }, {
-        name: 'KitKat',
-        calories: 518,
-        fat: 26.0,
-        carbs: 65,
-        protein: 7
-      }];
+      this.fetchpegawai();
     },
     editItem: function editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.pegawai.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
     deleteItem: function deleteItem(item) {
-      var index = this.desserts.indexOf(item);
-      confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1);
+      var index = this.pegawai.indexOf(item);
+      confirm('Are you sure you want to delete this item?') && this.pegawai.splice(index, 1);
+      console.log('deleted data');
+      axios.delete('/api/pegawai/' + item.id).then(function (response) {
+        console.log(response);
+      });
     },
     close: function close() {
-      var _this = this;
+      var _this2 = this;
 
       this.dialog = false;
       setTimeout(function () {
-        _this.editedItem = Object.assign({}, _this.defaultItem);
-        _this.editedIndex = -1;
+        _this2.editedItem = Object.assign({}, _this2.defaultItem);
+        _this2.editedIndex = -1;
       }, 300);
     },
     save: function save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
+        console.log('Edited Data');
+        Object.assign(this.pegawai[this.editedIndex], this.editedItem);
       } else {
-        this.desserts.push(this.editedItem);
+        this.pegawai.push(this.editedItem);
       }
 
       this.close();
@@ -3721,7 +3664,7 @@ var render = function() {
             "v-toolbar",
             { attrs: { flat: "", color: "white" } },
             [
-              _c("v-toolbar-title", [_vm._v("Pegawai CRUD")]),
+              _c("v-toolbar-title", [_vm._v("Data Pegawai")]),
               _vm._v(" "),
               _c("v-divider", {
                 staticClass: "mx-2",
@@ -3756,19 +3699,7 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _c("v-spacer"),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            _vm._g(
-                              {
-                                staticClass: "mb-2",
-                                attrs: { color: "primary", dark: "" }
-                              },
-                              on
-                            ),
-                            [_vm._v("New Item")]
-                          )
+                          _c("v-spacer")
                         ]
                       }
                     }
@@ -3959,7 +3890,7 @@ var render = function() {
               staticClass: "elevation-1",
               attrs: {
                 headers: _vm.headers,
-                items: _vm.desserts,
+                items: _vm.pegawai,
                 search: _vm.search
               },
               scopedSlots: _vm._u([
@@ -3967,27 +3898,19 @@ var render = function() {
                   key: "items",
                   fn: function(props) {
                     return [
-                      _c("td", [_vm._v(_vm._s(props.item.name))]),
+                      _c("td", [_vm._v(_vm._s(props.item.Nama))]),
                       _vm._v(" "),
-                      _c("td", { staticClass: "text-xs-right" }, [
-                        _vm._v(_vm._s(props.item.calories))
-                      ]),
+                      _c("td", [_vm._v(_vm._s(props.item.Email))]),
                       _vm._v(" "),
-                      _c("td", { staticClass: "text-xs-right" }, [
-                        _vm._v(_vm._s(props.item.fat))
-                      ]),
+                      _c("td", [_vm._v(_vm._s(props.item.Alamat))]),
                       _vm._v(" "),
-                      _c("td", { staticClass: "text-xs-right" }, [
-                        _vm._v(_vm._s(props.item.carbs))
-                      ]),
+                      _c("td", [_vm._v("Rp. " + _vm._s(props.item.Gaji))]),
                       _vm._v(" "),
-                      _c("td", { staticClass: "text-xs-right" }, [
-                        _vm._v(_vm._s(props.item.protein))
-                      ]),
+                      _c("td", [_vm._v(_vm._s(props.item.Role))]),
                       _vm._v(" "),
                       _c(
                         "td",
-                        { staticClass: "justify-center layout px-0" },
+                        { staticClass: "layout px-0" },
                         [
                           _c(
                             "v-icon",
@@ -4109,7 +4032,7 @@ var render = function() {
             "v-toolbar",
             { attrs: { flat: "", color: "white" } },
             [
-              _c("v-toolbar-title", [_vm._v("Jasa Service CRUD")]),
+              _c("v-toolbar-title", [_vm._v("Jasa Service")]),
               _vm._v(" "),
               _c("v-divider", {
                 staticClass: "mx-2",
