@@ -13,6 +13,7 @@ class Sparepart extends Model
         'Nama',
         'Tipe',
         'Merk',
+        'Jenis_Motor',
         'Gambar',
         'Harga_Beli',
         'Harga_Jual',
