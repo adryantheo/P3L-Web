@@ -19,47 +19,61 @@ class PegawaiController extends Controller
 
 
     public function login(Request $request)
-        {
-           
+    {
+        
 
-            if (Auth::attempt($request->only(['Email', 'Password']))) {
-                $status = 200;
-                $response = [
-                    'pegawai' => Auth::pegawai(),
-                    'token' => Auth::pegawai()->createToken('AtmaAuto')->accessToken,
-                ];
-                return response()->json([$response, $status]);
-            }
-
-            
+        if (Auth::attempt($request->only(['Email', 'Password']))) {
+            $status = 200;
+            $response = [
+                'pegawai' => Auth::pegawai(),
+                'token' => Auth::pegawai()->createToken('AtmaAuto')->accessToken,
+            ];
+            return response()->json([$response, $status]);
         }
 
-        public function register(Request $request)
-        {
-            // $validator = Validator::make($request->all(), [
-            //     'Nama' => 'required|max:50',
-            //     'Email' => 'required|email',
-            //     'Password' => 'required|min:6',
-            //     'Alamat' => 'required|max:50',
-            //     'Gaji' => 'required',
-            //     'Role' => 'required',
-            // ]);
+        
+    }
 
-            // if ($validator->fails()) {
-            //     return response()->json(['error' => $validator->errors()], 401);
-            // }
+    public function register(Request $request)
+    {
+        // $validator = Validator::make($request->all(), [
+        //     'Nama' => 'required|max:50',
+        //     'Email' => 'required|email',
+        //     'Password' => 'required|min:6',
+        //     'Alamat' => 'required|max:50',
+        //     'Gaji' => 'required',
+        //     'Role' => 'required',
+        // ]);
 
-            $data = $request->only(['Nama', 'Email', 'Password', 'Alamat', 'Gaji', 'Role']);
+        // if ($validator->fails()) {
+        //     return response()->json(['error' => $validator->errors()], 401);
+        // }
+
+        $data = $request->only(['Nama', 'Email', 'Password', 'Alamat', 'Gaji', 'Role']);
+        
+
+        $pegawai = Pegawai::create($data);
+        
+
+        return response()->json([
+            'pegawai' => $pegawai,
             
+        ]);
+    }
 
-            $pegawai = Pegawai::create($data);
-            
+    public function gantiPassword(Request $request, Pegawai $pegawai)
+    {
+        $status = $pegawai->update(
+            $request->only([
+                'Password' => $request->Password
+            ])
+        );
+        return response()->json([
+            'status' => $status,
+            'message' => $status ? 'Password Diupdate!' : 'Error Mengupdate Password'
+        ]);
+    }
 
-            return response()->json([
-                'pegawai' => $pegawai,
-                
-            ]);
-        }
     public function show(Pegawai $pegawai)
     {
         return response()->json($pegawai,200);
@@ -73,8 +87,7 @@ class PegawaiController extends Controller
                 'Email' => $request->Email,
                 'Alamat' => $request->Alamat,
                 'Gaji' => $request->Gaji,
-                'Role' => $request->Role,
-                'Password' => $request->Password                  
+                'Role' => $request->Role,                 
         
             ])
         );
