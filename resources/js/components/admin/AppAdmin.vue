@@ -63,10 +63,10 @@ export default {
     
   data: () => ({
 
-    return: {
-      isLoggedIn: localStorage.getItem('AtmaAuto.jwt') != null
+    
+      isLoggedIn: localStorage.getItem('AtmaAuto.jwt') != null,
 
-    },
+   
 
     drawer:null,
 
@@ -94,6 +94,11 @@ export default {
       {
         text: 'Tambah Sparepart',
         route: '/admin/sparepart'
+      },
+
+      {
+        text: 'Kustomer',
+        route: '/admin/kustomer'
       },
 
       {

@@ -20,6 +20,7 @@ import AdminRegister from '../components/admin/AdminRegister.vue'
 import AdminJasaService from '../components/admin/AdminJasaService.vue'
 import AdminSparepart from '../components/admin/AdminSparepart.vue'
 import AdminLogout from '../components/admin/AdminLogout.vue'
+import AdminKustomer from '../components/admin/AdminKustomer.vue'
 
 Vue.use(VueRouter)
 
@@ -88,6 +89,11 @@ const routes = [
 
             path:'/admin/jasa-service',
             component: AdminJasaService,
+        },
+        {
+
+            path:'/admin/kustomer',
+            component: AdminKustomer,
         },
         {
 

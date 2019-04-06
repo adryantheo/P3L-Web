@@ -5,7 +5,7 @@
     
   
     <v-toolbar flat color="white">
-        <v-toolbar-title>Jasa Service</v-toolbar-title>
+        <v-toolbar-title>Kelola Kustomer</v-toolbar-title>
         <v-divider
           class="mx-2"
           inset
@@ -22,7 +22,7 @@
           hide-details
         ></v-text-field>
         <v-spacer></v-spacer>
-            <v-btn color="primary" dark class="mb-2" v-on="on">New Service</v-btn>
+            <v-btn color="primary" dark class="mb-2" v-on="on">New Kustomer</v-btn>
           </template>
           
           <v-card>
@@ -34,10 +34,13 @@
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Nama_Service" label="Nama Service"></v-text-field>
+                    <v-text-field v-model="editedItem.Nama_Kustomer" label="Nama Kustomer"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Tarif" label="Tarif"></v-text-field>
+                    <v-text-field v-model="editedItem.Alamat_Kustomer" label="Alamat Kustomer"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Telepon_Kustomer" label="Contact Kustomer"></v-text-field>
                   </v-flex>
                   
                 </v-layout>
@@ -54,14 +57,15 @@
       </v-toolbar>
       <v-data-table
         :headers="headers"
-        :items="service"
+        :items="kustomer"
         :search="search"
         class="elevation-1"
       >
         <template v-slot:items="props">
          
-          <td >{{ props.item.Nama_Service }}</td>
-          <td >Rp. {{ props.item.Tarif }}</td>
+          <td >{{ props.item.Nama_Kustomer }}</td>
+          <td >{{ props.item.Alamat_Kustomer }}</td>
+          <td >{{ props.item.Telepon_Kustomer }}</td>
          
           <td class=" layout px-0">
             <v-icon
@@ -99,11 +103,12 @@ export default {
     search: '',
     headers: [
       
-      { text: 'Nama Service', value: 'Nama_Service', sortable: true },
-      { text: 'Harga', value: 'Tarif', sortable: true },      
+      { text: 'Nama Kustomer', value: 'Nama_Kustomer', sortable: true },
+      { text: 'Alamat Kustomer', value: 'Alamat_Kustomer', sortable: true },
+      { text: 'Kontak', value: 'Telepon_Kustomer', sortable: true },      
       { text: 'Actions', value: 'id', sortable: false }
     ],
-    service: [],
+    kustomer: [],
     editedIndex: -1,
     editedItem: {
      
@@ -131,27 +136,27 @@ export default {
 
   methods: {
     
-    fetchservice() {
-      axios.get('/api/service/')
-      .then(response => this.service = response.data)
+    fetchkustomer() {
+      axios.get('/api/kustomer/')
+      .then(response => this.kustomer = response.data)
     },
     
     initialize() {
-      this.fetchservice();
+      this.fetchkustomer();
     },
 
     editItem (item) {
-      this.editedIndex = this.service.indexOf(item)
+      this.editedIndex = this.kustomer.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem (item) {
-      const index = this.service.indexOf(item)
-      confirm('Are you sure you want to delete this item?') && this.service.splice(index, 1)
+      const index = this.kustomer.indexOf(item)
+      confirm('Are you sure you want to delete this item?') && this.kustomer.splice(index, 1)
       console.log('deleted data');
 
-      axios.delete('/api/service/'+item.id)
+      axios.delete('/api/kustomer/'+item.id)
         .then(response => {
           console.log(response);
         })
@@ -169,19 +174,27 @@ export default {
       if (this.editedIndex > -1) {
         console.log('Edited Data');
 
-        axios.patch('/api/service/'+this.editedItem.id,{Nama_Service:this.editedItem.Nama_Service, Tarif:this.editedItem.Tarif})
+        axios.patch('/api/kustomer/'+this.editedItem.id,{
+         Nama_Kustomer:this.editedItem.Nama_Kustomer,
+         Alamat_Kustomer:this.editedItem.Alamat_Kustomer,
+         Telepon_Kustomer:this.editedItem.Telepon_Kustomer
+         })
         .then(response => {
           console.log(response);
         })
        
-        Object.assign(this.service[this.editedIndex], this.editedItem)
+        Object.assign(this.kustomer[this.editedIndex], this.editedItem)
       } else {
         console.log('created Data');
-        axios.post('/api/service/',{Nama_Service:this.editedItem.Nama_Service, Tarif:this.editedItem.Tarif})
+        axios.post('/api/kustomer/',{
+            Nama_Kustomer:this.editedItem.Nama_Kustomer,
+            Alamat_Kustomer:this.editedItem.Alamat_Kustomer,
+            Telepon_Kustomer:this.editedItem.Telepon_Kustomer
+            })
         .then(response => {
           console.log(response);
         })
-        this.service.push(this.editedItem)
+        this.kustomer.push(this.editedItem)
       }
       this.close()
     }
