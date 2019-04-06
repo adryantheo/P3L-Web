@@ -5,7 +5,7 @@
     
   
     <v-toolbar flat color="white">
-        <v-toolbar-title>Jasa Service</v-toolbar-title>
+        <v-toolbar-title>Sparepart</v-toolbar-title>
         <v-divider
           class="mx-2"
           inset
@@ -22,7 +22,7 @@
           hide-details
         ></v-text-field>
         <v-spacer></v-spacer>
-            <v-btn color="primary" dark class="mb-2" v-on="on">New Service</v-btn>
+            <v-btn color="primary" dark class="mb-2" v-on="on">New sparepart</v-btn>
           </template>
           
           <v-card>
@@ -34,10 +34,37 @@
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Nama_Service" label="Nama Service"></v-text-field>
+                    <v-text-field v-model="editedItem.Kode_Sparepart" label="Kode Sparepart"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Tarif" label="Tarif"></v-text-field>
+                    <v-text-field v-model="editedItem.Nama" label="Nama"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Tipe" label="Tipe"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Merk" label="Merk"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Jenis_Motor" label="Jenis Motor"></v-text-field>
+                  </v-flex>
+                  <!-- <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Gambar" label="Gambar"></v-text-field>
+                  </v-flex> -->
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Harga_Beli" label="Harga Beli"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Harga_Jual" label="Harga Jual"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Letak" label="Letak"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Stok" label="Stok"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Stok_Min" label="Stok Min"></v-text-field>
                   </v-flex>
                   
                 </v-layout>
@@ -54,14 +81,23 @@
       </v-toolbar>
       <v-data-table
         :headers="headers"
-        :items="service"
+        :items="sparepart"
         :search="search"
         class="elevation-1"
       >
         <template v-slot:items="props">
          
-          <td >{{ props.item.Nama_Service }}</td>
-          <td >Rp. {{ props.item.Tarif }}</td>
+          <td >{{ props.item.Kode_Sparepart }}</td>
+          <td >{{ props.item.Nama }}</td>
+          <td >{{ props.item.Tipe }}</td>
+          <td >{{ props.item.Merk }}</td>
+          <td >{{ props.item.Jenis_Motor }}</td>
+          <td >{{ props.item.Gambar }}</td>
+          <td >{{ props.item.Harga_Beli }}</td>
+          <td >{{ props.item.Harga_Jual }}</td>
+          <td >{{ props.item.Letak }}</td>
+          <td >{{ props.item.Stok }}</td>
+          <td >{{ props.item.Stok_Min }}</td>
          
           <td class=" layout px-0">
             <v-icon
@@ -99,11 +135,20 @@ export default {
     search: '',
     headers: [
       
-      { text: 'Nama Service', value: 'Nama_Service', sortable: true },
-      { text: 'Harga', value: 'Tarif', sortable: true },      
+      { text: 'Kode Sparepart', value: 'Kode_Sparepart', sortable: true },
+      { text: 'Nama', value: 'Nama', sortable: true },
+      { text: 'Tipe', value: 'Tipe', sortable: true },
+      { text: 'Merk', value: 'Merk', sortable: true },
+      { text: 'Jenis Motor', value: 'Jenis_Motor', sortable: true },
+      { text: 'Gambar', value: 'Gambar', sortable: false },
+      { text: 'Harga Beli', value: 'Harga_Beli', sortable: true },
+      { text: 'Harga Jual', value: 'Harga_Jual', sortable: true },
+      { text: 'Letak', value: 'Letak', sortable: false },
+      { text: 'Stok', value: 'Stok', sortable: true },    
+      { text: 'Stok Min', value: 'Stok_Min', sortable: true },      
       { text: 'Actions', value: 'id', sortable: false }
     ],
-    service: [],
+    sparepart: [],
     editedIndex: -1,
     editedItem: {
      
@@ -131,27 +176,27 @@ export default {
 
   methods: {
     
-    fetchservice() {
-      axios.get('/api/service/')
-      .then(response => this.service = response.data)
+    fetchsparepart() {
+      axios.get('/api/sparepart/')
+      .then(response => this.sparepart = response.data)
     },
     
     initialize() {
-      this.fetchservice();
+      this.fetchsparepart();
     },
 
     editItem (item) {
-      this.editedIndex = this.service.indexOf(item)
+      this.editedIndex = this.sparepart.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem (item) {
-      const index = this.service.indexOf(item)
-      confirm('Are you sure you want to delete this item?') && this.service.splice(index, 1)
+      const index = this.sparepart.indexOf(item)
+      confirm('Are you sure you want to delete this item?') && this.sparepart.splice(index, 1)
       console.log('deleted data');
 
-      axios.delete('/api/service/'+item.id)
+      axios.delete('/api/sparepart/'+item.id)
         .then(response => {
           console.log(response);
         })
@@ -169,19 +214,43 @@ export default {
       if (this.editedIndex > -1) {
         console.log('Edited Data');
 
-        axios.patch('/api/service/'+this.editedItem.id,{Nama_Service:this.editedItem.Nama_Service, Tarif:this.editedItem.Tarif})
+        axios.patch('/api/sparepart/'+this.editedItem.id,{
+          Kode_Sparepart:this.editedItem.Kode_Sparepart,
+          Nama:this.editedItem.Tarif,
+          Tipe:this.editedItem.Tipe,
+          Merk:this.editedItem.Merk,
+          Jenis_Motor:this.editedItem.Jenis_Motor,
+        //  Gambar:this.editedItem.Gambar,
+          Harga_Beli:this.editedItem.Harga_Beli,
+          Harga_Jual:this.editedItem.Harga_Jual,
+          Letak:this.editedItem.Letak,
+          Stok:this.editedItem.Stok,
+          Stok_Min:this.editedItem.Stok_Min,
+           })
         .then(response => {
           console.log(response);
         })
        
-        Object.assign(this.service[this.editedIndex], this.editedItem)
+        Object.assign(this.sparepart[this.editedIndex], this.editedItem)
       } else {
         console.log('created Data');
-        axios.post('/api/service/',{Nama_Service:this.editedItem.Nama_Service, Tarif:this.editedItem.Tarif})
+        axios.post('/api/sparepart/',{
+          Kode_Sparepart:this.editedItem.Kode_Sparepart,
+          Nama:this.editedItem.Tarif,
+          Tipe:this.editedItem.Tipe,
+          Merk:this.editedItem.Merk,
+          Jenis_Motor:this.editedItem.Jenis_Motor,
+          //Gambar:this.editedItem.Gambar,
+          Harga_Beli:this.editedItem.Harga_Beli,
+          Harga_Jual:this.editedItem.Harga_Jual,
+          Letak:this.editedItem.Letak,
+          Stok:this.editedItem.Stok,
+          Stok_Min:this.editedItem.Stok_Min,
+           })
         .then(response => {
           console.log(response);
         })
-        this.service.push(this.editedItem)
+        this.sparepart.push(this.editedItem)
       }
       this.close()
     }
