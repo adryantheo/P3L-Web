@@ -25,6 +25,7 @@
             
             <v-spacer></v-spacer>
             <v-btn dark color="primary" flat v-for="link in links" :key="link.text" router-link :to="link.route">{{link.text}}</v-btn>
+            <li class="nav-link" v-if="isLoggedIn" @click="logout"> Logout</li>
             <v-toolbar-items class="hidden-sm-and-down">           
             </v-toolbar-items>
         </v-toolbar>
@@ -32,7 +33,8 @@
 
           <v-container fluid fill-height>
 
-            <router-view></router-view>
+            <router-view @loggedIn="change"></router-view>
+            
               
           </v-container>
 
@@ -120,9 +122,8 @@ export default {
   methods:{
     setDefaults() {
                 if (this.isLoggedIn) {
-                    let user = JSON.parse(localStorage.getItem('AtmaAuto.user'))
-                    this.name = user.name
-                    this.user_type = user.is_admin
+                    let user = JSON.parse(localStorage.getItem('AtmaAuto.pegawai'))
+                    this.name = pegawai.name
                 }
             },
             change() {
@@ -131,7 +132,7 @@ export default {
             },
             logout(){
                 localStorage.removeItem('AtmaAuto.jwt')
-                localStorage.removeItem('AtmaAuto.user')
+                localStorage.removeItem('AtmaAuto.pegawai')
                 this.change()
                 this.$router.push('/')
             }

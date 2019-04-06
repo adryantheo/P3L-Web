@@ -36,27 +36,29 @@ class PegawaiController extends Controller
 
     public function register(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'Nama' => 'required|max:50',
-        //     'Email' => 'required|email',
-        //     'Password' => 'required|min:6',
-        //     'Alamat' => 'required|max:50',
-        //     'Gaji' => 'required',
-        //     'Role' => 'required',
-        // ]);
+        $validator = Validator::make($request->all(), [
+            'Nama' => 'required|max:50',
+            'Email' => 'required|email',
+            'Password' => 'required|min:6',
+            'Alamat' => 'required|max:50',
+            'Gaji' => 'required',
+            'Role' => 'required',
+        ]);
 
-        // if ($validator->fails()) {
-        //     return response()->json(['error' => $validator->errors()], 401);
-        // }
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
+        }
 
+      
         $data = $request->only(['Nama', 'Email', 'Password', 'Alamat', 'Gaji', 'Role']);
         
 
         $pegawai = Pegawai::create($data);
-        
+
 
         return response()->json([
             'pegawai' => $pegawai,
+            'token' => $pegawai->createToken('AtmaAuto')->accessToken,
             
         ]);
     }
