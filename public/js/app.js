@@ -1908,7 +1908,7 @@ __webpack_require__.r(__webpack_exports__);
         sortable: true
       }, {
         text: 'Email',
-        value: 'Email',
+        value: 'email',
         sortable: true
       }, {
         text: 'Alamat',
@@ -2479,10 +2479,10 @@ __webpack_require__.r(__webpack_exports__);
   props: ['nextUrl'],
   data: function data() {
     return {
-      Email: undefined,
-      Password: undefined,
+      email: undefined,
+      password: undefined,
       rules: {
-        Email: function Email(v) {
+        email: function email(v) {
           return (v || '').match(/@/) || 'Please enter a valid email';
         },
         length: function length(len) {
@@ -2490,8 +2490,8 @@ __webpack_require__.r(__webpack_exports__);
             return (v || '').length >= len || "Invalid character length, required ".concat(len);
           };
         },
-        Password: function Password(v) {
-          return (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) || 'Password must contain an upper case letter, a numeric character, and a special character';
+        password: function password(v) {
+          return (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) || 'password must contain an upper case letter, a numeric character, and a special character';
         },
         required: function required(v) {
           return !!v || 'This field is required';
@@ -2504,8 +2504,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.post('/api/login', {
-        Email: this.Email,
-        Password: this.Password
+        email: this.email,
+        password: this.password
       }).then(function (response) {
         var pegawai = response.data.pegawai;
         localStorage.setItem('AtmaAuto.pegawai', JSON.stringify(pegawai));
@@ -2601,16 +2601,16 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       Nama: undefined,
-      Email: undefined,
+      email: undefined,
       Alamat: undefined,
       Gaji: undefined,
       Role: undefined,
-      Password: undefined,
+      password: undefined,
       datas: function datas() {
         return {
           Nama: "",
-          Email: "",
-          Password: "",
+          email: "",
+          password: "",
           Alamat: "",
           Gaji: "",
           Role: ""
@@ -2623,26 +2623,27 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var Nama = this.Nama;
-      var Email = this.Email;
-      var Password = this.Password;
+      var email = this.email;
+      var password = this.password;
       var Alamat = this.Alamat;
       var Gaji = this.Gaji;
       var Role = this.Role;
       axios.post('/api/register/', {
         Nama: Nama,
-        Email: Email,
-        Password: Password,
+        email: email,
+        password: password,
         Alamat: Alamat,
         Gaji: Gaji,
         Role: Role
       }).then(function (response) {
         var datas = response.datas;
         console.log('created Data');
-        localStorage.setItem('AtmaAuto.pegawais', JSON.stringify(datas.pegawais));
+        localStorage.setItem('AtmaAuto.user', JSON.stringify(datas.user));
         localStorage.setItem('AtmaAuto.jwt', datas.token);
 
         _this.$router.push(nextUrl != null ? nextUrl : '/admin');
       });
+      this.$router.push('admin/login');
     }
   }
 });
@@ -2751,25 +2752,107 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       dialog: false,
       search: '',
       headers: [{
-        text: 'Nama Service',
-        value: 'Nama_Service',
+        text: 'Kode Sparepart',
+        value: 'Kode_Sparepart',
         sortable: true
       }, {
-        text: 'Harga',
-        value: 'Tarif',
+        text: 'Nama',
+        value: 'Nama',
+        sortable: true
+      }, {
+        text: 'Tipe',
+        value: 'Tipe',
+        sortable: true
+      }, {
+        text: 'Merk',
+        value: 'Merk',
+        sortable: true
+      }, {
+        text: 'Jenis Motor',
+        value: 'Jenis_Motor',
+        sortable: true
+      }, // { text: 'Gambar', value: 'Gambar', sortable: false },
+      {
+        text: 'Harga Beli',
+        value: 'Harga_Beli',
+        sortable: true
+      }, {
+        text: 'Harga Jual',
+        value: 'Harga_Jual',
+        sortable: true
+      }, {
+        text: 'Letak',
+        value: 'Letak',
+        sortable: false
+      }, {
+        text: 'Stok',
+        value: 'Stok',
+        sortable: true
+      }, {
+        text: 'Stok Min',
+        value: 'Stok_Min',
         sortable: true
       }, {
         text: 'Actions',
         value: 'id',
         sortable: false
       }],
-      service: [],
+      sparepart: [],
       editedIndex: -1,
       editedItem: {},
       defaultItem: {}
@@ -2789,26 +2872,49 @@ __webpack_require__.r(__webpack_exports__);
     this.initialize();
   },
   methods: {
-    fetchservice: function fetchservice() {
+    pickFile: function pickFile() {
+      this.$refs.file.click();
+    },
+    onFileChange: function onFileChange(fieldName, file) {
+      var maxSize = this.maxSize;
+      console.log(fieldName);
+      var imageFile = file[0];
+
+      if (file.length > 0) {
+        var size = imageFile.size / maxSize / maxSize;
+
+        if (!imageFile.type.match('image.*')) {
+          this.errorText = 'File harus berupa gambar!';
+        } else if (size > 1) {
+          // check whether the size is greater than the size limit
+          this.errorText = 'Ukuran file harus dibawah 1 MB!';
+        } else {
+          this.errorText = '';
+          this.fileUrl = URL.createObjectURL(imageFile);
+          this.fileBin = imageFile;
+        }
+      }
+    },
+    fetchsparepart: function fetchsparepart() {
       var _this = this;
 
-      axios.get('/api/service/').then(function (response) {
-        return _this.service = response.data;
+      axios.get('/api/sparepart/').then(function (response) {
+        return _this.sparepart = response.data;
       });
     },
     initialize: function initialize() {
-      this.fetchservice();
+      this.fetchsparepart();
     },
     editItem: function editItem(item) {
-      this.editedIndex = this.service.indexOf(item);
+      this.editedIndex = this.sparepart.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
     deleteItem: function deleteItem(item) {
-      var index = this.service.indexOf(item);
-      confirm('Are you sure you want to delete this item?') && this.service.splice(index, 1);
+      var index = this.sparepart.indexOf(item);
+      confirm('Are you sure you want to delete this item?') && this.sparepart.splice(index, 1);
       console.log('deleted data');
-      axios.delete('/api/service/' + item.id).then(function (response) {
+      axios.delete('/api/sparepart/' + item.id).then(function (response) {
         console.log(response);
       });
     },
@@ -2824,22 +2930,40 @@ __webpack_require__.r(__webpack_exports__);
     save: function save() {
       if (this.editedIndex > -1) {
         console.log('Edited Data');
-        axios.patch('/api/service/' + this.editedItem.id, {
-          Nama_Service: this.editedItem.Nama_Service,
-          Tarif: this.editedItem.Tarif
+        axios.patch('/api/sparepart/' + this.editedItem.id, {
+          Kode_Sparepart: this.editedItem.Kode_Sparepart,
+          Nama: this.editedItem.Nama,
+          Tipe: this.editedItem.Tipe,
+          Merk: this.editedItem.Merk,
+          Jenis_Motor: this.editedItem.Jenis_Motor,
+          // Gambar:this.editedItem.Gambar,
+          Harga_Beli: this.editedItem.Harga_Beli,
+          Harga_Jual: this.editedItem.Harga_Jual,
+          Letak: this.editedItem.Letak,
+          Stok: this.editedItem.Stok,
+          Stok_Min: this.editedItem.Stok_Min
         }).then(function (response) {
           console.log(response);
         });
-        Object.assign(this.service[this.editedIndex], this.editedItem);
+        Object.assign(this.sparepart[this.editedIndex], this.editedItem);
       } else {
         console.log('created Data');
-        axios.post('/api/service/', {
-          Nama_Service: this.editedItem.Nama_Service,
-          Tarif: this.editedItem.Tarif
+        axios.post('/api/sparepart/', {
+          Kode_Sparepart: this.editedItem.Kode_Sparepart,
+          Nama: this.editedItem.Nama,
+          Tipe: this.editedItem.Tipe,
+          Merk: this.editedItem.Merk,
+          Jenis_Motor: this.editedItem.Jenis_Motor,
+          Gambar: this.editedItem.fileBin,
+          Harga_Beli: this.editedItem.Harga_Beli,
+          Harga_Jual: this.editedItem.Harga_Jual,
+          Letak: this.editedItem.Letak,
+          Stok: this.editedItem.Stok,
+          Stok_Min: this.editedItem.Stok_Min
         }).then(function (response) {
           console.log(response);
         });
-        this.service.push(this.editedItem);
+        this.sparepart.push(this.editedItem);
       }
 
       this.close();
@@ -2950,6 +3074,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2976,21 +3111,24 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         text: 'Laporan',
         route: '/admin/laporan'
-      }],
-      links: [{
-        text: 'Login',
-        route: '/admin/login'
-      }, {
-        text: 'Register',
-        route: '/admin/register'
-      }]
+      }] // links: [
+      //   {
+      //     text: 'Login',
+      //     route: '/admin/login'
+      //   },
+      //   {
+      //     text: 'Register',
+      //     route: '/admin/register'
+      //   },
+      // ],
+
     };
   },
   methods: {
     setDefaults: function setDefaults() {
       if (this.isLoggedIn) {
-        var user = JSON.parse(localStorage.getItem('AtmaAuto.pegawai'));
-        this.name = pegawai.name;
+        var user = JSON.parse(localStorage.getItem('AtmaAuto.user'));
+        this.name = user.name;
       }
     },
     change: function change() {
@@ -2999,9 +3137,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     logout: function logout() {
       localStorage.removeItem('AtmaAuto.jwt');
-      localStorage.removeItem('AtmaAuto.pegawai');
+      localStorage.removeItem('AtmaAuto.user');
       this.change();
-      this.$router.push('/');
+      this.$router.push('/admin');
     }
   }
 });
@@ -4042,7 +4180,7 @@ var render = function() {
                     return [
                       _c("td", [_vm._v(_vm._s(props.item.Nama))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(props.item.Email))]),
+                      _c("td", [_vm._v(_vm._s(props.item.email))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(props.item.Alamat))]),
                       _vm._v(" "),
@@ -4880,31 +5018,31 @@ var render = function() {
                           _c("v-text-field", {
                             attrs: {
                               "prepend-icon": "person",
-                              label: "Email",
+                              label: "email",
                               type: "text"
                             },
                             model: {
-                              value: _vm.Email,
+                              value: _vm.email,
                               callback: function($$v) {
-                                _vm.Email = $$v
+                                _vm.email = $$v
                               },
-                              expression: "Email"
+                              expression: "email"
                             }
                           }),
                           _vm._v(" "),
                           _c("v-text-field", {
                             attrs: {
                               "prepend-icon": "lock",
-                              label: "Password",
+                              label: "password",
                               id: "password",
                               type: "password"
                             },
                             model: {
-                              value: _vm.Password,
+                              value: _vm.password,
                               callback: function($$v) {
-                                _vm.Password = $$v
+                                _vm.password = $$v
                               },
-                              expression: "Password"
+                              expression: "password"
                             }
                           })
                         ],
@@ -5042,31 +5180,31 @@ var render = function() {
                           _c("v-text-field", {
                             attrs: {
                               "prepend-icon": "person",
-                              label: "Email",
+                              label: "email",
                               type: "text"
                             },
                             model: {
-                              value: _vm.Email,
+                              value: _vm.email,
                               callback: function($$v) {
-                                _vm.Email = $$v
+                                _vm.email = $$v
                               },
-                              expression: "Email"
+                              expression: "email"
                             }
                           }),
                           _vm._v(" "),
                           _c("v-text-field", {
                             attrs: {
                               "prepend-icon": "lock",
-                              label: "Password",
+                              label: "password",
                               id: "password",
                               type: "password"
                             },
                             model: {
-                              value: _vm.Password,
+                              value: _vm.password,
                               callback: function($$v) {
-                                _vm.Password = $$v
+                                _vm.password = $$v
                               },
-                              expression: "Password"
+                              expression: "password"
                             }
                           }),
                           _vm._v(" "),
@@ -5189,7 +5327,7 @@ var render = function() {
             "v-toolbar",
             { attrs: { flat: "", color: "white" } },
             [
-              _c("v-toolbar-title", [_vm._v("Jasa Service")]),
+              _c("v-toolbar-title", [_vm._v("Sparepart")]),
               _vm._v(" "),
               _c("v-divider", {
                 staticClass: "mx-2",
@@ -5235,7 +5373,7 @@ var render = function() {
                               },
                               on
                             ),
-                            [_vm._v("New Service")]
+                            [_vm._v("New sparepart")]
                           )
                         ]
                       }
@@ -5276,17 +5414,18 @@ var render = function() {
                                     { attrs: { xs12: "", sm6: "", md4: "" } },
                                     [
                                       _c("v-text-field", {
-                                        attrs: { label: "Nama Service" },
+                                        attrs: { label: "Kode Sparepart" },
                                         model: {
-                                          value: _vm.editedItem.Nama_Service,
+                                          value: _vm.editedItem.Kode_Sparepart,
                                           callback: function($$v) {
                                             _vm.$set(
                                               _vm.editedItem,
-                                              "Nama_Service",
+                                              "Kode_Sparepart",
                                               $$v
                                             )
                                           },
-                                          expression: "editedItem.Nama_Service"
+                                          expression:
+                                            "editedItem.Kode_Sparepart"
                                         }
                                       })
                                     ],
@@ -5298,17 +5437,230 @@ var render = function() {
                                     { attrs: { xs12: "", sm6: "", md4: "" } },
                                     [
                                       _c("v-text-field", {
-                                        attrs: { label: "Tarif" },
+                                        attrs: { label: "Nama" },
                                         model: {
-                                          value: _vm.editedItem.Tarif,
+                                          value: _vm.editedItem.Nama,
                                           callback: function($$v) {
                                             _vm.$set(
                                               _vm.editedItem,
-                                              "Tarif",
+                                              "Nama",
                                               $$v
                                             )
                                           },
-                                          expression: "editedItem.Tarif"
+                                          expression: "editedItem.Nama"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm6: "", md4: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: { label: "Tipe" },
+                                        model: {
+                                          value: _vm.editedItem.Tipe,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.editedItem,
+                                              "Tipe",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "editedItem.Tipe"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm6: "", md4: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: { label: "Merk" },
+                                        model: {
+                                          value: _vm.editedItem.Merk,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.editedItem,
+                                              "Merk",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "editedItem.Merk"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm6: "", md4: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: { label: "Jenis Motor" },
+                                        model: {
+                                          value: _vm.editedItem.Jenis_Motor,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.editedItem,
+                                              "Jenis_Motor",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "editedItem.Jenis_Motor"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm6: "", md4: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: { label: "Harga Beli" },
+                                        model: {
+                                          value: _vm.editedItem.Harga_Beli,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.editedItem,
+                                              "Harga_Beli",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "editedItem.Harga_Beli"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm6: "", md4: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: { label: "Harga Jual" },
+                                        model: {
+                                          value: _vm.editedItem.Harga_Jual,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.editedItem,
+                                              "Harga_Jual",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "editedItem.Harga_Jual"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm6: "", md4: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: { label: "Letak" },
+                                        model: {
+                                          value: _vm.editedItem.Letak,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.editedItem,
+                                              "Letak",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "editedItem.Letak"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm6: "", md4: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: { label: "Stok" },
+                                        model: {
+                                          value: _vm.editedItem.Stok,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.editedItem,
+                                              "Stok",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "editedItem.Stok"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm6: "", md4: "" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: { label: "Stok Min" },
+                                        model: {
+                                          value: _vm.editedItem.Stok_Min,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.editedItem,
+                                              "Stok_Min",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "editedItem.Stok_Min"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-flex",
+                                    { attrs: { xs12: "", sm6: "", md4: "" } },
+                                    [
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: { color: "primary", flat: "" },
+                                          on: { click: _vm.pickFile }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                Upload Gambar\n            "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        ref: "file",
+                                        staticStyle: { display: "none" },
+                                        attrs: {
+                                          type: "file",
+                                          name: "thumbnail"
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            return _vm.onFileChange(
+                                              $event.target.name,
+                                              $event.target.files
+                                            )
+                                          }
                                         }
                                       })
                                     ],
@@ -5365,7 +5717,7 @@ var render = function() {
               staticClass: "elevation-1",
               attrs: {
                 headers: _vm.headers,
-                items: _vm.service,
+                items: _vm.sparepart,
                 search: _vm.search
               },
               scopedSlots: _vm._u([
@@ -5373,9 +5725,25 @@ var render = function() {
                   key: "items",
                   fn: function(props) {
                     return [
-                      _c("td", [_vm._v(_vm._s(props.item.Nama_Service))]),
+                      _c("td", [_vm._v(_vm._s(props.item.Kode_Sparepart))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v("Rp. " + _vm._s(props.item.Tarif))]),
+                      _c("td", [_vm._v(_vm._s(props.item.Nama))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(props.item.Tipe))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(props.item.Merk))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(props.item.Jenis_Motor))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(props.item.Harga_Beli))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(props.item.Harga_Jual))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(props.item.Letak))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(props.item.Stok))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(props.item.Stok_Min))]),
                       _vm._v(" "),
                       _c(
                         "td",
@@ -5598,34 +5966,43 @@ var render = function() {
               _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),
-              _vm._l(_vm.links, function(link) {
-                return _c(
-                  "v-btn",
-                  {
-                    key: link.text,
-                    attrs: {
-                      dark: "",
-                      color: "primary",
-                      flat: "",
-                      "router-link": "",
-                      to: link.route
-                    }
-                  },
-                  [_vm._v(_vm._s(link.text))]
-                )
-              }),
+              !_vm.isLoggedIn
+                ? _c(
+                    "v-btn",
+                    { attrs: { color: "white" } },
+                    [
+                      _c("router-link", { attrs: { to: { name: "login" } } }, [
+                        _vm._v("Login")
+                      ])
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              !_vm.isLoggedIn
+                ? _c(
+                    "v-btn",
+                    { attrs: { color: "white" } },
+                    [
+                      _c(
+                        "router-link",
+                        { attrs: { to: { name: "register" } } },
+                        [_vm._v("Register")]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
               _vm._v(" "),
               _vm.isLoggedIn
-                ? _c(
-                    "li",
-                    { staticClass: "nav-link", on: { click: _vm.logout } },
-                    [_vm._v(" Logout")]
-                  )
+                ? _c("v-btn", { on: { click: _vm.logout } }, [
+                    _vm._v(" Logout")
+                  ])
                 : _vm._e(),
               _vm._v(" "),
               _c("v-toolbar-items", { staticClass: "hidden-sm-and-down" })
             ],
-            2
+            1
           ),
           _vm._v(" "),
           _c(
@@ -47942,12 +48319,14 @@ var routes = [{
   component: _components_admin_AppAdmin_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
   children: [{
     path: '/admin/login',
+    name: 'login',
     component: _components_admin_AdminLogin_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
   }, {
     path: '/admin/logout',
     component: _components_admin_AdminLogout_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
   }, {
     path: '/admin/register',
+    name: 'register',
     component: _components_admin_AdminRegister_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
   }, {
     path: '/admin/edit',

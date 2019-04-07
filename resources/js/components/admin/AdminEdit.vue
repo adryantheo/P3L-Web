@@ -68,7 +68,7 @@
       >
         <template v-slot:items="props">
           <td >{{ props.item.Nama }}</td>
-          <td >{{ props.item.Email }}</td>
+          <td >{{ props.item.email }}</td>
           <td >{{ props.item.Alamat }}</td>
           <td >Rp. {{ props.item.Gaji }}</td>
           <td >{{ props.item.Role }}</td>
@@ -113,7 +113,7 @@ export default {
     search: '',
     headers: [
       { text: 'Nama', value: 'Nama', sortable: true },
-      { text: 'Email', value: 'Email', sortable: true },
+      { text: 'Email', value: 'email', sortable: true },
       { text: 'Alamat', value: 'Alamat', sortable: true },
       { text: 'Gaji', value: 'Gaji', sortable: true },
       { text: 'Role', value: 'Role', sortable: true },
