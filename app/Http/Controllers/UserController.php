@@ -19,23 +19,12 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        // $status = 401;
-        //     $response = ['error' => 'Unauthorised'];
-
-        //     if (Auth::attempt($request->only(['email', 'password']))) {
-        //         $status = 200;
-        //         $response = [
-        //             'user' => Auth::User(),
-        //             'token' => Auth::User()->createToken('AtmaAuto')->accessToken,
-        //         ];
-        //     }
-
-        //     return response()->json($response, $status);
+       
 
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
-            'remember_me' => 'boolean'
+            
         ]);
         $credentials = request(['email', 'password']);
         if(!Auth::attempt($credentials))
@@ -68,8 +57,7 @@ class UserController extends Controller
         $user = new User([
             'Nama' => $request->Nama,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
-            //'password' => $request->password,
+            'password' => bcrypt($request->password),            
             'Alamat' => $request->Alamat,
             'Gaji' => $request->Gaji,
             'Role' => $request->Role,
@@ -79,31 +67,15 @@ class UserController extends Controller
             'message' => 'Successfully created user!'
         ], 201);
 
-        // $validator = Validator::make($request->all(), [
-        //     'Nama' => 'required|max:50',
-        //     'Email' => 'required|email',
-        //     'password' => 'required|min:6',
-        //     'Alamat' => 'required|max:50',
-        //     'Gaji' => 'required',
-        //     'Role' => 'required',
-        // ]);
+       
+    }
 
-        // if ($validator->fails()) {
-        //     return response()->json(['error' => $validator->errors()], 401);
-        // }
-
-      
-        // $data = $request->only(['Nama', 'Email', 'password', 'Alamat', 'Gaji', 'Role']);
-        
-
-        // $user = User::create($data);
-
-
-        // return response()->json([
-        //     'User' => $user,
-        //     'token' => $user->createToken('AtmaAuto')->accessToken,
-            
-        // ]);
+    public function logout(Request $request)
+    {
+        $request->user()->token()->revoke();
+        return response()->json([
+            'message' => 'Successfully logged out'
+        ]);
     }
 
     public function gantipassword(Request $request, User $user)

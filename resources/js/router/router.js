@@ -63,6 +63,7 @@ const routes = [
         {
 
             path:'/admin/login',
+            name: 'login',
             component: AdminLogin,
         },
         {
@@ -73,6 +74,7 @@ const routes = [
         {
 
             path:'/admin/register',
+            name: 'register',
             component: AdminRegister,
         },
         {
