@@ -15,7 +15,7 @@ class CreateSparepartsTable extends Migration
             $table->string('Nama');
             $table->string('Tipe');
             $table->string('Merk');
-            $table->string('Gambar');
+            $table->string('Gambar')->nullable();
             $table->string('Jenis_Motor');
             $table->double('Harga_Beli');
             $table->double('Harga_Jual');

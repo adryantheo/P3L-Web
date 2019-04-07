@@ -13,8 +13,8 @@
               <v-card-text>
                 <v-form>
                   <v-text-field prepend-icon="person" v-model="Nama" label="Nama"  type="text" ></v-text-field>
-                  <v-text-field prepend-icon="person" v-model="Email" label="Email" type="text" ></v-text-field>
-                  <v-text-field prepend-icon="lock" v-model="Password" label="Password" id="password" type="password"></v-text-field>
+                  <v-text-field prepend-icon="person" v-model="email" label="email" type="text" ></v-text-field>
+                  <v-text-field prepend-icon="lock" v-model="password" label="password" id="password" type="password"></v-text-field>
                   <v-text-field prepend-icon="person" v-model="Alamat" label="Alamat" type="text" ></v-text-field>
                   <v-text-field prepend-icon="person" v-model="Gaji" label="Gaji" type="text" ></v-text-field>
                   <v-text-field prepend-icon="person" v-model="Role" label="Role" type="text" ></v-text-field>
@@ -40,18 +40,18 @@
    data: () => ({
       
       Nama: undefined,
-      Email: undefined,
+      email: undefined,
       Alamat: undefined,
       Gaji: undefined,
       Role: undefined,
-      Password: undefined,
+      password: undefined,
       
       
       datas(){
         return{
           Nama: "",
-          Email: "",
-          Password: "",
+          email: "",
+          password: "",
           Alamat: "",
           Gaji: "",
           Role: "",
@@ -64,15 +64,15 @@
           register()
           {
              let Nama = this.Nama
-             let Email = this.Email
-             let Password = this.Password
+             let email = this.email
+             let password = this.password
              let Alamat =  this.Alamat
              let Gaji =  this.Gaji
              let Role  = this.Role
               axios.post('/api/register/', {
                 Nama,
-                Email,
-                Password,
+                email,
+                password,
                 Alamat,
                 Gaji,
                 Role

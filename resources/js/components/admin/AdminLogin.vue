@@ -12,8 +12,8 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
-                  <v-text-field prepend-icon="person" v-model="Email" label="Email" type="text" ></v-text-field>
-                  <v-text-field prepend-icon="lock" v-model="Password" label="Password" id="password" type="password"></v-text-field>
+                  <v-text-field prepend-icon="person" v-model="email" label="email" type="text" ></v-text-field>
+                  <v-text-field prepend-icon="lock" v-model="password" label="password" id="password" type="password"></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -32,14 +32,14 @@
   export default {
     props: ['nextUrl'],
     data: () => ({
-      Email: undefined,
-      Password: undefined,
+      email: undefined,
+      password: undefined,
      
       rules: {
-        Email: v => (v || '').match(/@/) || 'Please enter a valid email',
+        email: v => (v || '').match(/@/) || 'Please enter a valid email',
         length: len => v => (v || '').length >= len || `Invalid character length, required ${len}`,
-        Password: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) ||
-          'Password must contain an upper case letter, a numeric character, and a special character',
+        password: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) ||
+          'password must contain an upper case letter, a numeric character, and a special character',
         required: v => !!v || 'This field is required'
       }
     }),
@@ -47,8 +47,8 @@
         login(){
 
           axios.post('/api/login', {
-            Email: this.Email,
-            Password: this.Password
+            email: this.email,
+            password: this.password
             }).then(response => {
                             let pegawai = response.data.pegawai
                             

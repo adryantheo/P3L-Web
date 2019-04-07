@@ -66,6 +66,19 @@
                   <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Stok_Min" label="Stok Min"></v-text-field>
                   </v-flex>
+                  <v-flex xs12 sm6 md4>
+                     <v-btn color="primary" flat @click="pickFile" >
+                    Upload Gambar
+                </v-btn>
+                <input type="file"
+                    ref="file"
+                    name="thumbnail"
+                    @change="onFileChange(
+                        $event.target.name, $event.target.files)"
+                    style="display:none">
+                  </v-flex>
+                 
+                  
                   
                 </v-layout>
               </v-container>
@@ -92,7 +105,7 @@
           <td >{{ props.item.Tipe }}</td>
           <td >{{ props.item.Merk }}</td>
           <td >{{ props.item.Jenis_Motor }}</td>
-          <td >{{ props.item.Gambar }}</td>
+          <!-- <td >{{ props.item.Gambar }}</td> -->
           <td >{{ props.item.Harga_Beli }}</td>
           <td >{{ props.item.Harga_Jual }}</td>
           <td >{{ props.item.Letak }}</td>
@@ -140,7 +153,7 @@ export default {
       { text: 'Tipe', value: 'Tipe', sortable: true },
       { text: 'Merk', value: 'Merk', sortable: true },
       { text: 'Jenis Motor', value: 'Jenis_Motor', sortable: true },
-      { text: 'Gambar', value: 'Gambar', sortable: false },
+      // { text: 'Gambar', value: 'Gambar', sortable: false },
       { text: 'Harga Beli', value: 'Harga_Beli', sortable: true },
       { text: 'Harga Jual', value: 'Harga_Jual', sortable: true },
       { text: 'Letak', value: 'Letak', sortable: false },
@@ -175,6 +188,30 @@ export default {
   },
 
   methods: {
+    pickFile(){
+            this.$refs.file.click();
+        },
+        onFileChange(fieldName, file) {
+            const { maxSize } = this;
+            console.log(fieldName);
+            
+            let imageFile = file[0]
+            if (file.length > 0) {
+                let size = imageFile.size / maxSize / maxSize
+                if (!imageFile.type.match('image.*')) {
+                    this.errorText = 'File harus berupa gambar!';
+                } else if (size>1) {
+                    // check whether the size is greater than the size limit
+                    this.errorText = 'Ukuran file harus dibawah 1 MB!'
+                } else {
+                    this.errorText = '';
+                    
+                    this.fileUrl = URL.createObjectURL(imageFile);
+                    this.fileBin = imageFile;
+                    
+                }
+            }
+        },
     
     fetchsparepart() {
       axios.get('/api/sparepart/')
@@ -216,11 +253,11 @@ export default {
 
         axios.patch('/api/sparepart/'+this.editedItem.id,{
           Kode_Sparepart:this.editedItem.Kode_Sparepart,
-          Nama:this.editedItem.Tarif,
+          Nama:this.editedItem.Nama,
           Tipe:this.editedItem.Tipe,
           Merk:this.editedItem.Merk,
           Jenis_Motor:this.editedItem.Jenis_Motor,
-        //  Gambar:this.editedItem.Gambar,
+          // Gambar:this.editedItem.Gambar,
           Harga_Beli:this.editedItem.Harga_Beli,
           Harga_Jual:this.editedItem.Harga_Jual,
           Letak:this.editedItem.Letak,
@@ -236,11 +273,11 @@ export default {
         console.log('created Data');
         axios.post('/api/sparepart/',{
           Kode_Sparepart:this.editedItem.Kode_Sparepart,
-          Nama:this.editedItem.Tarif,
+          Nama:this.editedItem.Nama,
           Tipe:this.editedItem.Tipe,
           Merk:this.editedItem.Merk,
           Jenis_Motor:this.editedItem.Jenis_Motor,
-          //Gambar:this.editedItem.Gambar,
+          Gambar:this.editedItem.fileBin,
           Harga_Beli:this.editedItem.Harga_Beli,
           Harga_Jual:this.editedItem.Harga_Jual,
           Letak:this.editedItem.Letak,

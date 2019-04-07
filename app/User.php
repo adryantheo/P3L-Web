@@ -5,13 +5,20 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasApiTokens, SoftDeletes;
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'Nama',
+        'email',
+        'Alamat',
+        'Gaji',
+        'Role',
+        'password',
     ];
 
     
@@ -23,4 +30,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function transaksi_service(){
+        return $this->hasMany(Transaksi_Service::class);
+    }
 }

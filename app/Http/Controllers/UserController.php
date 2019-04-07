@@ -2,36 +2,47 @@
 
 namespace App\Http\Controllers;
 
-use App\Pegawai;
 use Illuminate\Http\Request;
-use Validator;
+
 use Auth;
+use App\User;
+use Validator;
+use Carbon\Carbon;
 
-class PegawaiController extends Controller
+class UserController extends Controller
 {
-
-    
-    
     public function index()
     {
-        return response()->json(Pegawai::all(),200);
+        return response()->json(User::all(),200);
     }
 
 
     public function login(Request $request)
     {
+        // $status = 401;
+        //     $response = ['error' => 'Unauthorised'];
+
+        //     if (Auth::attempt($request->only(['email', 'password']))) {
+        //         $status = 200;
+        //         $response = [
+        //             'user' => Auth::User(),
+        //             'token' => Auth::User()->createToken('AtmaAuto')->accessToken,
+        //         ];
+        //     }
+
+        //     return response()->json($response, $status);
 
         $request->validate([
-            'Email' => 'required',
-            'Password' => 'required',
-            
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+            'remember_me' => 'boolean'
         ]);
-        $credentials = request(['Email', 'Password']);
+        $credentials = request(['email', 'password']);
         if(!Auth::attempt($credentials))
             return response()->json([
                 'message' => 'Unauthorized'
             ], 401);
-        $user = $request->Pegawai();
+        $user = $request->user();
         $tokenResult = $user->createToken('AtmaAuto');
         $token = $tokenResult->token;
         
@@ -43,16 +54,6 @@ class PegawaiController extends Controller
                 $tokenResult->token->expires_at
             )->toDateTimeString()
         ]);
-        
-
-        // if (Auth::attempt($request->only(['Email', 'Password']))) {
-        //     $status = 200;
-        //     $response = [
-        //         'pegawai' => Auth::pegawai(),
-        //         'token' => Auth::pegawai()->createToken('AtmaAuto')->accessToken,
-        //     ];
-        //     return response()->json([$response, $status]);
-        // }
 
         
     }
@@ -61,19 +62,19 @@ class PegawaiController extends Controller
     {
         $request->validate([
             
-            'Email' => 'required',
-            'Password' => 'required'
+            'email' => 'required',
+            'password' => 'required'
         ]);
-        $pegawai = new Pegawai([
+        $user = new User([
             'Nama' => $request->Nama,
-            'Email' => $request->Email,
-            //'Password' => bcrypt($request->Password)
-            'Password' => $request->Password,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            //'password' => $request->password,
             'Alamat' => $request->Alamat,
             'Gaji' => $request->Gaji,
             'Role' => $request->Role,
         ]);
-        $pegawai->save();
+        $user->save();
         return response()->json([
             'message' => 'Successfully created user!'
         ], 201);
@@ -81,7 +82,7 @@ class PegawaiController extends Controller
         // $validator = Validator::make($request->all(), [
         //     'Nama' => 'required|max:50',
         //     'Email' => 'required|email',
-        //     'Password' => 'required|min:6',
+        //     'password' => 'required|min:6',
         //     'Alamat' => 'required|max:50',
         //     'Gaji' => 'required',
         //     'Role' => 'required',
@@ -92,43 +93,43 @@ class PegawaiController extends Controller
         // }
 
       
-        // $data = $request->only(['Nama', 'Email', 'Password', 'Alamat', 'Gaji', 'Role']);
+        // $data = $request->only(['Nama', 'Email', 'password', 'Alamat', 'Gaji', 'Role']);
         
 
-        // $pegawai = Pegawai::create($data);
+        // $user = User::create($data);
 
 
         // return response()->json([
-        //     'pegawai' => $pegawai,
-        //     'token' => $pegawai->createToken('AtmaAuto')->accessToken,
+        //     'User' => $user,
+        //     'token' => $user->createToken('AtmaAuto')->accessToken,
             
         // ]);
     }
 
-    public function gantiPassword(Request $request, Pegawai $pegawai)
+    public function gantipassword(Request $request, User $user)
     {
-        $status = $pegawai->update(
+        $status = $user->update(
             $request->only([
-                'Password' => $request->Password
+                'password' => $request->password
             ])
         );
         return response()->json([
             'status' => $status,
-            'message' => $status ? 'Password Diupdate!' : 'Error Mengupdate Password'
+            'message' => $status ? 'password Diupdate!' : 'Error Mengupdate password'
         ]);
     }
 
-    public function show(Pegawai $pegawai)
+    public function show(User $user)
     {
-        return response()->json($pegawai,200);
+        return response()->json($user,200);
     }
 
-    public function update(Request $request, Pegawai $pegawai)
+    public function update(Request $request, User $user)
     {
-        $status = $pegawai->update(
+        $status = $user->update(
             $request->only([
                 'Nama' => $request->Nama,
-                'Email' => $request->Email,
+                'email' => $request->email,
                 'Alamat' => $request->Alamat,
                 'Gaji' => $request->Gaji,
                 'Role' => $request->Role,                 
@@ -137,17 +138,17 @@ class PegawaiController extends Controller
         );
         return response()->json([
             'status' => $status,
-            'message' => $status ? 'Pegawai Diupdate!' : 'Error Mengupdate Pegawai'
+            'message' => $status ? 'User Diupdate!' : 'Error Mengupdate User'
         ]);
     }
 
-    public function destroy(Pegawai $pegawai)
+    public function destroy(User $user)
     {
-        $status = $pegawai->delete();
+        $status = $user->delete();
 
         return response()->json([
             'status' => $status,
-            'message' => $status ? 'Pegawai Berhasil di Hapus!' : 'Error Menghapus Pegawai'
+            'message' => $status ? 'User Berhasil di Hapus!' : 'Error Menghapus User'
         ]);
     }
 }
