@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\kustomer;
+use App\Kustomer;
 use Illuminate\Http\Request;
 
 class KustomerController extends Controller
@@ -10,14 +10,14 @@ class KustomerController extends Controller
     
     public function index()
     {
-        return response()->json(kustomer::all(),200);
+        return response()->json(Kustomer::all(),200);
     }
 
     
    
     public function store(Request $request)
     {
-        $kustomer = kustomer::create([
+        $kustomer = Kustomer::create([
             'Nama_Kustomer' => $request->Nama_Kustomer,
             'Alamat_Kustomer' => $request->Alamat_Kustomer,
             'Telepon_Kustomer' => $request->Telepon_Kustomer,
@@ -34,14 +34,14 @@ class KustomerController extends Controller
     }
 
     
-    public function show(kustomer $kustomer)
+    public function show(Kustomer $kustomer)
     {
         return response()->json($kustomer,200);
     }
 
     
   
-    public function update(Request $request, kustomer $kustomer)
+    public function update(Request $request, Kustomer $kustomer)
     {
         $status = $kustomer->update(
             $request->only([
@@ -58,7 +58,7 @@ class KustomerController extends Controller
     }
 
     
-    public function destroy(kustomer $kustomer)
+    public function destroy(Kustomer $kustomer)
     {
         $status = $kustomer->delete();
 

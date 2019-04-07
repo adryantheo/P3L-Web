@@ -11,7 +11,7 @@ class CreateKendaraansTable extends Migration
         Schema::create('kendaraans', function (Blueprint $table) {
             $table->increments('id');
             
-            $table->string('Plat_kendaraan');
+            $table->string('Plat_kendaraan')->unique();
             $table->string('Merk');
             $table->string('Tipe');
             $table->unsignedInteger('Kustomer_Id');

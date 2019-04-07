@@ -11,7 +11,7 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('Nomor_Telphone_Sales');
+            $table->string('Nomor_Telphone_Sales')->unique();
             $table->string('Nama_Sales');
             $table->string('Nama_Supplier');
             $table->softDeletes();

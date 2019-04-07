@@ -13,7 +13,7 @@ class CreateKustomersTable extends Migration
             $table->increments('id');
             $table->string('Nama_Kustomer');
             $table->string('Alamat_Kustomer');
-            $table->string('Telepon_Kustomer');
+            $table->string('Telepon_Kustomer')->unique();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -6,10 +6,9 @@ Route::post('/login', 'PegawaiController@login');
 Route::post('/register', 'PegawaiController@register');
 Route::post('/upload-gambar', 'SparepartController@uploadGambar');
 Route::get('/pegawai', 'PegawaiController@index');
+//Route::get('/no-telp/{Telepon_Kustomer}', 'KustomerController@findNoTelpon');
 
-
-
-Route::resource('/kustomer', 'KustomerController');
+Route::resource('/kustomer', 'KustomerController')->except(['findNoTelpon']);
 Route::resource('/kendaraan', 'KendaraanController');
 
 Route::resource('/service', 'ServiceController');
