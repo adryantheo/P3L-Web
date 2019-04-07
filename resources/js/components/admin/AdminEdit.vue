@@ -68,7 +68,7 @@
       >
         <template v-slot:items="props">
           <td >{{ props.item.Nama }}</td>
-          <td >{{ props.item.Email }}</td>
+          <td >{{ props.item.email }}</td>
           <td >{{ props.item.Alamat }}</td>
           <td >Rp. {{ props.item.Gaji }}</td>
           <td >{{ props.item.Role }}</td>
