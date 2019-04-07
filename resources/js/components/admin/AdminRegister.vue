@@ -80,12 +80,11 @@
                 }).then(response => {
                     let datas = response.datas
                     console.log('created Data');
-                    localStorage.setItem('AtmaAuto.user', JSON.stringify(datas.user))
+                    localStorage.setItem('AtmaAuto.pegawais', JSON.stringify(datas.pegawais))
                     localStorage.setItem('AtmaAuto.jwt', datas.token)
                     this.$router.push((nextUrl != null ? nextUrl : '/admin'))
                     
           });
-          this.$router.push('admin/login')
     }
   }
 }
