@@ -277,12 +277,13 @@ export default {
           Tipe:this.editedItem.Tipe,
           Merk:this.editedItem.Merk,
           Jenis_Motor:this.editedItem.Jenis_Motor,
-          Gambar:this.editedItem.fileBin,
+          //Gambar:this.editedItem.fileBin,
           Harga_Beli:this.editedItem.Harga_Beli,
           Harga_Jual:this.editedItem.Harga_Jual,
           Letak:this.editedItem.Letak,
           Stok:this.editedItem.Stok,
           Stok_Min:this.editedItem.Stok_Min,
+                  
            })
         .then(response => {
           console.log(response);

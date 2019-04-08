@@ -15,7 +15,7 @@ Route::get('/kustomer/all', 'kustomerController@all');
 
 Route::resource('/kustomer', 'KustomerController')->except(['findNoTelpon', 'all']);
 Route::resource('/kendaraan', 'KendaraanController');
-
+Route::resource('/transaksi', 'TransaksiController');
 Route::resource('/service', 'ServiceController');
 Route::resource('/sparepart', 'SparepartController')->except(['uploadGambar']);
 

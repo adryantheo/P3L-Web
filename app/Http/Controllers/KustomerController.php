@@ -17,8 +17,11 @@ class KustomerController extends Controller
     {
         return response()->json(
             Kustomer::with([
-                'Transaksi',
-            ])->get(),
+                'Transaksi'=> function($querry){
+                    $querry->select('id','Total_Pembelian');
+                },
+                
+            ])->first(),
         );        
     }
 

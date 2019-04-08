@@ -21,7 +21,7 @@ class SparepartController extends Controller
             'Nama' => $request->Nama,
             'Tipe' => $request->Tipe,
             'Merk' => $request->Merk,
-           //'Gambar' => $request->Gambar,
+            'Gambar' => $this->uploadGambar($request),
             'Jenis_Motor' => $request->Jenis_Motor,
             'Harga_Beli' => $request->Harga_Beli,
             'Harga_Jual' => $request->Harga_Jual,
@@ -39,7 +39,7 @@ class SparepartController extends Controller
         ]);
     }
 
-    public function uploadGambar(Request $request )
+    public function uploadGambar(Request $request, $name = null )
     {
         if($request->hasFile('Gambar')){
             $name = time()."_".$request->file('Gambar')->getClientOriginalName();
