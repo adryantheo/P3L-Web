@@ -13,6 +13,15 @@ class KustomerController extends Controller
         return response()->json(Kustomer::all(),200);
     }
 
+    public function all()
+    {
+        return response()->json(
+            Kustomer::with([
+                'Transaksi',
+            ])->get(),
+        );        
+    }
+
     
    
     public function store(Request $request)

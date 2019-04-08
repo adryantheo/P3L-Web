@@ -6,10 +6,13 @@ Route::post('/login', 'UserController@login');
 Route::post('/register', 'UserController@register');
 Route::post('/upload-gambar', 'SparepartController@uploadGambar');
 Route::get('/pegawai', 'UserController@index');
+Route::get('/kustomer/all', 'kustomerController@all');
+
+
 // Route::get('/logout', 'UserController@logout');
 //Route::get('/no-telp/{Telepon_Kustomer}', 'KustomerController@findNoTelpon');
 
-Route::resource('/kustomer', 'KustomerController')->except(['findNoTelpon']);
+Route::resource('/kustomer', 'KustomerController')->except(['findNoTelpon', 'all']);
 Route::resource('/kendaraan', 'KendaraanController');
 
 Route::resource('/service', 'ServiceController');
