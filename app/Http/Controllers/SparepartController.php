@@ -16,6 +16,8 @@ class SparepartController extends Controller
    
     public function store(Request $request)
     {
+        
+
         $sparepart = Sparepart::create([
             'Kode_Sparepart' => $request->Kode_Sparepart,
             'Nama' => $request->Nama,
@@ -42,10 +44,18 @@ class SparepartController extends Controller
     public function uploadGambar(Request $request, $name = null )
     {
         if($request->hasFile('Gambar')){
-            $name = time()."_".$request->file('Gambar')->getClientOriginalName();
-            $request->file('Gambar')->move(public_path('Gambar'), $name);
+            $image = $request->file('Gambar');
+
+            if (is_null($name)) {
+                $name = time() . "_" . rand(1000, 1000000) . "." . $image->getClientOriginalExtension();
+            }
+
+            $image->move(public_path('images'), $name);
+
+            return '/images/'.$name;
         }
-        return response()->json(asset("images/$name"),201);
+
+        return '';
     }
 
     

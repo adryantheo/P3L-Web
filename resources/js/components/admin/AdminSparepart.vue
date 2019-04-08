@@ -70,6 +70,12 @@
                      <v-btn color="primary" flat @click="pickFile" >
                     Upload Gambar
                 </v-btn>
+                <v-img class="menu-img"
+                    v-if="!!fileUrl"
+                    :src="fileUrl"
+                    max-height="200px"
+                    contain
+                ></v-img>
                 <input type="file"
                     ref="file"
                     name="thumbnail"
@@ -146,6 +152,18 @@ export default {
   data: () => ({
     dialog: false,
     search: '',
+    fileUrl: '',
+    fileBin: '',
+    Kode_Sparepart: null,
+    Nama: null,
+    Tipe: null,
+    Merk: null,
+    Jenis_Motor: null,
+    Harga_Beli: null,
+    Harga_Jual: null,
+    Letak: null,
+    Stok: null,
+    Stok_Min: null,
     headers: [
       
       { text: 'Kode Sparepart', value: 'Kode_Sparepart', sortable: true },
@@ -270,21 +288,51 @@ export default {
        
         Object.assign(this.sparepart[this.editedIndex], this.editedItem)
       } else {
+          this.Kode_Sparepart=this.editedItem.Kode_Sparepart,
+          this.Nama=this.editedItem.Nama,
+          this.Tipe=this.editedItem.Tipe,
+          this.Merk=this.editedItem.Merk,
+          this.Jenis_Motor=this.editedItem.Jenis_Motor,
+          // Gambar=this.editedItem.fileBin,
+          this.Harga_Beli=this.editedItem.Harga_Beli,
+          this.Harga_Jual=this.editedItem.Harga_Jual,
+          this.Letak=this.editedItem.Letak,
+          this.Stok=this.editedItem.Stok,
+          this.Stok_Min=this.editedItem.Stok_Min
         console.log('created Data');
-        axios.post('/api/sparepart/',{
-          Kode_Sparepart:this.editedItem.Kode_Sparepart,
-          Nama:this.editedItem.Nama,
-          Tipe:this.editedItem.Tipe,
-          Merk:this.editedItem.Merk,
-          Jenis_Motor:this.editedItem.Jenis_Motor,
-          //Gambar:this.editedItem.fileBin,
-          Harga_Beli:this.editedItem.Harga_Beli,
-          Harga_Jual:this.editedItem.Harga_Jual,
-          Letak:this.editedItem.Letak,
-          Stok:this.editedItem.Stok,
-          Stok_Min:this.editedItem.Stok_Min,
-                  
-           })
+        const data = new FormData();
+        data.append(`Kode_Sparepart`, this.Kode_Sparepart);
+        data.append(`Nama`, this.Nama);
+        data.append(`Tipe`, this.Tipe);
+        data.append(`Merk`, this.Merk);
+        data.append(`Jenis_Motor`, this.Jenis_Motor);
+        data.append(`Gambar`, this.fileBin);
+        data.append(`Harga_Beli`, this.Harga_Beli);
+        data.append(`Harga_Jual`, this.Harga_Jual);
+        data.append(`Letak`, this.Letak);
+        data.append(`Stok`, this.Stok);
+        data.append(`Stok_Min`, this.Stok_Min);
+        axios.post('/api/sparepart/', data
+        //  {
+
+        //   Kode_Sparepart:this.editedItem.Kode_Sparepart,
+        //   Nama:this.editedItem.Nama,
+        //   Tipe:this.editedItem.Tipe,
+        //   Merk:this.editedItem.Merk,
+        //   Jenis_Motor:this.editedItem.Jenis_Motor,
+        //   Gambar:this.editedItem.fileBin,
+        //   Harga_Beli:this.editedItem.Harga_Beli,
+        //   Harga_Jual:this.editedItem.Harga_Jual,
+        //   Letak:this.editedItem.Letak,
+        //   Stok:this.editedItem.Stok,
+        //   Stok_Min:this.editedItem.Stok_Min}
+          , {
+          headers: {
+              'Content-Type': 'multipart/form-data'
+                            }
+        }
+        
+          )
         .then(response => {
           console.log(response);
         })
