@@ -50,10 +50,10 @@
             email: this.email,
             password: this.password
             }).then(response => {
-                            let pegawai = response.data.pegawai
+                            let user = response.data.user
                             
 
-                            localStorage.setItem('AtmaAuto.pegawai', JSON.stringify(pegawai))
+                            localStorage.setItem('AtmaAuto.users', JSON.stringify(users))
                             localStorage.setItem('AtmaAuto.jwt', response.data.token)
 
                             if (localStorage.getItem('AtmaAuto.jwt') != null) {
