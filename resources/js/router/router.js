@@ -8,6 +8,9 @@ import Home from '../components/pengunjung/PengunjungHome.vue'
 import JasaService from '../components/pengunjung/PengunjungJS.vue'
 import Sparepart from '../components/pengunjung/PengunjungSparepart.vue'
 import History from '../components/pengunjung/PengunjungHistory.vue'
+import PengunjungPlat from '../components/pengunjung/PengunjungPlat.vue'
+import PengunjungHp from '../components/pengunjung/PengunjungHape.vue'
+
 import ContactUs from '../components/pengunjung/PengunjungContact.vue'
 
 //view Admin
@@ -54,6 +57,19 @@ const routes = [
                 component: Home,
 
             },
+            {
+                path: 'cariplat',
+                name: 'cari-plat',
+                component: PengunjungPlat,
+
+            },
+            {
+                path: 'carinohp',
+                name: 'cari-nohp',
+                component: PengunjungHp,
+
+            },
+            
         ]
     },
     {

@@ -18,8 +18,8 @@ Route::resource('/sparepart', 'SparepartController')->except(['uploadGambar']);
 
 
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::patch('/pegawai/{pegawai}/gantipassword', 'PegawaiController@gantiPassword');
+    Route::patch('/pegawai/{pegawai}/gantipassword', 'UserController@gantiPassword');
    
-    Route::resource('/pegawai', 'PegawaiController')->except(['index', 'login', 'register', 'gantiPassword']);
+    Route::resource('/pegawai', 'UserController')->except(['index', 'login', 'register', 'gantiPassword']);
     
 });

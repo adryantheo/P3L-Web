@@ -30,8 +30,8 @@
             <v-btn dark color="white" v-if="!isLoggedIn">
               <router-link :to="{ name: 'register' }" class="nav-link" >Register</router-link>
             </v-btn>
-            <v-btn dark color="white" v-if="isLoggedIn">
-              <li class="nav-link"  @click="logout"> Logout</li>
+            <v-btn  v-if="isLoggedIn"  @click="logout">
+               Logout
             </v-btn>
             
 
@@ -122,17 +122,6 @@ export default {
       
 
     ],
-    
-    // links: [
-    //   {
-    //     text: 'Login',
-    //     route: '/admin/login'
-    //   },
-    //   {
-    //     text: 'Register',
-    //     route: '/admin/register'
-    //   },
-    // ],
 
     
     
