@@ -80,11 +80,11 @@ class UserController extends Controller
 
     public function gantipassword(Request $request, User $user)
     {
-        $status = $user->update(
-            $request->only([
-                'password' => $request->password
-            ])
-        );
+        $data = $request->all();
+        $user = Auth::guard('api')->user();
+
+        $user->password = bcrypt($data['newPassword']);
+        
         return response()->json([
             'status' => $status,
             'message' => $status ? 'password Diupdate!' : 'Error Mengupdate password'

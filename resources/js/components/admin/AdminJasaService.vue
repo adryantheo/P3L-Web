@@ -169,7 +169,10 @@ export default {
       if (this.editedIndex > -1) {
         console.log('Edited Data');
 
-        axios.patch('/api/service/'+this.editedItem.id,{Nama_Service:this.editedItem.Nama_Service, Tarif:this.editedItem.Tarif})
+        axios.patch('/api/service/'+this.editedItem.id,{
+          Nama_Service:this.editedItem.Nama_Service,
+           Tarif:this.editedItem.Tarif
+           })
         .then(response => {
           console.log(response);
         })
