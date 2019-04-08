@@ -9,6 +9,7 @@ use App\User;
 use Validator;
 use Carbon\Carbon;
 
+
 class UserController extends Controller
 {
     public function index()
@@ -98,15 +99,17 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
+        //$user['password'] = bcrypt($request->password);
         $status = $user->update(
             $request->only([
                 'Nama' => $request->Nama,
                 'email' => $request->email,
                 'Alamat' => $request->Alamat,
                 'Gaji' => $request->Gaji,
-                'Role' => $request->Role,                 
-        
-            ])
+                'Role' => $request->Role,
+                'password' => bcrypt(bcrypt($request->password)) 
+            ])         
+
         );
         return response()->json([
             'status' => $status,

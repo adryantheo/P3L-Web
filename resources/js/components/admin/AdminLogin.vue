@@ -53,7 +53,7 @@
                             let user = response.data.user
                             
 
-                            localStorage.setItem('AtmaAuto.users', JSON.stringify(users))
+                            localStorage.setItem('AtmaAuto.user', JSON.stringify(user))
                             localStorage.setItem('AtmaAuto.jwt', response.data.token)
 
                             if (localStorage.getItem('AtmaAuto.jwt') != null) {
