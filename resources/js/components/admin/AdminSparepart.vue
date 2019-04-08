@@ -268,37 +268,52 @@ export default {
     save () {
       if (this.editedIndex > -1) {
         console.log('Edited Data');
+        this.Kode_Sparepart=this.editedItem.Kode_Sparepart,
+        this.Nama=this.editedItem.Nama,
+        this.Tipe=this.editedItem.Tipe,
+        this.Merk=this.editedItem.Merk,
+        this.Jenis_Motor=this.editedItem.Jenis_Motor,
+        this.Harga_Beli=this.editedItem.Harga_Beli,
+        this.Harga_Jual=this.editedItem.Harga_Jual,
+        this.Letak=this.editedItem.Letak,
+        this.Stok=this.editedItem.Stok,
+        this.Stok_Min=this.editedItem.Stok_Min
+        console.log('created Data');
+        const data = new FormData();
+        data.append(`Kode_Sparepart`, this.Kode_Sparepart);
+        data.append(`Nama`, this.Nama);
+        data.append(`Tipe`, this.Tipe);
+        data.append(`Merk`, this.Merk);
+        data.append(`Jenis_Motor`, this.Jenis_Motor);
+        data.append(`Gambar`, this.fileBin);
+        data.append(`Harga_Beli`, this.Harga_Beli);
+        data.append(`Harga_Jual`, this.Harga_Jual);
+        data.append(`Letak`, this.Letak);
+        data.append(`Stok`, this.Stok);
+        data.append(`Stok_Min`, this.Stok_Min);
 
-        axios.patch('/api/sparepart/'+this.editedItem.id,{
-          Kode_Sparepart:this.editedItem.Kode_Sparepart,
-          Nama:this.editedItem.Nama,
-          Tipe:this.editedItem.Tipe,
-          Merk:this.editedItem.Merk,
-          Jenis_Motor:this.editedItem.Jenis_Motor,
-          // Gambar:this.editedItem.Gambar,
-          Harga_Beli:this.editedItem.Harga_Beli,
-          Harga_Jual:this.editedItem.Harga_Jual,
-          Letak:this.editedItem.Letak,
-          Stok:this.editedItem.Stok,
-          Stok_Min:this.editedItem.Stok_Min,
-           })
+        axios.patch('/api/sparepart/'+this.editedItem.id,data,{
+          headers: {
+              'Content-Type': 'multipart/form-data'
+                            }
+
+        })
         .then(response => {
           console.log(response);
         })
        
         Object.assign(this.sparepart[this.editedIndex], this.editedItem)
       } else {
-          this.Kode_Sparepart=this.editedItem.Kode_Sparepart,
-          this.Nama=this.editedItem.Nama,
-          this.Tipe=this.editedItem.Tipe,
-          this.Merk=this.editedItem.Merk,
-          this.Jenis_Motor=this.editedItem.Jenis_Motor,
-          // Gambar=this.editedItem.fileBin,
-          this.Harga_Beli=this.editedItem.Harga_Beli,
-          this.Harga_Jual=this.editedItem.Harga_Jual,
-          this.Letak=this.editedItem.Letak,
-          this.Stok=this.editedItem.Stok,
-          this.Stok_Min=this.editedItem.Stok_Min
+        this.Kode_Sparepart=this.editedItem.Kode_Sparepart,
+        this.Nama=this.editedItem.Nama,
+        this.Tipe=this.editedItem.Tipe,
+        this.Merk=this.editedItem.Merk,
+        this.Jenis_Motor=this.editedItem.Jenis_Motor,
+        this.Harga_Beli=this.editedItem.Harga_Beli,
+        this.Harga_Jual=this.editedItem.Harga_Jual,
+        this.Letak=this.editedItem.Letak,
+        this.Stok=this.editedItem.Stok,
+        this.Stok_Min=this.editedItem.Stok_Min
         console.log('created Data');
         const data = new FormData();
         data.append(`Kode_Sparepart`, this.Kode_Sparepart);
@@ -313,19 +328,7 @@ export default {
         data.append(`Stok`, this.Stok);
         data.append(`Stok_Min`, this.Stok_Min);
         axios.post('/api/sparepart/', data
-        //  {
 
-        //   Kode_Sparepart:this.editedItem.Kode_Sparepart,
-        //   Nama:this.editedItem.Nama,
-        //   Tipe:this.editedItem.Tipe,
-        //   Merk:this.editedItem.Merk,
-        //   Jenis_Motor:this.editedItem.Jenis_Motor,
-        //   Gambar:this.editedItem.fileBin,
-        //   Harga_Beli:this.editedItem.Harga_Beli,
-        //   Harga_Jual:this.editedItem.Harga_Jual,
-        //   Letak:this.editedItem.Letak,
-        //   Stok:this.editedItem.Stok,
-        //   Stok_Min:this.editedItem.Stok_Min}
           , {
           headers: {
               'Content-Type': 'multipart/form-data'
