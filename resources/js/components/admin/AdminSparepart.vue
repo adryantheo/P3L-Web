@@ -111,7 +111,7 @@
           <td >{{ props.item.Tipe }}</td>
           <td >{{ props.item.Merk }}</td>
           <td >{{ props.item.Jenis_Motor }}</td>
-          <!-- <td >{{ props.item.Gambar }}</td> -->
+          <td ><v-img :src="props.item.Gambar"></v-img></td>
           <td >{{ props.item.Harga_Beli }}</td>
           <td >{{ props.item.Harga_Jual }}</td>
           <td >{{ props.item.Letak }}</td>
