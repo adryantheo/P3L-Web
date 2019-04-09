@@ -48,9 +48,6 @@
                   <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Jenis_Motor" label="Jenis Motor"></v-text-field>
                   </v-flex>
-                  <!-- <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Gambar" label="Gambar"></v-text-field>
-                  </v-flex> -->
                   <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Harga_Beli" label="Harga Beli"></v-text-field>
                   </v-flex>

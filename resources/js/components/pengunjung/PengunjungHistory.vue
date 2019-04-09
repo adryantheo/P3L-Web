@@ -64,22 +64,9 @@
           <td >{{ props.item.Nama_Kustomer }}</td>
           <td >{{ props.item.Alamat_Kustomer }}</td>
           <td >{{ props.item.Telepon_Kustomer }}</td>
+          <td >{{ props.item.updated_at }}</td>
          
-          <td class=" layout px-0">
-            <v-icon
-              small
-              class="mr-2"
-              @click="editItem(props.item)"
-            >
-              edit
-            </v-icon>
-            <v-icon
-              small
-              @click="deleteItem(props.item)"
-            >
-              delete
-            </v-icon>
-          </td>
+         
         </template>
         <template v-slot:no-data>
           <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -103,8 +90,9 @@ export default {
       
       { text: 'Nama Kustomer', value: 'Nama_Kustomer', sortable: true },
       { text: 'Alamat Kustomer', value: 'Alamat_Kustomer', sortable: true },
-      { text: 'Kontak', value: 'Telepon_Kustomer', sortable: true },      
-      { text: 'Actions', value: 'id', sortable: false }
+      { text: 'Kontak', value: 'Telepon_Kustomer', sortable: true },       
+      { text: 'Tanggal Transaksi', value: 'updated_at', sortable: true }, 
+      
     ],
     kustomer: [],
     editedIndex: -1,
@@ -143,59 +131,10 @@ export default {
       this.fetchkustomer();
     },
 
-    editItem (item) {
-      this.editedIndex = this.kustomer.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialog = true
-    },
+   
 
-    deleteItem (item) {
-      const index = this.kustomer.indexOf(item)
-      confirm('Are you sure you want to delete this item?') && this.kustomer.splice(index, 1)
-      console.log('deleted data');
-
-      axios.delete('/api/kustomer/'+item.id)
-        .then(response => {
-          console.log(response);
-        })
-    },
-
-    close () {
-      this.dialog = false
-      setTimeout(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      }, 300)
-    },
-
-    save () {
-      if (this.editedIndex > -1) {
-        console.log('Edited Data');
-
-        axios.patch('/api/kustomer/'+this.editedItem.id,{
-         Nama_Kustomer:this.editedItem.Nama_Kustomer,
-         Alamat_Kustomer:this.editedItem.Alamat_Kustomer,
-         Telepon_Kustomer:this.editedItem.Telepon_Kustomer
-         })
-        .then(response => {
-          console.log(response);
-        })
-       
-        Object.assign(this.kustomer[this.editedIndex], this.editedItem)
-      } else {
-        console.log('created Data');
-        axios.post('/api/kustomer/',{
-            Nama_Kustomer:this.editedItem.Nama_Kustomer,
-            Alamat_Kustomer:this.editedItem.Alamat_Kustomer,
-            Telepon_Kustomer:this.editedItem.Telepon_Kustomer
-            })
-        .then(response => {
-          console.log(response);
-        })
-        this.kustomer.push(this.editedItem)
-      }
-      this.close()
-    }
+    
+     
   }
 }
 </script>

@@ -46,10 +46,30 @@ class KustomerController extends Controller
     }
 
     
-    public function show(Kustomer $kustomer)
+    public function show(Request $request)
     {
         return response()->json($kustomer,200);
     }
+
+    // public function search(Request $request)
+    // {
+    //     if ($search = \Request::get('q'))
+    //     {
+
+    //         $kustomer = Kustomer::where(function($querry) use ($search)
+    //         {
+    //             $querry->where('Telephone_Kustomer', 'LIKE', "%$search%");
+    //         });
+                
+
+    //     }
+            
+           
+               
+    //         return response()->json($kustomer);
+        
+    // }
+
 
     
   
