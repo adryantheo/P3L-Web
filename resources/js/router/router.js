@@ -102,7 +102,7 @@ const routes = [
         },
         {
 
-            path:'/admin/edit',
+            path:'/admin/pegawai',
             component: AdminEdit,
         },
         {

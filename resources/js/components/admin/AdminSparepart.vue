@@ -1,6 +1,6 @@
 <template>
 
-    <v-layout align-space-around justify-center fill-height>
+    <v-layout align-space-around justify-center fill-height v-if="isLoggedIn">
     <v-flex>
     
   
@@ -48,9 +48,6 @@
                   <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Jenis_Motor" label="Jenis Motor"></v-text-field>
                   </v-flex>
-                  <!-- <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Gambar" label="Gambar"></v-text-field>
-                  </v-flex> -->
                   <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Harga_Beli" label="Harga Beli"></v-text-field>
                   </v-flex>
@@ -118,7 +115,7 @@
           <td >{{ props.item.Stok }}</td>
           <td >{{ props.item.Stok_Min }}</td>
          
-          <td class=" layout px-0">
+          <td>
             <v-icon
               small
               class="mr-2"
@@ -150,6 +147,16 @@
 export default {
     
   data: () => ({
+    isLoggedIn: localStorage.getItem('jwt') != null,
+
+    beforeMount(){
+        this.setComponent(this.$route.params.page)
+        this.user = JSON.parse(localStorage.getItem('user'))
+        axios.defaults.headers.common['Content-Type'] = 'application/json'
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt')
+        },
+
+
     dialog: false,
     search: '',
     fileUrl: '',
@@ -171,7 +178,7 @@ export default {
       { text: 'Tipe', value: 'Tipe', sortable: true },
       { text: 'Merk', value: 'Merk', sortable: true },
       { text: 'Jenis Motor', value: 'Jenis_Motor', sortable: true },
-      // { text: 'Gambar', value: 'Gambar', sortable: false },
+       { text: 'Gambar', value: 'Gambar', sortable: false },
       { text: 'Harga Beli', value: 'Harga_Beli', sortable: true },
       { text: 'Harga Jual', value: 'Harga_Jual', sortable: true },
       { text: 'Letak', value: 'Letak', sortable: false },

@@ -11,9 +11,9 @@ Route::get('/kustomer/all', 'kustomerController@all');
 
 
 // Route::get('/logout', 'UserController@logout');
-//Route::get('/no-telp/{Telepon_Kustomer}', 'KustomerController@findNoTelpon');
+// Route::get('/search', 'KustomerController@search');
 
-Route::resource('/kustomer', 'KustomerController')->except(['findNoTelpon', 'all']);
+Route::resource('/kustomer', 'KustomerController')->except(['search', 'all']);
 Route::resource('/kendaraan', 'KendaraanController');
 Route::resource('/transaksi', 'TransaksiController');
 Route::resource('/service', 'ServiceController');
