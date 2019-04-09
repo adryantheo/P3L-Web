@@ -118,7 +118,7 @@
           <td >{{ props.item.Stok }}</td>
           <td >{{ props.item.Stok_Min }}</td>
          
-          <td class=" layout px-0">
+          <td>
             <v-icon
               small
               class="mr-2"
@@ -171,7 +171,7 @@ export default {
       { text: 'Tipe', value: 'Tipe', sortable: true },
       { text: 'Merk', value: 'Merk', sortable: true },
       { text: 'Jenis Motor', value: 'Jenis_Motor', sortable: true },
-      // { text: 'Gambar', value: 'Gambar', sortable: false },
+       { text: 'Gambar', value: 'Gambar', sortable: false },
       { text: 'Harga Beli', value: 'Harga_Beli', sortable: true },
       { text: 'Harga Jual', value: 'Harga_Jual', sortable: true },
       { text: 'Letak', value: 'Letak', sortable: false },
