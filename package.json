@@ -24,6 +24,8 @@
         "vue-template-compiler": "^2.6.7"
     },
     "dependencies": {
+        "apexcharts": "^3.6.6",
+        "vue-apexcharts": "^1.3.3",
         "vue-html-to-paper": "^1.0.3",
         "vue-router": "^3.0.2",
         "vuetify": "^1.5.4",

@@ -7,6 +7,7 @@ import router from './router/router'
 import Vuetify from 'vuetify'
 import axios from 'axios'
 import VueHtmlToPaper from 'vue-html-to-paper'
+import VueApexCharts from 'vue-apexcharts'
 
 window.axios = axios.create()
 
@@ -29,6 +30,10 @@ Vue.use(VueHtmlToPaper, {
         '/css/app.css',
     ],
 });
+
+Vue.use(VueApexCharts);
+
+
 
 
 
