@@ -12,8 +12,8 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
-                  <v-text-field prepend-icon="person" v-model="email" label="email" type="text" ></v-text-field>
-                  <v-text-field prepend-icon="lock" v-model="password" label="password" id="password" type="password"></v-text-field>
+                  <v-text-field prepend-icon="person" v-model="email" label="Email" type="text" :rules="[rules.required, rules.email]" ></v-text-field>
+                  <v-text-field prepend-icon="lock" v-model="password" label="Password" id="password" type="password" :rules="[rules.required, rules.password]"></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -36,11 +36,10 @@
       password: undefined,
      
       rules: {
-        email: v => (v || '').match(/@/) || 'Please enter a valid email',
+        email: v => (v || '').match(/@/) || 'Format Email Salah',
         length: len => v => (v || '').length >= len || `Invalid character length, required ${len}`,
-        password: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) ||
-          'password must contain an upper case letter, a numeric character, and a special character',
-        required: v => !!v || 'This field is required'
+        password: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) || 'password must contain an upper case letter, a numeric character, and a special character',
+        required: v => !!v || 'Tidak Boleh Kosong'
       }
     }),
     methods:{
@@ -51,8 +50,6 @@
             password: this.password
             }).then(response => {
                             let user = response.data.user
-                            
-
                             localStorage.setItem('user', JSON.stringify(user))
                             localStorage.setItem('jwt', response.data.token)
 

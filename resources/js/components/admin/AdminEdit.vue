@@ -125,10 +125,10 @@ export default {
     search: '',
     headers: [
       { text: 'Nama', value: 'Nama', sortable: true },
-      { text: 'Email', value: 'Email', sortable: true },
-      { text: 'Alamat', value: 'Alamat', sortable: true },
+      { text: 'Email', value: 'Email', sortable: false },
+      { text: 'Alamat', value: 'Alamat', sortable: false },
       { text: 'Gaji', value: 'Gaji', sortable: true },
-      { text: 'Role', value: 'Role', sortable: true },
+      { text: 'Role', value: 'Role', sortable: false },
       { text: 'Actions', value: 'id', sortable: false }
     ],
     pegawai: [],

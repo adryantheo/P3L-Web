@@ -89,8 +89,8 @@ export default {
     headers: [
       
       { text: 'Nama Kustomer', value: 'Nama_Kustomer', sortable: true },
-      { text: 'Alamat Kustomer', value: 'Alamat_Kustomer', sortable: true },
-      { text: 'Kontak', value: 'Telepon_Kustomer', sortable: true },       
+      { text: 'Alamat Kustomer', value: 'Alamat_Kustomer', sortable: false },
+      { text: 'Kontak', value: 'Telepon_Kustomer', sortable: false },       
       { text: 'Tanggal Transaksi', value: 'updated_at', sortable: true }, 
       
     ],
