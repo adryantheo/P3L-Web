@@ -12,12 +12,12 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
-                  <v-text-field prepend-icon="person" v-model="Nama" label="Nama"  type="text" ></v-text-field>
-                  <v-text-field prepend-icon="person" v-model="email" label="email" type="text" ></v-text-field>
-                  <v-text-field prepend-icon="lock" v-model="password" label="password" id="password" type="password"></v-text-field>
-                  <v-text-field prepend-icon="person" v-model="Alamat" label="Alamat" type="text" ></v-text-field>
-                  <v-text-field prepend-icon="person" v-model="Gaji" label="Gaji" type="text" ></v-text-field>
-                  <v-text-field prepend-icon="person" v-model="Role" label="Role" type="text" ></v-text-field>
+                  <v-text-field prepend-icon="person" v-model="Nama" label="Nama"  type="text" :rules="[rules.required]"></v-text-field>
+                  <v-text-field prepend-icon="person" v-model="email" label="Email" type="text" :rules="[rules.required, rules.email]"></v-text-field>
+                  <v-text-field prepend-icon="lock" v-model="password" label="Password" id="password" type="password" :rules="[rules.required, rules.password]"></v-text-field>
+                  <v-text-field prepend-icon="person" v-model="Alamat" label="Alamat" type="text" :rules="[rules.required]" ></v-text-field>
+                  <v-text-field prepend-icon="person" v-model="Gaji" label="Gaji" type="text" :rules="[rules.required, rules.number, rules.notZero, rules.tooMuch]" ></v-text-field>
+                  <v-text-field prepend-icon="person" v-model="Role" label="Role" type="text" :rules="[rules.required]" ></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -27,6 +27,7 @@
             </v-card>
           </v-flex>
         </v-layout>
+        
       </v-container>
     
 </template>
@@ -39,14 +40,23 @@
    props: ['nextUrl'],
    data: () => ({
 
-     
-      
       Nama: undefined,
       email: undefined,
       Alamat: undefined,
       Gaji: undefined,
       Role: undefined,
       password: undefined,
+
+      rules: {
+        email: v => (v || '').match(/@/) || 'Format Email Salah',
+        length: len => v => (v || '').length >= len || `Invalid character length, required ${len}`,
+        password: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) || 'password must contain an upper case letter, a numeric character, and a special character',
+        required: v => !!v || 'Tidak Boleh Kosong',
+        number: v => /^[0-9]*$/.test(v) || 'Angka tidak valid',
+        notZero: v => v > 0 || 'Tidak boleh kurang dari 1',
+        tooMuch: v => v < 999999999 || 'Nilai terlalu besar!',
+
+      },
       
       
       datas(){
@@ -80,15 +90,9 @@
                 Role
              
                 }).then(response => {
-                  this.$router.push(('/admin/login'))
-                    let datas = response.datas
+                  this.$router.push(('/admin/login'))                    
                     console.log('created Data');
-                    localStorage.setItem('user', JSON.stringify(datas.users))
-                    localStorage.setItem('jwt', datas.token)
-                    
-                        
-                    
-                    
+     
           });
     }
   }

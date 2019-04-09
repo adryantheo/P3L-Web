@@ -7,6 +7,7 @@ Route::post('/register', 'UserController@register');
 Route::post('/upload-gambar', 'SparepartController@uploadGambar');
 Route::get('/pegawai', 'UserController@index');
 Route::patch('/pegawai/{user}', 'UserController@update');
+Route::delete('/pegawai/{user}', 'UserController@destroy');
 Route::get('/kustomer/all', 'kustomerController@all');
 
 
@@ -24,6 +25,6 @@ Route::resource('/sparepart', 'SparepartController')->except(['uploadGambar']);
 Route::group(['middleware' => 'auth:api'], function(){
     Route::patch('/pegawai/gantipassword/{user}', 'UserController@gantiPassword');
    
-    Route::resource('/pegawai', 'UserController')->except(['update','index', 'login', 'register', 'gantiPassword']);
+    Route::resource('/pegawai', 'UserController')->except(['delete','update','index', 'login', 'register', 'gantiPassword']);
     
 });
