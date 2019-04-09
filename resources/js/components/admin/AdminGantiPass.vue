@@ -49,7 +49,7 @@
         gantiPassword(){
 
           axios.patch('/api/pegawai/gantipassword/'  , {
-            newPass: this.newPassword,
+            newPass: this.password,
             //password: this.password
             })
             console('pass diganti');

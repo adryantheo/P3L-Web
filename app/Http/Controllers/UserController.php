@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Auth;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 use Validator;
 use Carbon\Carbon;
 
@@ -79,12 +80,14 @@ class UserController extends Controller
         ]);
     }
 
-    public function gantipassword(Request $request, User $user)
+    public function gantipassword(Request $request)
     {
-        $data = $request->all();
-        $user = Auth::guard('api')->user();
+        
+        
 
-        $user->password = bcrypt($data['newPassword']);
+       $user = User::update([
+            'password' => Hash::make($request->password)
+        ])->save();
         
         return response()->json([
             'status' => $status,
@@ -99,7 +102,7 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        //$user['password'] = bcrypt($request->password);
+       
         $status = $user->update(
             $request->only([
                 'Nama' => $request->Nama,
@@ -107,7 +110,7 @@ class UserController extends Controller
                 'Alamat' => $request->Alamat,
                 'Gaji' => $request->Gaji,
                 'Role' => $request->Role,
-                'password' => bcrypt(bcrypt($request->password)) 
+                'password' => Hash::make($request->password) 
             ])         
 
         );
