@@ -77,10 +77,7 @@ export default {
     
   data: () => ({
 
-    // return: [{
-    //   isLoggedIn  : localStorage.getItem('jwt') != null
-
-    // }],
+    isLoggedIn: localStorage.getItem('jwt') != null,
 
     beforeMount(){
         this.setComponent(this.$route.params.page)
@@ -88,11 +85,7 @@ export default {
         axios.defaults.headers.common['Content-Type'] = 'application/json'
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt')
         },
-    
-    isLoggedIn: localStorage.getItem('jwt') != null,
-
-   
-
+  
     drawer:null,
 
     menus: [
@@ -103,7 +96,7 @@ export default {
 
       {
         text: 'Kelola Pegawai',
-        route: '/admin/edit'
+        route: '/admin/pegawai'
       },
       
       {

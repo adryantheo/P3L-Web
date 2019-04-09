@@ -38,6 +38,8 @@
   export default {
    props: ['nextUrl'],
    data: () => ({
+
+     
       
       Nama: undefined,
       email: undefined,

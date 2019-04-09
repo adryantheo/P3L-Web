@@ -1,6 +1,6 @@
 <template>
 
-    <v-layout align-space-around justify-center fill-height>
+    <v-layout align-space-around justify-center fill-height v-if="isLoggedIn">
     <v-flex>
     
   
@@ -97,8 +97,20 @@
 
 <script>
 export default {
+
+  
     
   data: () => ({
+
+    isLoggedIn: localStorage.getItem('jwt') != null,
+
+    beforeMount(){
+        this.setComponent(this.$route.params.page)
+        this.user = JSON.parse(localStorage.getItem('user'))
+        axios.defaults.headers.common['Content-Type'] = 'application/json'
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt')
+        },
+
     dialog: false,
     search: '',
     headers: [
@@ -135,6 +147,7 @@ export default {
   },
 
   methods: {
+    
     
     fetchkustomer() {
       axios.get('/api/kustomer/')
