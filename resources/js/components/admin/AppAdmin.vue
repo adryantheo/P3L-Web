@@ -5,7 +5,7 @@
 
       <v-navigation-drawer fixed v-model="drawer" app>
     
-      <v-list dense>
+      <v-list dense v-if="isLoggedIn">
         <v-list-tile dark color="primary" flat v-for="menu in menus" :key="menu.text" router :to="menu.route">
           <v-list-tile-action>            
           </v-list-tile-action>
@@ -77,8 +77,19 @@ export default {
     
   data: () => ({
 
+    // return: [{
+    //   isLoggedIn  : localStorage.getItem('jwt') != null
+
+    // }],
+
+    beforeMount(){
+        this.setComponent(this.$route.params.page)
+        this.user = JSON.parse(localStorage.getItem('user'))
+        axios.defaults.headers.common['Content-Type'] = 'application/json'
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt')
+        },
     
-      isLoggedIn: localStorage.getItem('AtmaAuto.jwt') != null,
+    isLoggedIn: localStorage.getItem('jwt') != null,
 
    
 
@@ -130,17 +141,17 @@ export default {
   methods:{
     setDefaults() {
                 if (this.isLoggedIn) {
-                    let user = JSON.parse(localStorage.getItem('AtmaAuto.user'))
+                    let user = JSON.parse(localStorage.getItem('user'))
                     this.name = pegawai.name
                 }
             },
             change() {
-                this.isLoggedIn = localStorage.getItem('AtmaAuto.jwt') != null
+                this.isLoggedIn = localStorage.getItem('jwt') != null
                 this.setDefaults()
             },
             logout(){
-                localStorage.removeItem('AtmaAuto.jwt')
-                localStorage.removeItem('AtmaAuto.user')
+                localStorage.removeItem('jwt')
+                localStorage.removeItem('user')
                 this.change()
                 this.$router.push('/')
             }

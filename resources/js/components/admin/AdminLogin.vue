@@ -53,10 +53,10 @@
                             let user = response.data.user
                             
 
-                            localStorage.setItem('AtmaAuto.user', JSON.stringify(user))
-                            localStorage.setItem('AtmaAuto.jwt', response.data.token)
+                            localStorage.setItem('user', JSON.stringify(user))
+                            localStorage.setItem('jwt', response.data.token)
 
-                            if (localStorage.getItem('AtmaAuto.jwt') != null) {
+                            if (localStorage.getItem('jwt') != null) {
                                 this.$emit('loggedIn')
                                 if (this.$route.params.nextUrl != null) {
                                     this.$router.push(this.$route.params.nextUrl)

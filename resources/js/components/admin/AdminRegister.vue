@@ -36,7 +36,7 @@
 
 
   export default {
-   
+   props: ['nextUrl'],
    data: () => ({
       
       Nama: undefined,
@@ -78,11 +78,14 @@
                 Role
              
                 }).then(response => {
+                  this.$router.push(('/admin/login'))
                     let datas = response.datas
                     console.log('created Data');
-                    localStorage.setItem('AtmaAuto.users', JSON.stringify(datas.users))
-                    localStorage.setItem('AtmaAuto.jwt', datas.token)
-                    this.$router.push((nextUrl != null ? nextUrl : '/admin'))
+                    localStorage.setItem('user', JSON.stringify(datas.users))
+                    localStorage.setItem('jwt', datas.token)
+                    
+                        
+                    
                     
           });
     }

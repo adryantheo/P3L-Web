@@ -11,7 +11,7 @@ export default {
         }
     },
     created(){
-        localStorage.removeItem('AtmaAuto.jwt');
+        localStorage.removeItem('jwt');
     }
 }
 </script>
