@@ -38,30 +38,7 @@ class UserController extends Controller
         }
         
         return response()->json($response, $status);
-       
 
-        // $request->validate([
-        //     'email' => 'required|string|email',
-        //     'password' => 'required|string',
-            
-        // ]);
-        // $credentials = request(['email', 'password']);
-        // if(!Auth::attempt($credentials))
-        //     return response()->json([
-        //         'message' => 'Unauthorized'
-        //     ], 401);
-        // $user = $request->user();
-        // $tokenResult = $user->createToken('AtmaAuto');
-        // $token = $tokenResult->token;
-        
-        // $token->save();
-        // return response()->json([
-        //     'access_token' => $tokenResult->accessToken,
-        //     'token_type' => 'Bearer',
-        //     'expires_at' => Carbon::parse(
-        //         $tokenResult->token->expires_at
-        //     )->toDateTimeString()
-        // ]);
 
         
     }
@@ -79,7 +56,7 @@ class UserController extends Controller
             'password' => bcrypt($request->password),            
             'Alamat' => $request->Alamat,
             'Gaji' => $request->Gaji,
-            'Role' => $request->Role,
+            'Role' => $request->Role, 
         ]);
         $user->save();
         return response()->json([
