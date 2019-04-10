@@ -22,7 +22,7 @@
           hide-details
         ></v-text-field>
         <v-spacer></v-spacer>
-         
+          <v-btn color="primary" dark class="mb-2" v-on="on">New Pegawai</v-btn>
           </template>
           
           <v-card>
@@ -34,22 +34,22 @@
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Nama" label="Nama"></v-text-field>
+                    <v-text-field prepend-icon="person" v-model="editedItem.Nama" label="Nama" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
+                    <v-text-field prepend-icon="person" v-model="editedItem.email" label="Email" :rules="[rules.required, rules.email]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Alamat" label="Alamat"></v-text-field>
+                    <v-text-field prepend-icon="person" v-model="editedItem.Alamat" label="Alamat" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Gaji" label="Gaji"></v-text-field>
+                    <v-text-field prepend-icon="person" v-model="editedItem.Gaji" label="Gaji" :rules="[rules.required, rules.number, rules.notZero, rules.tooMuch]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Role" label="Role"></v-text-field>
+                    <v-select  prepend-icon="person" v-model="editedItem.Role"  :items="items"  label="Role"  :rules="[rules.required]" ></v-select>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.password" label="Password" type="password"></v-text-field>
+                    <v-text-field prepend-icon="lock" v-model="editedItem.password" label="Password" type="password" :rules="[rules.required, rules.password]"></v-text-field>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -75,7 +75,7 @@
           <td >{{ props.item.Alamat }}</td>
           <td >Rp. {{ props.item.Gaji }}</td>
           <td >{{ props.item.Role }}</td>
-          <!-- <td class="layout px-0">
+          <td class="layout px-0">
             <v-icon
               small
               class="mr-2"
@@ -89,7 +89,7 @@
             >
               delete
             </v-icon>
-          </td> -->
+          </td>
         </template>
         <template v-slot:no-data>
           <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -114,6 +114,19 @@ export default {
   data: () => ({
     isLoggedIn: localStorage.getItem('jwt') != null,
 
+    items:['CS', 'Kasir', 'Montir'],
+
+     rules: {
+        email: v => (v || '').match(/@/) || 'Format Email Salah',
+        length: len => v => (v || '').length >= len || `Invalid character length, required ${len}`,
+        password: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) || 'password must contain an upper case letter, a numeric character, and a special character',
+        required: v => !!v || 'Tidak Boleh Kosong',
+        number: v => /^[0-9]*$/.test(v) || 'Angka tidak valid',
+        notZero: v => v > 0 || 'Tidak boleh kurang dari 1',
+        tooMuch: v => v < 999999999 || 'Nilai terlalu besar!',
+
+      },
+
     beforeMount(){
         this.setComponent(this.$route.params.page)
         this.user = JSON.parse(localStorage.getItem('user'))
@@ -129,7 +142,7 @@ export default {
       { text: 'Alamat', value: 'Alamat', sortable: false },
       { text: 'Gaji', value: 'Gaji', sortable: true },
       { text: 'Role', value: 'Role', sortable: false },
-      //{ text: 'Actions', value: 'id', sortable: false }
+      { text: 'Actions', value: 'id', sortable: false }
     ],
     pegawai: [],
     editedIndex: -1,
@@ -143,7 +156,7 @@ export default {
 
   computed: {
     formTitle () {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      return this.editedIndex === -1 ? 'New Pegawai' : 'Edit Pegawai'
     }
   },
 
@@ -200,7 +213,7 @@ export default {
 
         axios.patch('/api/pegawai/'+this.editedItem.id,{
           Nama:this.editedItem.Nama,
-          email:this.editedItem.Email,
+          email:this.editedItem.email,
           Alamat:this.editedItem.Alamat,
           Gaji:this.editedItem.Gaji,
           Role:this.editedItem.Role,
@@ -213,6 +226,19 @@ export default {
 
       } else {
         this.pegawai.push(this.editedItem)
+
+        axios.post('/api/register',{
+          Nama:this.editedItem.Nama,
+          email:this.editedItem.email,
+          Alamat:this.editedItem.Alamat,
+          Gaji:this.editedItem.Gaji,
+          Role:this.editedItem.Role,
+          password:this.editedItem.password,
+          
+           })
+        .then(response => {
+          console.log(response);
+        })
       }
       this.close()
     }

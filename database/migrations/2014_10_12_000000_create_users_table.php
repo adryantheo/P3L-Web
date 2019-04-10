@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('Nama');
             $table->string('email')->unique();
+            $table->boolean('is_admin')->default(false);
             $table->string('Alamat');
             $table->double('Gaji');
             $table->string('Role');

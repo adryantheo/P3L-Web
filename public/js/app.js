@@ -29875,6 +29875,32 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       isLoggedIn: localStorage.getItem('jwt') != null,
+      items: ['CS', 'Kasir', 'Montir'],
+      rules: {
+        email: function email(v) {
+          return (v || '').match(/@/) || 'Format Email Salah';
+        },
+        length: function length(len) {
+          return function (v) {
+            return (v || '').length >= len || "Invalid character length, required ".concat(len);
+          };
+        },
+        password: function password(v) {
+          return (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) || 'password must contain an upper case letter, a numeric character, and a special character';
+        },
+        required: function required(v) {
+          return !!v || 'Tidak Boleh Kosong';
+        },
+        number: function number(v) {
+          return /^[0-9]*$/.test(v) || 'Angka tidak valid';
+        },
+        notZero: function notZero(v) {
+          return v > 0 || 'Tidak boleh kurang dari 1';
+        },
+        tooMuch: function tooMuch(v) {
+          return v < 999999999 || 'Nilai terlalu besar!';
+        }
+      },
       beforeMount: function beforeMount() {
         this.setComponent(this.$route.params.page);
         this.user = JSON.parse(localStorage.getItem('user'));
@@ -29903,6 +29929,10 @@ __webpack_require__.r(__webpack_exports__);
         text: 'Role',
         value: 'Role',
         sortable: false
+      }, {
+        text: 'Actions',
+        value: 'id',
+        sortable: false
       }],
       pegawai: [],
       editedIndex: -1,
@@ -29912,7 +29942,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     formTitle: function formTitle() {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
+      return this.editedIndex === -1 ? 'New Pegawai' : 'Edit Pegawai';
     }
   },
   watch: {
@@ -29962,7 +29992,7 @@ __webpack_require__.r(__webpack_exports__);
         Object.assign(this.pegawai[this.editedIndex], this.editedItem);
         axios.patch('/api/pegawai/' + this.editedItem.id, {
           Nama: this.editedItem.Nama,
-          email: this.editedItem.Email,
+          email: this.editedItem.email,
           Alamat: this.editedItem.Alamat,
           Gaji: this.editedItem.Gaji,
           Role: this.editedItem.Role,
@@ -29972,6 +30002,16 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         this.pegawai.push(this.editedItem);
+        axios.post('/api/register', {
+          Nama: this.editedItem.Nama,
+          email: this.editedItem.email,
+          Alamat: this.editedItem.Alamat,
+          Gaji: this.editedItem.Gaji,
+          Role: this.editedItem.Role,
+          password: this.editedItem.password
+        }).then(function (response) {
+          console.log(response);
+        });
       }
 
       this.close();
@@ -32545,14 +32585,26 @@ var render = function() {
                                   }
                                 }),
                                 _vm._v(" "),
-                                _c("v-spacer")
+                                _c("v-spacer"),
+                                _vm._v(" "),
+                                _c(
+                                  "v-btn",
+                                  _vm._g(
+                                    {
+                                      staticClass: "mb-2",
+                                      attrs: { color: "primary", dark: "" }
+                                    },
+                                    on
+                                  ),
+                                  [_vm._v("New Pegawai")]
+                                )
                               ]
                             }
                           }
                         ],
                         null,
                         false,
-                        3788902579
+                        3464724452
                       ),
                       model: {
                         value: _vm.dialog,
@@ -32591,7 +32643,11 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Nama" },
+                                            attrs: {
+                                              "prepend-icon": "person",
+                                              label: "Nama",
+                                              rules: [_vm.rules.required]
+                                            },
                                             model: {
                                               value: _vm.editedItem.Nama,
                                               callback: function($$v) {
@@ -32615,7 +32671,14 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Email" },
+                                            attrs: {
+                                              "prepend-icon": "person",
+                                              label: "Email",
+                                              rules: [
+                                                _vm.rules.required,
+                                                _vm.rules.email
+                                              ]
+                                            },
                                             model: {
                                               value: _vm.editedItem.email,
                                               callback: function($$v) {
@@ -32639,7 +32702,11 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Alamat" },
+                                            attrs: {
+                                              "prepend-icon": "person",
+                                              label: "Alamat",
+                                              rules: [_vm.rules.required]
+                                            },
                                             model: {
                                               value: _vm.editedItem.Alamat,
                                               callback: function($$v) {
@@ -32663,7 +32730,16 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Gaji" },
+                                            attrs: {
+                                              "prepend-icon": "person",
+                                              label: "Gaji",
+                                              rules: [
+                                                _vm.rules.required,
+                                                _vm.rules.number,
+                                                _vm.rules.notZero,
+                                                _vm.rules.tooMuch
+                                              ]
+                                            },
                                             model: {
                                               value: _vm.editedItem.Gaji,
                                               callback: function($$v) {
@@ -32686,8 +32762,13 @@ var render = function() {
                                           attrs: { xs12: "", sm6: "", md4: "" }
                                         },
                                         [
-                                          _c("v-text-field", {
-                                            attrs: { label: "Role" },
+                                          _c("v-select", {
+                                            attrs: {
+                                              "prepend-icon": "person",
+                                              items: _vm.items,
+                                              label: "Role",
+                                              rules: [_vm.rules.required]
+                                            },
                                             model: {
                                               value: _vm.editedItem.Role,
                                               callback: function($$v) {
@@ -32712,8 +32793,13 @@ var render = function() {
                                         [
                                           _c("v-text-field", {
                                             attrs: {
+                                              "prepend-icon": "lock",
                                               label: "Password",
-                                              type: "password"
+                                              type: "password",
+                                              rules: [
+                                                _vm.rules.required,
+                                                _vm.rules.password
+                                              ]
                                             },
                                             model: {
                                               value: _vm.editedItem.password,
@@ -32800,7 +32886,41 @@ var render = function() {
                               _vm._v("Rp. " + _vm._s(props.item.Gaji))
                             ]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(props.item.Role))])
+                            _c("td", [_vm._v(_vm._s(props.item.Role))]),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              { staticClass: "layout px-0" },
+                              [
+                                _c(
+                                  "v-icon",
+                                  {
+                                    staticClass: "mr-2",
+                                    attrs: { small: "" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.editItem(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("\n          edit\n        ")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-icon",
+                                  {
+                                    attrs: { small: "" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.deleteItem(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("\n          delete\n        ")]
+                                )
+                              ],
+                              1
+                            )
                           ]
                         }
                       },
@@ -32823,7 +32943,7 @@ var render = function() {
                     ],
                     null,
                     false,
-                    1161180316
+                    4146791599
                   )
                 },
                 [
@@ -34034,7 +34154,8 @@ var render = function() {
                             attrs: {
                               "prepend-icon": "person",
                               items: _vm.items,
-                              label: "Role"
+                              label: "Role",
+                              rules: [_vm.rules.required]
                             },
                             model: {
                               value: _vm.Role,
@@ -34840,24 +34961,6 @@ var render = function() {
                           attrs: { to: { name: "login" } }
                         },
                         [_vm._v("Login")]
-                      )
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              !_vm.isLoggedIn
-                ? _c(
-                    "v-btn",
-                    { attrs: { dark: "", color: "white" } },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
-                          attrs: { to: { name: "register" } }
-                        },
-                        [_vm._v("Register")]
                       )
                     ],
                     1

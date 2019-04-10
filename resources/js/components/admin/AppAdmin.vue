@@ -27,9 +27,9 @@
             <v-btn dark color="white" v-if="!isLoggedIn">
               <router-link :to="{ name: 'login' }" class="nav-link" >Login</router-link>
             </v-btn>
-            <v-btn dark color="white" v-if="!isLoggedIn">
+            <!-- <v-btn dark color="white" v-if="!isLoggedIn">
               <router-link :to="{ name: 'register' }" class="nav-link" >Register</router-link>
-            </v-btn>
+            </v-btn> -->
              
             <v-btn  v-if="isLoggedIn"  @click="logout">
                Logout
