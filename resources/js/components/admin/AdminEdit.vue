@@ -75,7 +75,7 @@
           <td >{{ props.item.Alamat }}</td>
           <td >Rp. {{ props.item.Gaji }}</td>
           <td >{{ props.item.Role }}</td>
-          <td class="layout px-0">
+          <!-- <td class="layout px-0">
             <v-icon
               small
               class="mr-2"
@@ -89,7 +89,7 @@
             >
               delete
             </v-icon>
-          </td>
+          </td> -->
         </template>
         <template v-slot:no-data>
           <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -129,7 +129,7 @@ export default {
       { text: 'Alamat', value: 'Alamat', sortable: false },
       { text: 'Gaji', value: 'Gaji', sortable: true },
       { text: 'Role', value: 'Role', sortable: false },
-      { text: 'Actions', value: 'id', sortable: false }
+      //{ text: 'Actions', value: 'id', sortable: false }
     ],
     pegawai: [],
     editedIndex: -1,

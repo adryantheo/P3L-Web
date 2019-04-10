@@ -17,7 +17,7 @@
                   <v-text-field prepend-icon="lock" v-model="password" label="Password" id="password" type="password" :rules="[rules.required, rules.password]"></v-text-field>
                   <v-text-field prepend-icon="person" v-model="Alamat" label="Alamat" type="text" :rules="[rules.required]" ></v-text-field>
                   <v-text-field prepend-icon="person" v-model="Gaji" label="Gaji" type="text" :rules="[rules.required, rules.number, rules.notZero, rules.tooMuch]" ></v-text-field>
-                  <v-text-field prepend-icon="person" v-model="Role" label="Role" type="text" :rules="[rules.required]" ></v-text-field>
+                  <v-select  prepend-icon="person"    v-model="Role"  :items="items"            label="Role"          ></v-select>
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -46,6 +46,8 @@
       Gaji: undefined,
       Role: undefined,
       password: undefined,
+
+      items:['CS', 'Kasir', 'Montir'],
 
       rules: {
         email: v => (v || '').match(/@/) || 'Format Email Salah',
