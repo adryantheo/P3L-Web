@@ -34,6 +34,7 @@
     data: () => ({
       email: undefined,
       password: undefined,
+      user_type: undefined,
      
       rules: {
         email: v => (v || '').match(/@/) || 'Format Email Salah',
@@ -52,14 +53,21 @@
                             let user = response.data.user
                             localStorage.setItem('user', JSON.stringify(user))
                             localStorage.setItem('jwt', response.data.token)
+                            this.user_type = user.is_admin
+                            
 
                             if (localStorage.getItem('jwt') != null) {
                                 this.$emit('loggedIn')
-                                if (this.$route.params.nextUrl != null) {
-                                    this.$router.push(this.$route.params.nextUrl)
-                                } else {
-                                    this.$router.push(('/admin'))
+                                if(this.user_type == 1){
+                                  this.$router.push(('/admin'))
+                                }else{
+                                  this.$router.push(('/pegawai'))
                                 }
+                                // if (this.$route.params.nextUrl != null) {
+                                //     this.$router.push(this.$route.params.nextUrl)
+                                // } else {
+                                //     this.$router.push(('/admin'))
+                                // }
                             }
                         });
             

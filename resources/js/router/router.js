@@ -26,6 +26,10 @@ import AdminLogout from '../components/admin/AdminLogout.vue'
 import AdminKustomer from '../components/admin/AdminKustomer.vue'
 import AdminGantiPass from '../components/admin/AdminGantiPass.vue'
 
+//View Pegawai
+import AppPegawai from '../components/pegawai/AppPegawai.vue'
+import PegawaiKustomer from '../components/pegawai/PegawaiKustomer.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -70,6 +74,12 @@ const routes = [
                 component: PengunjungHp,
 
             },
+            {
+
+                path:'/login',
+                name: 'login',
+                component: AdminLogin,
+            },
             
         ]
     },
@@ -77,12 +87,7 @@ const routes = [
         path:'/admin',
         component: AppAdmin,
         children:[
-        {
-
-            path:'/admin/login',
-            name: 'login',
-            component: AdminLogin,
-        },
+      
         {
 
             path:'/admin/logout',
@@ -129,9 +134,14 @@ const routes = [
 
             path:'/admin/laporan',
             component: AdminLaporan,
-        },
-        
-            
+        },   
+        ]
+    },
+    {
+        path:'/pegawai',
+        component: AppPegawai,
+        children:[
+          
         ]
     }
 ]
