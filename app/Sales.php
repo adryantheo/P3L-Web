@@ -11,10 +11,11 @@ class Sales extends Model
     protected $fillable = [
         'Nomor_Telphone_Sales',
         'Nama_Sales',
-        'Nama_Supplier'
+        'Nama_Supplier',
+        'Alamat_Sales'
     ];
 
-    public function pesanan_barang(){
+    public function pesanan_barangs(){
         return $this->hasMany(Pesanan_Barang::class);
     }
 

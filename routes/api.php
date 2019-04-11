@@ -12,13 +12,15 @@ Route::get('/kustomer/all', 'KustomerController@all');
 Route::get('/kendaraan/all', 'KendaraanController@all');
 Route::get('/kustomer/namakustomer', 'KustomerController@listNamaKustomer');
 Route::patch('/sales/{sales}', 'SalesController@update');
+Route::get('/sales/all', 'SalesController@all');
+Route::get('/pesanbarang/all', 'PesananBarangController@all');
 
-
+Route::resource('/pesanbarang', 'PesananBarangController')->except(['all']);
 Route::resource('/kustomer', 'KustomerController')->except(['search', 'all','listNamaKustomer']);
 Route::resource('/kendaraan', 'KendaraanController')->except(['all']);
 Route::resource('/transaksi', 'TransaksiController');
 Route::resource('/service', 'ServiceController');
-Route::resource('/sales', 'SalesController')->except(['update']);
+Route::resource('/sales', 'SalesController')->except(['update', 'all']);
 Route::resource('/sparepart', 'SparepartController')->except(['uploadGambar']);
 
 

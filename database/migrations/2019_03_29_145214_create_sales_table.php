@@ -14,6 +14,7 @@ class CreateSalesTable extends Migration
             $table->string('Nomor_Telphone_Sales')->unique();
             $table->string('Nama_Sales');
             $table->string('Nama_Supplier');
+            $table->string('Alamat_Sales');
             $table->softDeletes();
             $table->timestamps();
         });

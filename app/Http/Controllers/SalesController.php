@@ -13,6 +13,11 @@ class SalesController extends Controller
         return response()->json(Sales::all(),200);
     }
 
+    public function all()
+    {
+        return response()->json(Sales::with('pesanan_barangs')->get(),200);
+    }
+
     
     public function store(Request $request)
     {
@@ -20,6 +25,7 @@ class SalesController extends Controller
             'Nomor_Telphone_Sales' => $request->Nomor_Telphone_Sales,
             'Nama_Sales' => $request->Nama_Sales,
             'Nama_Supplier' => $request->Nama_Supplier,
+            'Alamat_Sales' => $request->Alamat_Sales,
             
             
         ]);
@@ -44,7 +50,8 @@ class SalesController extends Controller
             $request->only([
                 'Nomor_Telphone_Sales', 
                 'Nama_Sales',
-                'Nama_Supplier'
+                'Nama_Supplier',
+                'Alamat_Sales'
                
         
             ])
