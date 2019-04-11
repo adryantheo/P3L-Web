@@ -10,7 +10,7 @@ class Sales extends Model
     use SoftDeletes;
     protected $fillable = [
         'Nomor_Telphone_Sales',
-        'Nama_Salas',
+        'Nama_Sales',
         'Nama_Supplier'
     ];
 

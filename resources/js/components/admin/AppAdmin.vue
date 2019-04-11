@@ -105,13 +105,17 @@ export default {
       },
 
       {
-        text: 'Tambah Jasa Service',
+        text: ' Jasa Service',
         route: '/admin/jasa-service'
       },
 
       {
-        text: 'Tambah Sparepart',
+        text: ' Sparepart',
         route: '/admin/sparepart'
+      },
+       {
+        text: 'Sales',
+        route: '/admin/sales'
       },
 
       {

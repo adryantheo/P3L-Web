@@ -19,10 +19,7 @@ class ServiceController extends Controller
         $service = Service::create([
             'Nama_Service' => $request->Nama_Service,
             'Tarif' => $request->Tarif,
-            
-          
-            
-            
+           
         ]);
 
         return response()->json([
