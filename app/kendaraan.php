@@ -13,13 +13,13 @@ class kendaraan extends Model
         'Plat_kendaraan', 
         'Merk', 
         'Tipe',
-        'kustomer_id',
+        'Kustomer_Id',
         
 
     ];
 
-    public function kustomers(){
-        return $this->belongsTo(Kustomer::class, 'kustomer_id');
+    public function user(){
+        return $this->belongsTo(Kustomer::class, 'Kustomer_Id');
     }
 
 

@@ -14,11 +14,11 @@ class Pesanan_Barang extends Model
         'Status', 
         'Tanggal_Pesan',
         'Tanggal_Terima',
-        'sales_id'
+        'Sales_Id'
  ];
 
  public function sales(){
-    return $this->belongsTo(Sales::class, 'sales_id');
+    return $this->belongsTo(Sales::class, 'Sales_Id');
 }
 
 public function detail_pesanan(){

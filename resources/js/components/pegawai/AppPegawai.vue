@@ -42,7 +42,7 @@
 
           <v-container fluid fill-height>
 
-            <router-view></router-view>
+            <router-view @loggedIn="change"></router-view>
             
             
               
@@ -87,15 +87,7 @@ export default {
     menus: [
       {
         text: 'Home',
-        route: '/karyawan'
-      },
-      {
-        text: 'Kustomer',
-        route: '/karyawan/kustomer'
-      },
-      {
-        text: 'Kendaraan',
-        route: '/karyawan/kendaraan'
+        route: '/pegawai'
       },
      
     ],
@@ -106,7 +98,8 @@ export default {
   methods:{
     setDefaults() {
                 if (this.isLoggedIn) {
-                    let user = JSON.parse(localStorage.getItem('user'))                  
+                    let user = JSON.parse(localStorage.getItem('user'))
+                  
                 }
             },
             change() {

@@ -13,11 +13,6 @@ class KendaraanController extends Controller
         return response()->json(Kendaraan::all(),200);
     }
 
-    public function all()
-    {
-        return response()->json(Kendaraan::with('kustomers')->get(),200);
-    }
-
 
     public function store(Request $request)
     {
@@ -25,7 +20,7 @@ class KendaraanController extends Controller
             'Plat_kendaraan' => $request->Plat_kendaraan,
             'Merk' => $request->Merk,
             'Tipe' => $request->Tipe,
-            'kustomer_id' => $request->kustomer_id
+            'Id_Kustomer' => $request->Id_Kustomer
             
             
         ]);
@@ -49,7 +44,7 @@ class KendaraanController extends Controller
                 'Plat_kendaraan', 
                 'Merk', 
                 'Tipe',
-                'kustomer_id'
+                'Id_Kustomer'
         
             ])
         );

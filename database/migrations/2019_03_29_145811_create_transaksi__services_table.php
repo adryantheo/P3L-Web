@@ -14,8 +14,8 @@ class CreateTransaksiServicesTable extends Migration
             $table->double('Total_Biaya');
             $table->integer('Jumlah_Service');
             $table->string('Status');
-            $table->unsignedInteger('pegawai_id');
-            $table->unsignedInteger('transaksi_id');
+            $table->unsignedInteger('Pegawai_Id');
+            $table->unsignedInteger('Transaksi_Id');
             $table->softDeletes();
             $table->timestamps();
         });

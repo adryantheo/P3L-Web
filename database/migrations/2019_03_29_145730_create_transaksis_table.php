@@ -17,8 +17,8 @@ class CreateTransaksisTable extends Migration
             $table->double('Diskon');
             
             $table->string('Status');
-            $table->unsignedInteger('cabang_id');
-            $table->unsignedInteger('kustomer_id');
+            $table->unsignedInteger('Cabang_Id');
+            $table->unsignedInteger('Kustomer_Id');
             $table->softDeletes();
             $table->timestamps();
         });

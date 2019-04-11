@@ -92,7 +92,7 @@
                 Role
              
                 }).then(response => {
-                  this.$router.push(('/login'))                    
+                  this.$router.push(('/admin/login'))                    
                     console.log('created Data');
      
           });

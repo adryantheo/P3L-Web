@@ -115,6 +115,11 @@ export default {
       },
 
       {
+        text: 'Kustomer',
+        route: '/admin/kustomer'
+      },
+
+      {
         text: 'Laporan',
         route: '/admin/laporan'
       },

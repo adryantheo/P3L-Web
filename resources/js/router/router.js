@@ -23,12 +23,12 @@ import AdminRegister from '../components/admin/AdminRegister.vue'
 import AdminJasaService from '../components/admin/AdminJasaService.vue'
 import AdminSparepart from '../components/admin/AdminSparepart.vue'
 import AdminLogout from '../components/admin/AdminLogout.vue'
+import AdminKustomer from '../components/admin/AdminKustomer.vue'
 import AdminGantiPass from '../components/admin/AdminGantiPass.vue'
 
 //View Pegawai
-import AppKaryawan from '../components/karyawan/AppKaryawan.vue'
-import KaryawanKustomer from '../components/karyawan/KaryawanKustomer.vue'
-import KaryawanKendaraan from '../components/karyawan/KaryawanKendaraan.vue'
+import AppPegawai from '../components/pegawai/AppPegawai.vue'
+import PegawaiKustomer from '../components/pegawai/PegawaiKustomer.vue'
 
 Vue.use(VueRouter)
 
@@ -122,6 +122,11 @@ const routes = [
         },
         {
 
+            path:'/admin/kustomer',
+            component: AdminKustomer,
+        },
+        {
+
             path:'/admin/sparepart',
             component: AdminSparepart,
         },
@@ -133,19 +138,9 @@ const routes = [
         ]
     },
     {
-        path:'/karyawan',
-        component: AppKaryawan,
+        path:'/pegawai',
+        component: AppPegawai,
         children:[
-            {
-
-                path:'/karyawan/kustomer',
-                component: KaryawanKustomer,
-            },
-            {
-
-                path:'/karyawan/kendaraan',
-                component: KaryawanKendaraan,
-            },
           
         ]
     }

@@ -15,7 +15,14 @@ class KustomerController extends Controller
 
     public function all()
     {
-        return response()->json(Kustomer::with('kendaraans')->get(),200);      
+        return response()->json(
+            Kustomer::with([
+                'Transaksi'=> function($querry){
+                    $querry->select('id','Total_Pembelian');
+                },
+                
+            ])->first(),
+        );        
     }
 
     

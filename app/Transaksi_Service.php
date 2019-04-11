@@ -11,23 +11,23 @@ class Transaksi_Service extends Model
 
     protected $fillable = [
         'Total_Biaya', 
-        'pegawai_id',
+        'Pegawai_Id',
         'Jumlah_Service',
         'Status',
-        'transaksi_id',
-        'service_id'
+        'Transaksi_Id',
+        'Service_Id'
  ];
 
     public function transaksi(){
-        return $this->belongsTo(Transaksi::class, 'transaksi_id');
+        return $this->belongsTo(Transaksi::class, 'Transaksi_Id');
     }
 
     public function pegawai(){
-        return $this->belongsTo(Pegawai::class, 'pegawai_id');
+        return $this->belongsTo(Pegawai::class, 'Pegawai_Id');
     }
 
     public function service(){
-        return $this->belongsTo(Service::class, 'service_id');
+        return $this->belongsTo(Service::class, 'Service_Id');
     }
     
 }

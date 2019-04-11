@@ -28,7 +28,8 @@
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
-            </v-card-title>  
+            </v-card-title>
+  
             <v-card-text>
               <v-container grid-list-md>
                 <v-layout wrap>
@@ -44,15 +45,14 @@
                   
                 </v-layout>
               </v-container>
-            </v-card-text>  
+            </v-card-text>
+  
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
               <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
             </v-card-actions>
           </v-card>
-
-
         </v-dialog>
       </v-toolbar>
       <v-data-table
@@ -68,9 +68,19 @@
           <td >{{ props.item.Telepon_Kustomer }}</td>
          
           <td class=" layout px-0">
-            <v-icon small class="mr-2" @click="editItem(props.item)"> edit </v-icon>
-            <v-icon small @click="deleteItem(props.item)">delete</v-icon>
-            
+            <v-icon
+              small
+              class="mr-2"
+              @click="editItem(props.item)"
+            >
+              edit
+            </v-icon>
+            <v-icon
+              small
+              @click="deleteItem(props.item)"
+            >
+              delete
+            </v-icon>
           </td>
         </template>
         <template v-slot:no-data>
@@ -165,7 +175,6 @@ export default {
         })
     },
 
-  
     close () {
       this.dialog = false
       setTimeout(() => {
