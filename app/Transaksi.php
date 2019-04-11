@@ -16,13 +16,13 @@ class Transaksi extends Model
         'Diskon',
         'Tanggal',
         'Status',
-        'Cabang_Id',
-        'Kustomer_Id',
+        'cabang_id',
+        'kustomer_id',
         
  ];
 
      public function cabang(){
-        return $this->belongsTo(Cabang::class);
+        return $this->belongsTo(Cabang::class, 'cabang_id');
     }
 
     public function transaksi_service(){
@@ -34,6 +34,6 @@ class Transaksi extends Model
     }
 
     public function kustomer(){
-        return $this->belongsTo(Kustomer::class);
+        return $this->belongsTo(Kustomer::class, 'kustomer_id');
     }
 }
