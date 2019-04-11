@@ -81,6 +81,11 @@ const routes = [
                 name: 'login',
                 component: AdminLogin,
             },
+            {
+
+                path:'/logout',
+                component: AdminLogout,
+            },
             
         ]
     },
@@ -89,11 +94,7 @@ const routes = [
         component: AppAdmin,
         children:[
       
-        {
-
-            path:'/admin/logout',
-            component: AdminLogout,
-        },
+        
         {
 
             path:'/admin/register',

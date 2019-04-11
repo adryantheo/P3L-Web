@@ -79544,14 +79544,14 @@ var routes = [{
     path: '/login',
     name: 'login',
     component: _components_admin_AdminLogin_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
+  }, {
+    path: '/logout',
+    component: _components_admin_AdminLogout_vue__WEBPACK_IMPORTED_MODULE_18__["default"]
   }]
 }, {
   path: '/admin',
   component: _components_admin_AppAdmin_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
   children: [{
-    path: '/admin/logout',
-    component: _components_admin_AdminLogout_vue__WEBPACK_IMPORTED_MODULE_18__["default"]
-  }, {
     path: '/admin/register',
     name: 'register',
     component: _components_admin_AdminRegister_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
