@@ -15,7 +15,7 @@ class CreatePesananBarangsTable extends Migration
             $table->string('Status');
             $table->string('Tanggal_Pesan');
             $table->string('Tanggal_Terima');
-            $table->unsignedInteger('Sales_Id');
+            $table->unsignedInteger('sales_id');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -61,7 +61,7 @@
                                 if(this.user_type == 1){
                                   this.$router.push(('/admin'))
                                 }else{
-                                  this.$router.push(('/pegawai'))
+                                  this.$router.push(('/karyawan'))
                                 }
                                 // if (this.$route.params.nextUrl != null) {
                                 //     this.$router.push(this.$route.params.nextUrl)
