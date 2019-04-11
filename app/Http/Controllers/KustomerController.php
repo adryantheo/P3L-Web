@@ -18,6 +18,11 @@ class KustomerController extends Controller
         return response()->json(Kustomer::with('kendaraans')->get(),200);      
     }
 
+    public function listNamaKustomer()
+    {
+        return Kustomer::select('id', 'Nama_Kustomer')->get();
+    }
+
     
    
     public function store(Request $request)
@@ -44,27 +49,7 @@ class KustomerController extends Controller
         return response()->json($kustomer,200);
     }
 
-    // public function search(Request $request)
-    // {
-    //     if ($search = \Request::get('q'))
-    //     {
-
-    //         $kustomer = Kustomer::where(function($querry) use ($search)
-    //         {
-    //             $querry->where('Telephone_Kustomer', 'LIKE', "%$search%");
-    //         });
-                
-
-    //     }
-            
-           
-               
-    //         return response()->json($kustomer);
-        
-    // }
-
-
-    
+   
   
     public function update(Request $request, Kustomer $kustomer)
     {

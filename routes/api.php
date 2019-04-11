@@ -10,12 +10,14 @@ Route::patch('/pegawai/{user}', 'UserController@update');
 Route::delete('/pegawai/{user}', 'UserController@destroy');
 Route::get('/kustomer/all', 'kustomerController@all');
 Route::get('/kendaraan/all', 'kendaraanController@all');
+Route::get('/kustomer/namakustomer', 'kustomerController@listNamaKustomer');
+
 
 
 // Route::get('/logout', 'UserController@logout');
 // Route::get('/search', 'KustomerController@search');
 
-Route::resource('/kustomer', 'KustomerController')->except(['search', 'all']);
+Route::resource('/kustomer', 'KustomerController')->except(['search', 'all','listNamaKustomer']);
 Route::resource('/kendaraan', 'KendaraanController')->except(['all']);
 Route::resource('/transaksi', 'TransaksiController');
 Route::resource('/service', 'ServiceController');

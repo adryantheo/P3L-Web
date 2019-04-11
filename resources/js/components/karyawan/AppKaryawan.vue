@@ -97,7 +97,7 @@ export default {
         text: 'Kendaraan',
         route: '/karyawan/kendaraan'
       },
-     
+      
     ],
 
     
