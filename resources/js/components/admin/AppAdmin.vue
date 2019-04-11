@@ -113,9 +113,13 @@ export default {
         text: ' Sparepart',
         route: '/admin/sparepart'
       },
-       {
+      {
         text: 'Sales',
         route: '/admin/sales'
+      },
+      {
+        text: 'Pesan Barang',
+        route: '/admin/pesan'
       },
 
       {

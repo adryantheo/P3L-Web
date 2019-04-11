@@ -25,6 +25,7 @@ import AdminSparepart from '../components/admin/AdminSparepart.vue'
 import AdminLogout from '../components/admin/AdminLogout.vue'
 import AdminGantiPass from '../components/admin/AdminGantiPass.vue'
 import AdminSales from '../components/admin/AdminSales.vue'
+import AdminPesan from '../components/admin/AdminPesan.vue'
 
 //View Pegawai
 import AppKaryawan from '../components/karyawan/AppKaryawan.vue'
@@ -136,7 +137,12 @@ const routes = [
 
             path:'/admin/sales',
             component: AdminSales,
-        },   
+        },
+        {
+
+            path:'/admin/pesan',
+            component: AdminPesan,
+        },  
         ]
     },
     {
