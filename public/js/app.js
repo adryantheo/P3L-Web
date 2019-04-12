@@ -30485,11 +30485,186 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      show: false
+      isLoggedIn: localStorage.getItem('jwt') != null,
+      beforeMount: function beforeMount() {
+        this.setComponent(this.$route.params.page);
+        this.user = JSON.parse(localStorage.getItem('user'));
+        axios.defaults.headers.common['Content-Type'] = 'application/json';
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt');
+      },
+      dialog: false,
+      search: '',
+      headers: [{
+        text: 'Nama Service',
+        value: 'Nama_Service',
+        sortable: true
+      }, {
+        text: 'Harga',
+        value: 'Tarif',
+        sortable: true
+      }, {
+        text: 'Actions',
+        value: 'id',
+        sortable: false
+      }],
+      service: [],
+      editedIndex: -1,
+      editedItem: {},
+      defaultItem: {}
     };
+  },
+  computed: {
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
+    }
+  },
+  watch: {
+    dialog: function dialog(val) {
+      val || this.close();
+    }
+  },
+  created: function created() {
+    this.initialize();
+  },
+  methods: {
+    fetchservice: function fetchservice() {
+      var _this = this;
+
+      axios.get('/api/service/').then(function (response) {
+        return _this.service = response.data;
+      });
+    },
+    initialize: function initialize() {
+      this.fetchservice();
+    },
+    editItem: function editItem(item) {
+      this.editedIndex = this.service.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+    deleteItem: function deleteItem(item) {
+      var index = this.service.indexOf(item);
+      confirm('Are you sure you want to delete this item?') && this.service.splice(index, 1);
+      console.log('deleted data');
+      axios["delete"]('/api/service/' + item.id).then(function (response) {
+        console.log(response);
+      });
+    },
+    close: function close() {
+      var _this2 = this;
+
+      this.dialog = false;
+      setTimeout(function () {
+        _this2.editedItem = Object.assign({}, _this2.defaultItem);
+        _this2.editedIndex = -1;
+      }, 300);
+    },
+    save: function save() {
+      if (this.editedIndex > -1) {
+        console.log('Edited Data');
+        axios.patch('/api/service/' + this.editedItem.id, {
+          Nama_Service: this.editedItem.Nama_Service,
+          Tarif: this.editedItem.Tarif
+        }).then(function (response) {
+          console.log(response);
+        });
+        Object.assign(this.service[this.editedIndex], this.editedItem);
+      } else {
+        console.log('created Data');
+        axios.post('/api/service/', {
+          Nama_Service: this.editedItem.Nama_Service,
+          Tarif: this.editedItem.Tarif
+        }).then(function (response) {
+          console.log(response);
+        });
+        this.service.push(this.editedItem);
+      }
+
+      this.close();
+    }
   }
 });
 
@@ -34243,17 +34418,320 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("v-app", [
-        _c("p", [_vm._v("Pesan Barang Page")]),
-        _vm._v(" "),
-        _c("p", [_vm._v("Still Under Development")])
-      ])
-    ],
-    1
-  )
+  return _vm.isLoggedIn
+    ? _c(
+        "v-layout",
+        {
+          attrs: {
+            "align-space-around": "",
+            "justify-center": "",
+            "fill-height": ""
+          }
+        },
+        [
+          _c(
+            "v-flex",
+            [
+              _c(
+                "v-toolbar",
+                { attrs: { flat: "", color: "white" } },
+                [
+                  _c("v-toolbar-title", [_vm._v("Pengadaan Barang")]),
+                  _vm._v(" "),
+                  _c("v-divider", {
+                    staticClass: "mx-2",
+                    attrs: { inset: "", vertical: "" }
+                  }),
+                  _vm._v(" "),
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-dialog",
+                    {
+                      attrs: { "max-width": "500px" },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "activator",
+                            fn: function(ref) {
+                              var on = ref.on
+                              return [
+                                _c("v-text-field", {
+                                  attrs: {
+                                    "append-icon": "search",
+                                    label: "Search",
+                                    "single-line": "",
+                                    "hide-details": ""
+                                  },
+                                  model: {
+                                    value: _vm.search,
+                                    callback: function($$v) {
+                                      _vm.search = $$v
+                                    },
+                                    expression: "search"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("v-spacer"),
+                                _vm._v(" "),
+                                _c(
+                                  "v-btn",
+                                  _vm._g(
+                                    {
+                                      staticClass: "mb-2",
+                                      attrs: { color: "primary", dark: "" }
+                                    },
+                                    on
+                                  ),
+                                  [_vm._v("Tambah Pengadaan")]
+                                )
+                              ]
+                            }
+                          }
+                        ],
+                        null,
+                        false,
+                        1960185872
+                      ),
+                      model: {
+                        value: _vm.dialog,
+                        callback: function($$v) {
+                          _vm.dialog = $$v
+                        },
+                        expression: "dialog"
+                      }
+                    },
+                    [
+                      _vm._v(" "),
+                      _c(
+                        "v-card",
+                        [
+                          _c("v-card-title", [
+                            _c("span", { staticClass: "headline" }, [
+                              _vm._v(_vm._s(_vm.formTitle))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-text",
+                            [
+                              _c(
+                                "v-container",
+                                { attrs: { "grid-list-md": "" } },
+                                [
+                                  _c(
+                                    "v-layout",
+                                    { attrs: { wrap: "" } },
+                                    [
+                                      _c(
+                                        "v-flex",
+                                        {
+                                          attrs: { xs12: "", sm6: "", md4: "" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: { label: "Nama Service" },
+                                            model: {
+                                              value:
+                                                _vm.editedItem.Nama_Service,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "Nama_Service",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "editedItem.Nama_Service"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        {
+                                          attrs: { xs12: "", sm6: "", md4: "" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: { label: "Tarif" },
+                                            model: {
+                                              value: _vm.editedItem.Tarif,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "Tarif",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "editedItem.Tarif"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-actions",
+                            [
+                              _c("v-spacer"),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { color: "blue darken-1", flat: "" },
+                                  on: { click: _vm.close }
+                                },
+                                [_vm._v("Cancel")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { color: "blue darken-1", flat: "" },
+                                  on: { click: _vm.save }
+                                },
+                                [_vm._v("Save")]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-data-table",
+                {
+                  staticClass: "elevation-1",
+                  attrs: {
+                    headers: _vm.headers,
+                    items: _vm.service,
+                    search: _vm.search
+                  },
+                  scopedSlots: _vm._u(
+                    [
+                      {
+                        key: "items",
+                        fn: function(props) {
+                          return [
+                            _c("td", [_vm._v(_vm._s(props.item.Nama_Service))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v("Rp. " + _vm._s(props.item.Tarif))
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              { staticClass: " layout px-0" },
+                              [
+                                _c(
+                                  "v-icon",
+                                  {
+                                    staticClass: "mr-2",
+                                    attrs: { small: "" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.editItem(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("\n          edit\n        ")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-icon",
+                                  {
+                                    attrs: { small: "" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.deleteItem(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("\n          delete\n        ")]
+                                )
+                              ],
+                              1
+                            )
+                          ]
+                        }
+                      },
+                      {
+                        key: "no-data",
+                        fn: function() {
+                          return [
+                            _c(
+                              "v-btn",
+                              {
+                                attrs: { color: "primary" },
+                                on: { click: _vm.initialize }
+                              },
+                              [_vm._v("Reset")]
+                            )
+                          ]
+                        },
+                        proxy: true
+                      }
+                    ],
+                    null,
+                    false,
+                    3939313597
+                  )
+                },
+                [
+                  _vm._v(" "),
+                  _vm._v(" "),
+                  _c("v-alert", {
+                    attrs: { value: true, color: "error", icon: "warning" },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "no-results",
+                          fn: function() {
+                            return [
+                              _vm._v(
+                                '\n      Your search for "' +
+                                  _vm._s(_vm.search) +
+                                  '" found no results.\n      '
+                              )
+                            ]
+                          },
+                          proxy: true
+                        }
+                      ],
+                      null,
+                      false,
+                      3689614511
+                    )
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
