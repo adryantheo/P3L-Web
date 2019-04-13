@@ -5,7 +5,7 @@
     
   
     <v-toolbar flat color="white">
-        <v-toolbar-title>Pengadaan Barang</v-toolbar-title>
+        <v-toolbar-title>Pemesanan Barang</v-toolbar-title>
         <v-divider
           class="mx-2"
           inset
@@ -23,6 +23,7 @@
         ></v-text-field>
         <v-spacer></v-spacer>
             <v-btn color="primary" dark class="mb-2" v-on="on">Tambah Pengadaan</v-btn>
+            <v-btn color="primary" dark class="mb-2" @click="printOrders">Cetak Surat Pengadaan</v-btn>
           </template>
           
           <v-card>
@@ -87,8 +88,35 @@
           </v-alert>
       </v-data-table>
 
+      
     </v-flex>
+
+      <div v-show="false" id="printMe">
+            <div class="ma-3">              
+                <div class="text-xs-center">                  
+                    <p class="headline">ATMA AUTO</p>
+                    <p class="" >MOTORCYCLE SPAREPARTS AND SERVICES</p>
+                    <p class="">Jl. Babarsari No. 43 Yogyakarta 552181</p>
+                    <p class="">Telp. (0274)487711</p>
+                    <p class="">http://www.atmaauto.com</p>
+                    <hr>
+                    <br>
+                    <p class="title">SURAT PEMESANAN</p>                    
+                </div>
+                
+                
+                
+            </div>
+        </div>
+    
     </v-layout>
+
+    
+
+    
+
+
+     
 </template>
 
 <script>
@@ -140,6 +168,10 @@ export default {
   },
 
   methods: {
+
+    printOrders() {
+            this.$htmlToPaper('printMe');
+        },
     
     fetchservice() {
       axios.get('/api/service/')

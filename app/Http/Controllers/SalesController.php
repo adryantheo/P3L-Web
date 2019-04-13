@@ -15,7 +15,8 @@ class SalesController extends Controller
 
     public function all()
     {
-        return response()->json(Sales::with('pesanan_barangs')->get(),200);
+        return response()->json(
+            Sales::with(['pesanan_barangs'])->get(),200);
     }
 
     

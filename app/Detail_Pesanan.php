@@ -13,15 +13,16 @@ class Detail_Pesanan extends Model
         'Total_Harga_Beli', 
         'Jumlah_Diterima',
         'Jumlah_Pesan',
-        'pesanan_id'
+        'pesanan_id',
+        'sparepart_id'
  ];
 
-    public function pesanan_barang(){
+    public function pesanan_barangs(){
      return $this->belongsTo(Pesanan_Barang::class, 'pesanan_id');
     }
 
-    public function sparepart(){
-        return $this->hasOne(Sparepart::class);
+    public function spareparts(){
+        return $this->belongsTo(Sparepart::class, 'sparepart_id');
     }
 
 }

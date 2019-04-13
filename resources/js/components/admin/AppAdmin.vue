@@ -31,7 +31,7 @@
               <router-link :to="{ name: 'register' }" class="nav-link" >Register</router-link>
             </v-btn> -->
              
-            <v-btn  v-if="isLoggedIn"  @click="logout">
+            <v-btn v-if="isLoggedIn"  @click="logout">
                Logout
             </v-btn>
             
@@ -54,8 +54,7 @@
 
         </v-content>
         
-        <v-footer height="auto" color="indigo">          
-                
+        <v-footer height="auto" color="indigo">
           <v-flex
           indigo
           py-3
@@ -65,7 +64,6 @@
           >
           &copy;2019 — <strong>Atma Auto</strong>
           </v-flex>
-            
       </v-footer>
 
     </v-app>
@@ -89,10 +87,7 @@ export default {
     drawer:null,
 
     menus: [
-      {
-        text: 'Home',
-        route: '/admin'
-      },
+     
 
       {
         text: 'Kelola Pegawai',

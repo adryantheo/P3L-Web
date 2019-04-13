@@ -67,7 +67,7 @@
                      <v-btn color="primary" flat @click="pickFile" >
                     Upload Gambar
                 </v-btn>
-                <v-img class="menu-img"
+                <v-img class="sparepart-img"
                     v-if="!!fileUrl"
                     :src="fileUrl"
                     max-height="200px"

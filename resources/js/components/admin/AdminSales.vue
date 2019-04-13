@@ -40,6 +40,9 @@
                     <v-text-field v-model="editedItem.Nama_Supplier" label="Nama Supplier"></v-text-field>
                   </v-flex>
                    <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Alamat_Sales" label="Alamat Supplier"></v-text-field>
+                  </v-flex>
+                   <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Nomor_Telphone_Sales" label="Nomor Telphone Sales"></v-text-field>
                   </v-flex>
                   
@@ -65,7 +68,9 @@
          
           <td >{{ props.item.Nama_Sales }}</td>
           <td >{{ props.item.Nama_Supplier }}</td>
+          <td >{{ props.item.Alamat_Sales }}</td>
           <td >{{ props.item.Nomor_Telphone_Sales }}</td>
+          
          
           <td class=" layout px-0">
             <v-icon
@@ -115,7 +120,8 @@ export default {
       
       { text: 'Nama Sales', value: 'Nama_Sales', sortable: true },
       { text: 'Nama Supplier', value: 'Nama_Supplier', sortable: true },
-      { text: 'Nomor Telphone Sales', value: 'Nomor_Telphone_Sales', sortable: true },     
+      { text: 'Alamat Supplier', value: 'Alamat_Sales', sortable: true },
+      { text: 'Nomor Telphone Sales', value: 'Nomor_Telphone_Sales', sortable: false },         
       { text: 'Actions', value: 'id', sortable: false }
     ],
     sales: [],
@@ -188,6 +194,7 @@ export default {
             Nomor_Telphone_Sales:this.editedItem.Nomor_Telphone_Sales,
             Nama_Sales:this.editedItem.Nama_Sales,
             Nama_Supplier:this.editedItem.Nama_Supplier,
+            Alamat_Sales:this.editedItem.Alamat_Sales,
 
            })
         .then(response => {
@@ -201,6 +208,7 @@ export default {
             Nomor_Telphone_Sales:this.editedItem.Nomor_Telphone_Sales,
             Nama_Sales:this.editedItem.Nama_Sales,
             Nama_Supplier:this.editedItem.Nama_Supplier,
+            Alamat_Sales:this.editedItem.Alamat_Sales,
              })
         .then(response => {
           console.log(response);

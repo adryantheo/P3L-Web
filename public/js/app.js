@@ -30565,6 +30565,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -30610,6 +30638,9 @@ __webpack_require__.r(__webpack_exports__);
     this.initialize();
   },
   methods: {
+    printOrders: function printOrders() {
+      this.$htmlToPaper('printMe');
+    },
     fetchservice: function fetchservice() {
       var _this = this;
 
@@ -30896,6 +30927,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -30917,9 +30953,13 @@ __webpack_require__.r(__webpack_exports__);
         value: 'Nama_Supplier',
         sortable: true
       }, {
+        text: 'Alamat Supplier',
+        value: 'Alamat_Sales',
+        sortable: true
+      }, {
         text: 'Nomor Telphone Sales',
         value: 'Nomor_Telphone_Sales',
-        sortable: true
+        sortable: false
       }, {
         text: 'Actions',
         value: 'id',
@@ -30983,7 +31023,8 @@ __webpack_require__.r(__webpack_exports__);
         axios.patch('/api/sales/' + this.editedItem.id, {
           Nomor_Telphone_Sales: this.editedItem.Nomor_Telphone_Sales,
           Nama_Sales: this.editedItem.Nama_Sales,
-          Nama_Supplier: this.editedItem.Nama_Supplier
+          Nama_Supplier: this.editedItem.Nama_Supplier,
+          Alamat_Sales: this.editedItem.Alamat_Sales
         }).then(function (response) {
           console.log(response);
         });
@@ -30993,7 +31034,8 @@ __webpack_require__.r(__webpack_exports__);
         axios.post('/api/sales/', {
           Nomor_Telphone_Sales: this.editedItem.Nomor_Telphone_Sales,
           Nama_Sales: this.editedItem.Nama_Sales,
-          Nama_Supplier: this.editedItem.Nama_Supplier
+          Nama_Supplier: this.editedItem.Nama_Supplier,
+          Alamat_Sales: this.editedItem.Alamat_Sales
         }).then(function (response) {
           console.log(response);
         });
@@ -31492,8 +31534,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -31506,9 +31546,6 @@ __webpack_require__.r(__webpack_exports__);
       },
       drawer: null,
       menus: [{
-        text: 'Home',
-        route: '/admin'
-      }, {
         text: 'Kelola Pegawai',
         route: '/admin/pegawai'
       }, {
@@ -32108,6 +32145,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -34436,7 +34474,7 @@ var render = function() {
                 "v-toolbar",
                 { attrs: { flat: "", color: "white" } },
                 [
-                  _c("v-toolbar-title", [_vm._v("Pengadaan Barang")]),
+                  _c("v-toolbar-title", [_vm._v("Pemesanan Barang")]),
                   _vm._v(" "),
                   _c("v-divider", {
                     staticClass: "mx-2",
@@ -34484,6 +34522,16 @@ var render = function() {
                                     on
                                   ),
                                   [_vm._v("Tambah Pengadaan")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "mb-2",
+                                    attrs: { color: "primary", dark: "" },
+                                    on: { click: _vm.printOrders }
+                                  },
+                                  [_vm._v("Cetak Surat Pengadaan")]
                                 )
                               ]
                             }
@@ -34491,7 +34539,7 @@ var render = function() {
                         ],
                         null,
                         false,
-                        1960185872
+                        1668936516
                       ),
                       model: {
                         value: _vm.dialog,
@@ -34727,6 +34775,44 @@ var render = function() {
               )
             ],
             1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: false,
+                  expression: "false"
+                }
+              ],
+              attrs: { id: "printMe" }
+            },
+            [
+              _c("div", { staticClass: "ma-3" }, [
+                _c("div", { staticClass: "text-xs-center" }, [
+                  _c("p", { staticClass: "headline" }, [_vm._v("ATMA AUTO")]),
+                  _vm._v(" "),
+                  _c("p", {}, [_vm._v("MOTORCYCLE SPAREPARTS AND SERVICES")]),
+                  _vm._v(" "),
+                  _c("p", {}, [
+                    _vm._v("Jl. Babarsari No. 43 Yogyakarta 552181")
+                  ]),
+                  _vm._v(" "),
+                  _c("p", {}, [_vm._v("Telp. (0274)487711")]),
+                  _vm._v(" "),
+                  _c("p", {}, [_vm._v("http://www.atmaauto.com")]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "title" }, [_vm._v("SURAT PEMESANAN")])
+                ])
+              ])
+            ]
           )
         ],
         1
@@ -35112,6 +35198,32 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
+                                            attrs: { label: "Alamat Supplier" },
+                                            model: {
+                                              value:
+                                                _vm.editedItem.Alamat_Sales,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "Alamat_Sales",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "editedItem.Alamat_Sales"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        {
+                                          attrs: { xs12: "", sm6: "", md4: "" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
                                             attrs: {
                                               label: "Nomor Telphone Sales"
                                             },
@@ -35199,6 +35311,8 @@ var render = function() {
                               _vm._v(_vm._s(props.item.Nama_Supplier))
                             ]),
                             _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(props.item.Alamat_Sales))]),
+                            _vm._v(" "),
                             _c("td", [
                               _vm._v(_vm._s(props.item.Nomor_Telphone_Sales))
                             ]),
@@ -35258,7 +35372,7 @@ var render = function() {
                     ],
                     null,
                     false,
-                    3161811878
+                    697745780
                   )
                 },
                 [
@@ -35694,7 +35808,7 @@ var render = function() {
                                           _vm._v(" "),
                                           !!_vm.fileUrl
                                             ? _c("v-img", {
-                                                staticClass: "menu-img",
+                                                staticClass: "sparepart-img",
                                                 attrs: {
                                                   src: _vm.fileUrl,
                                                   "max-height": "200px",

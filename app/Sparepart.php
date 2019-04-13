@@ -23,8 +23,12 @@ class Sparepart extends Model
     ];
 
 
-    public function transaksi_sparepart(){
+    public function transaksi_spareparts(){
         return $this->hasMany(Transaksi_Sparepart::class);
+    }
+
+    public function detail_pesanans(){
+        return $this->hasOne(Detail_Pesanan::class);
     }
 
 

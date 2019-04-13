@@ -21,7 +21,7 @@ class Pesanan_Barang extends Model
     return $this->belongsTo(Sales::class, 'sales_id');
 }
 
-public function detail_pesanan(){
+public function detail_pesanans(){
     return $this->hasMany(Detail_Pesanan::class);
 }
 }

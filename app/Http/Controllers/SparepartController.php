@@ -13,6 +13,13 @@ class SparepartController extends Controller
         return response()->json(Sparepart::all(),200);
     }
 
+    public function all()
+    {
+        return response()->json(Sparepart::with([
+            
+        ]),200);
+    }
+
    
     public function store(Request $request)
     {

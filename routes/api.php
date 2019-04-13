@@ -14,8 +14,12 @@ Route::get('/kustomer/namakustomer', 'KustomerController@listNamaKustomer');
 Route::patch('/sales/{sales}', 'SalesController@update');
 Route::get('/sales/all', 'SalesController@all');
 Route::get('/pesanbarang/all', 'PesananBarangController@all');
+Route::get('/detailpesanan/all', 'DetailPesananController@all');
+Route::delete('/detailpesanan/{detail_Pesanan}', 'DetailPesananController@destroy');
+Route::get('/sparepart/all', 'SparepartController@all');
 
 Route::resource('/pesanbarang', 'PesananBarangController')->except(['all']);
+Route::resource('/detailpesanan', 'DetailPesananController')->except(['all', 'destroy']);
 Route::resource('/kustomer', 'KustomerController')->except(['search', 'all','listNamaKustomer']);
 Route::resource('/kendaraan', 'KendaraanController')->except(['all']);
 Route::resource('/transaksi', 'TransaksiController');

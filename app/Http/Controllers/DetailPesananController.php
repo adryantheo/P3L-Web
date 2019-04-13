@@ -13,13 +13,23 @@ class DetailPesananController extends Controller
         return response()->json(Detail_Pesanan::all(),200);
     }
 
+
+    public function all()
+    {
+        return response()->json(Detail_Pesanan::with([
+            'pesanan_barangs.sales', 
+            'spareparts'
+        ])->get(),200);
+    }
+
     public function store(Request $request)
     {
         $detail_Pesanan = Detail_Pesanan::create([
-            'Plat_kendaraan' => $request->Plat_kendaraan,
-            'Merk' => $request->Merk,
-            'Tipe' => $request->Tipe,
-            'kustomer_id' => $request->kustomer_id
+            'Total_Harga_Beli' => $request->Total_Harga_Beli,
+            'Jumlah_Diterima' => $request->Jumlah_Diterima,
+            'Jumlah_Pesan' => $request->Jumlah_Pesan,
+            'pesanan_id' => $request->pesanan_id,
+            'sparepart_id' => $request->sparepart_id,
             
             
         ]);
@@ -40,10 +50,11 @@ class DetailPesananController extends Controller
     {
         $status = $detail_Pesanan->update(
             $request->only([
-                'Plat_kendaraan', 
-                'Merk', 
-                'Tipe',
-                'kustomer_id'
+                'Total_Harga_Beli',
+                'Jumlah_Diterima',
+                'Jumlah_Pesan',
+                'pesanan_id',
+                'sparepart_id',
         
             ])
         );
