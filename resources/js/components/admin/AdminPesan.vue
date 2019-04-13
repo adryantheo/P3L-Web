@@ -61,8 +61,8 @@
       >
         <template v-slot:items="props">
          
-          <td >{{ props.item.Nama_Service }}</td>
-          <td >Rp. {{ props.item.Tarif }}</td>
+          <td>{{ props.item.Nama_Service }}</td>
+          <td>Rp. {{ props.item.Tarif }}</td>
          
           <td class=" layout px-0">
             <v-icon
@@ -101,11 +101,36 @@
                     <p class="">http://www.atmaauto.com</p>
                     <hr>
                     <br>
-                    <p class="title">SURAT PEMESANAN</p>                    
+                    <p class="title">SURAT PEMESANAN</p>                                       
                 </div>
-                
-                
-                
+                <div class="text-xs-right">
+                  <p>No: </p>
+                  <p>Tanggal: </p>                  
+                </div>
+                <div class="text-xs-left">
+                  <p>Kepada Yth: </p>
+                  <p>Nama Supplier</p>
+                  <p>alamat</p>
+                  <p>telp supplier</p>
+                  <p>Mohon untuk disediakan barang-barang berikut:</p>                
+                </div>
+                <div>
+                   <table style="width:100%" border="bold">
+                     <tr>
+                      <th>No</th>
+                      <th>Nama Barang</th> 
+                      <th>Merk</th>
+                      <th>Tipe Barang</th>
+                      <th>Satuan</th>
+                      <th>Jumlah</th>
+                    </tr>
+                   </table>
+                </div>
+                <br><br>
+                <div class="text-xs-right">
+                  <p>Hormat kami,</p><br><br>
+                  <p>(Philips Purnomo )</p>                  
+                </div>
             </div>
         </div>
     
@@ -124,6 +149,7 @@ export default {
     
   data: () => ({
 
+   
     isLoggedIn: localStorage.getItem('jwt') != null,
 
     beforeMount(){
@@ -172,11 +198,14 @@ export default {
     printOrders() {
             this.$htmlToPaper('printMe');
         },
-    
+        
     fetchservice() {
       axios.get('/api/service/')
       .then(response => this.service = response.data)
+      
     },
+
+   
     
     initialize() {
       this.fetchservice();

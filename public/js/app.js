@@ -30593,6 +30593,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -34810,6 +34835,62 @@ var render = function() {
                   _c("br"),
                   _vm._v(" "),
                   _c("p", { staticClass: "title" }, [_vm._v("SURAT PEMESANAN")])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-xs-right" }, [
+                  _c("p", [_vm._v("No: ")]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("Tanggal: ")])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-xs-left" }, [
+                  _c("p", [_vm._v("Kepada Yth: ")]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("Nama Supplier")]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("alamat")]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("telp supplier")]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v("Mohon untuk disediakan barang-barang berikut:")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", [
+                  _c(
+                    "table",
+                    {
+                      staticStyle: { width: "100%" },
+                      attrs: { border: "bold" }
+                    },
+                    [
+                      _c("tr", [
+                        _c("th", [_vm._v("No")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Nama Barang")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Merk")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Tipe Barang")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Satuan")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Jumlah")])
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _c("br"),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-xs-right" }, [
+                  _c("p", [_vm._v("Hormat kami,")]),
+                  _c("br"),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("(Philips Purnomo )")])
                 ])
               ])
             ]
