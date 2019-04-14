@@ -17,6 +17,7 @@ Route::get('/pesanbarang/all', 'PesananBarangController@all');
 Route::get('/detailpesanan/all', 'DetailPesananController@all');
 Route::delete('/detailpesanan/{detail_Pesanan}', 'DetailPesananController@destroy');
 Route::get('/sparepart/all', 'SparepartController@all');
+Route::patch('/sparepart/{sparepart}', 'SparepartController@update');
 
 Route::resource('/pesanbarang', 'PesananBarangController')->except(['all']);
 Route::resource('/detailpesanan', 'DetailPesananController')->except(['all', 'destroy']);
@@ -25,7 +26,7 @@ Route::resource('/kendaraan', 'KendaraanController')->except(['all']);
 Route::resource('/transaksi', 'TransaksiController');
 Route::resource('/service', 'ServiceController');
 Route::resource('/sales', 'SalesController')->except(['update', 'all']);
-Route::resource('/sparepart', 'SparepartController')->except(['uploadGambar']);
+Route::resource('/sparepart', 'SparepartController')->except(['uploadGambar','update']);
 
 
 

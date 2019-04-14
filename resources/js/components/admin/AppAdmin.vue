@@ -1,12 +1,23 @@
 <template>
 
 <div id="app">
-    <v-app id="inspire">
+    <v-app id="inspire" >
 
-      <v-navigation-drawer fixed v-model="drawer" app>
+      <v-snackbar  right v-model="snackbar" :color="color" :multi-line="mode === 'multi-line'" :timeout="timeout" :vertical="mode === 'vertical'" >
+        {{ text }}
+        <v-btn
+          dark
+          flat
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </v-snackbar>
+
+      <v-navigation-drawer fixed v-model="drawer" app >
     
       <v-list dense v-if="isLoggedIn">
-        <v-list-tile dark color="primary" flat v-for="menu in menus" :key="menu.text" router :to="menu.route">
+        <v-list-tile dark color="primary" flat v-for="menu in menus" :key="menu.text" router :to="menu.route" >
           <v-list-tile-action>            
           </v-list-tile-action>
           <v-list-tile-content>
@@ -18,7 +29,7 @@
 
       
 
-        <v-toolbar  color="white" app>
+        <v-toolbar  color="white" app  @stok_kurang="snackbar = true">
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <img src="../../../../public/Logo.png" alt="" >
             <v-toolbar-title>Admin Atma Auto</v-toolbar-title>
@@ -34,10 +45,6 @@
             <v-btn v-if="isLoggedIn"  @click="logout">
                Logout
             </v-btn>
-            
-
-            
-            
             
             <v-toolbar-items class="hidden-sm-and-down">           
             </v-toolbar-items>
@@ -74,14 +81,23 @@
 export default {
     
   data: () => ({
+    
+      snackbar: false,
+      color: '',
+      mode: '',
+      timeout: 6000,
+      text: 'Stok Kurang Dari Stok Minimal',
+     
 
     isLoggedIn: localStorage.getItem('jwt') != null,
+
 
     beforeMount(){
         this.setComponent(this.$route.params.page)
         this.user = JSON.parse(localStorage.getItem('user'))
         axios.defaults.headers.common['Content-Type'] = 'application/json'
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt')
+       
         },
   
     drawer:null,
@@ -126,10 +142,33 @@ export default {
 
     ],
 
+     
+
     
     
   }),
+  created () {
+    this.initialize()
+  },
+
   methods:{
+     fetchsparepart() {
+      axios.get('/api/sparepart/all')
+      .then(response => this.sparepart = response.data)
+      if(this.sparepart == null){
+        this.snackbar = 1;  
+      }
+          
+    },
+    // stokKurang(){ 
+    //         if(this.response.data != null){              
+              
+    //         }
+    //         },
+    
+    initialize() {
+      this.fetchsparepart();
+    },
     setDefaults() {
                 if (this.isLoggedIn) {
                     let user = JSON.parse(localStorage.getItem('user'))
@@ -145,7 +184,8 @@ export default {
                 localStorage.removeItem('user')
                 this.change()
                 this.$router.push('/')
-            }
+            },
+            
   }
 }
 

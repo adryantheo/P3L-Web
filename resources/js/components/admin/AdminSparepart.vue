@@ -64,7 +64,7 @@
                     <v-text-field v-model="editedItem.Stok_Min" label="Stok Min"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                     <v-btn color="primary" flat @click="pickFile" >
+                     <v-btn color="primary" flat @click="pickFile" v-if="editedIndex" >
                     Upload Gambar
                 </v-btn>
                 <v-img class="sparepart-img"
@@ -274,42 +274,27 @@ export default {
 
     save () {
       if (this.editedIndex > -1) {
-        console.log('Edited Data');
-        this.Kode_Sparepart=this.editedItem.Kode_Sparepart,
-        this.Nama=this.editedItem.Nama,
-        this.Tipe=this.editedItem.Tipe,
-        this.Merk=this.editedItem.Merk,
-        this.Jenis_Motor=this.editedItem.Jenis_Motor,
-        this.Harga_Beli=this.editedItem.Harga_Beli,
-        this.Harga_Jual=this.editedItem.Harga_Jual,
-        this.Letak=this.editedItem.Letak,
-        this.Stok=this.editedItem.Stok,
-        this.Stok_Min=this.editedItem.Stok_Min
-        console.log('created Data');
-        const data = new FormData();
-        data.append(`Kode_Sparepart`, this.Kode_Sparepart);
-        data.append(`Nama`, this.Nama);
-        data.append(`Tipe`, this.Tipe);
-        data.append(`Merk`, this.Merk);
-        data.append(`Jenis_Motor`, this.Jenis_Motor);
-        data.append(`Gambar`, this.fileBin);
-        data.append(`Harga_Beli`, this.Harga_Beli);
-        data.append(`Harga_Jual`, this.Harga_Jual);
-        data.append(`Letak`, this.Letak);
-        data.append(`Stok`, this.Stok);
-        data.append(`Stok_Min`, this.Stok_Min);
+        console.log('Edited Data'); 
 
-        axios.patch('/api/sparepart/'+this.editedItem.id,data,{
-          headers: {
-              'Content-Type': 'multipart/form-data'
-                            }
+       axios.patch('/api/sparepart/'+this.editedItem.id,{
+          Kode_Sparepart:this.editedItem.Kode_Sparepart,
+          Nama:this.editedItem.Nama,
+          Tipe:this.editedItem.Tipe,
+          Merk:this.editedItem.Merk,
+          Jenis_Motor:this.editedItem.Jenis_Motor,
+          Harga_Beli:this.editedItem.Harga_Beli,
+          Harga_Jual:this.editedItem.Harga_Jual,
+          Letak:this.editedItem.Letak,
+          Stok:this.editedItem.Stok,
+          Stok_Min:this.editedItem.Stok_Min
 
-        })
+           })
         .then(response => {
           console.log(response);
         })
        
-        Object.assign(this.sparepart[this.editedIndex], this.editedItem)
+        Object.assign(this.sales[this.editedIndex], this.editedItem)
+        
       } else {
         this.Kode_Sparepart=this.editedItem.Kode_Sparepart,
         this.Nama=this.editedItem.Nama,
@@ -335,7 +320,6 @@ export default {
         data.append(`Stok`, this.Stok);
         data.append(`Stok_Min`, this.Stok_Min);
         axios.post('/api/sparepart/', data
-
           , {
           headers: {
               'Content-Type': 'multipart/form-data'

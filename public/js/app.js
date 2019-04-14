@@ -31379,6 +31379,22 @@ __webpack_require__.r(__webpack_exports__);
     save: function save() {
       if (this.editedIndex > -1) {
         console.log('Edited Data');
+        axios.patch('/api/sparepart/' + this.editedItem.id, {
+          Kode_Sparepart: this.editedItem.Kode_Sparepart,
+          Nama: this.editedItem.Nama,
+          Tipe: this.editedItem.Tipe,
+          Merk: this.editedItem.Merk,
+          Jenis_Motor: this.editedItem.Jenis_Motor,
+          Harga_Beli: this.editedItem.Harga_Beli,
+          Harga_Jual: this.editedItem.Harga_Jual,
+          Letak: this.editedItem.Letak,
+          Stok: this.editedItem.Stok,
+          Stok_Min: this.editedItem.Stok_Min
+        }).then(function (response) {
+          console.log(response);
+        });
+        Object.assign(this.sales[this.editedIndex], this.editedItem);
+      } else {
         this.Kode_Sparepart = this.editedItem.Kode_Sparepart, this.Nama = this.editedItem.Nama, this.Tipe = this.editedItem.Tipe, this.Merk = this.editedItem.Merk, this.Jenis_Motor = this.editedItem.Jenis_Motor, this.Harga_Beli = this.editedItem.Harga_Beli, this.Harga_Jual = this.editedItem.Harga_Jual, this.Letak = this.editedItem.Letak, this.Stok = this.editedItem.Stok, this.Stok_Min = this.editedItem.Stok_Min;
         console.log('created Data');
         var data = new FormData();
@@ -31393,43 +31409,7 @@ __webpack_require__.r(__webpack_exports__);
         data.append("Letak", this.Letak);
         data.append("Stok", this.Stok);
         data.append("Stok_Min", this.Stok_Min);
-        axios.patch('/api/sparepart/' + this.editedItem.id, data, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }).then(function (response) {
-          console.log(response);
-        });
-        Object.assign(this.sparepart[this.editedIndex], this.editedItem);
-      } else {
-        this.Kode_Sparepart = this.editedItem.Kode_Sparepart, this.Nama = this.editedItem.Nama, this.Tipe = this.editedItem.Tipe, this.Merk = this.editedItem.Merk, this.Jenis_Motor = this.editedItem.Jenis_Motor, this.Harga_Beli = this.editedItem.Harga_Beli, this.Harga_Jual = this.editedItem.Harga_Jual, this.Letak = this.editedItem.Letak, this.Stok = this.editedItem.Stok, this.Stok_Min = this.editedItem.Stok_Min;
-        console.log('created Data');
-
-        var _data = new FormData();
-
-        _data.append("Kode_Sparepart", this.Kode_Sparepart);
-
-        _data.append("Nama", this.Nama);
-
-        _data.append("Tipe", this.Tipe);
-
-        _data.append("Merk", this.Merk);
-
-        _data.append("Jenis_Motor", this.Jenis_Motor);
-
-        _data.append("Gambar", this.fileBin);
-
-        _data.append("Harga_Beli", this.Harga_Beli);
-
-        _data.append("Harga_Jual", this.Harga_Jual);
-
-        _data.append("Letak", this.Letak);
-
-        _data.append("Stok", this.Stok);
-
-        _data.append("Stok_Min", this.Stok_Min);
-
-        axios.post('/api/sparepart/', _data, {
+        axios.post('/api/sparepart/', data, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -31559,9 +31539,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      snackbar: false,
+      color: '',
+      mode: '',
+      timeout: 6000,
+      text: 'Stok Kurang Dari Stok Minimal',
       isLoggedIn: localStorage.getItem('jwt') != null,
       beforeMount: function beforeMount() {
         this.setComponent(this.$route.params.page);
@@ -31594,7 +31586,28 @@ __webpack_require__.r(__webpack_exports__);
       }]
     };
   },
+  created: function created() {
+    this.initialize();
+  },
   methods: {
+    fetchsparepart: function fetchsparepart() {
+      var _this = this;
+
+      axios.get('/api/sparepart/all').then(function (response) {
+        return _this.sparepart = response.data;
+      });
+
+      if (this.sparepart == null) {
+        this.snackbar = 1;
+      }
+    },
+    // stokKurang(){ 
+    //         if(this.response.data != null){              
+    //         }
+    //         },
+    initialize: function initialize() {
+      this.fetchsparepart();
+    },
     setDefaults: function setDefaults() {
       if (this.isLoggedIn) {
         var user = JSON.parse(localStorage.getItem('user'));
@@ -35871,21 +35884,23 @@ var render = function() {
                                           attrs: { xs12: "", sm6: "", md4: "" }
                                         },
                                         [
-                                          _c(
-                                            "v-btn",
-                                            {
-                                              attrs: {
-                                                color: "primary",
-                                                flat: ""
-                                              },
-                                              on: { click: _vm.pickFile }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n                Upload Gambar\n            "
+                                          _vm.editedIndex
+                                            ? _c(
+                                                "v-btn",
+                                                {
+                                                  attrs: {
+                                                    color: "primary",
+                                                    flat: ""
+                                                  },
+                                                  on: { click: _vm.pickFile }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                Upload Gambar\n            "
+                                                  )
+                                                ]
                                               )
-                                            ]
-                                          ),
+                                            : _vm._e(),
                                           _vm._v(" "),
                                           !!_vm.fileUrl
                                             ? _c("v-img", {
@@ -36168,6 +36183,42 @@ var render = function() {
         { attrs: { id: "inspire" } },
         [
           _c(
+            "v-snackbar",
+            {
+              attrs: {
+                right: "",
+                color: _vm.color,
+                "multi-line": _vm.mode === "multi-line",
+                timeout: _vm.timeout,
+                vertical: _vm.mode === "vertical"
+              },
+              model: {
+                value: _vm.snackbar,
+                callback: function($$v) {
+                  _vm.snackbar = $$v
+                },
+                expression: "snackbar"
+              }
+            },
+            [
+              _vm._v("\r\n        " + _vm._s(_vm.text) + "\r\n        "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { dark: "", flat: "" },
+                  on: {
+                    click: function($event) {
+                      _vm.snackbar = false
+                    }
+                  }
+                },
+                [_vm._v("\r\n          Close\r\n        ")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
             "v-navigation-drawer",
             {
               attrs: { fixed: "", app: "" },
@@ -36222,7 +36273,14 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-toolbar",
-            { attrs: { color: "white", app: "" } },
+            {
+              attrs: { color: "white", app: "" },
+              on: {
+                stok_kurang: function($event) {
+                  _vm.snackbar = true
+                }
+              }
+            },
             [
               _c("v-toolbar-side-icon", {
                 on: {

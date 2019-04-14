@@ -15,9 +15,7 @@ class SparepartController extends Controller
 
     public function all()
     {
-        return response()->json(Sparepart::with([
-            
-        ]),200);
+        return response()->json(Sparepart::whereRaw('Stok < Stok_Min')->get(),200);
     }
 
    
@@ -76,17 +74,16 @@ class SparepartController extends Controller
     {
         $status = $sparepart->update(
             $request->only([
-                'Kode_Sparepart' => $request->Kode_Sparepart,
-                'Nama' => $request->Nama,
-                'Tipe' => $request->Tipe,
-                'Merk' => $request->Merk,
-                'Gambar' => $this->uploadGambar($request),
-                'Jenis_Motor' => $request->Jenis_Motor,
-                'Harga_Beli' => $request->Harga_Beli,
-                'Harga_Jual' => $request->Harga_Jual,
-                'Letak' => $request->Letak,
-                'Stok' => $request->Stok,
-                'Stok_Min' => $request->Stok_Min,                  
+                'Kode_Sparepart',
+                'Nama',
+                'Tipe',
+                'Merk',
+                'Jenis_Motor',
+                'Harga_Beli',
+                'Harga_Jual',
+                'Letak',
+                'Stok',
+                'Stok_Min',                  
         
             ])
         );
