@@ -35,10 +35,28 @@
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Nama_Service" label="Nama Service"></v-text-field>
+                    <v-text-field v-model="editedItem.Nama_Barang" label="Nama Barang"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Tarif" label="Tarif"></v-text-field>
+                    <v-select :items="items" v-model="editedItem.Status" label="Status"></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Tanggal_Pesan" label="Tanggal Pesan"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.sales_id" label="ID Sales"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Jumlah_Pesan" label="Jumlah Pesan"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Jumlah_Diterima" label="Jumlah Diterima"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Total_Harga_Beli" label="Total Harga"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.sparepart_id" label="ID Sparepart"></v-text-field>
                   </v-flex>
                   
                 </v-layout>
@@ -55,14 +73,20 @@
       </v-toolbar>
       <v-data-table
         :headers="headers"
-        :items="service"
+        :items="pesanbarang"
         :search="search"
         class="elevation-1"
       >
         <template v-slot:items="props">
          
-          <td>{{ props.item.Nama_Service }}</td>
-          <td>Rp. {{ props.item.Tarif }}</td>
+          <td>{{ props.item.pesanan_barangs.Nama_Barang }}</td>
+          <td> {{ props.item.pesanan_barangs.Status }}</td>
+          <td>{{ props.item.pesanan_barangs.Tanggal_Pesan }}</td>
+          <td> {{ props.item.pesanan_barangs.sales_id }}</td>
+          <td> {{ props.item.Jumlah_Pesan }}</td>
+          <td> {{ props.item.Jumlah_Diterima }}</td>
+           <td> {{ props.item.Total_Harga_Beli }}</td>
+          <td> {{ props.item.sparepart_id }}</td>
          
           <td class=" layout px-0">
             <v-icon
@@ -95,7 +119,7 @@
             <div class="ma-3">              
                 <div class="text-xs-center">                  
                     <p class="headline">ATMA AUTO</p>
-                    <p class="" >MOTORCYCLE SPAREPARTS AND SERVICES</p>
+                    <p class="" >MOTORCYCLE SPAREPARTS AND pesanbarangS</p>
                     <p class="">Jl. Babarsari No. 43 Yogyakarta 552181</p>
                     <p class="">Telp. (0274)487711</p>
                     <p class="">http://www.atmaauto.com</p>
@@ -136,18 +160,15 @@
     
     </v-layout>
 
-    
-
-    
-
-
-     
 </template>
 
 <script>
+import spareparts from './AdminSparepart'
 export default {
     
   data: () => ({
+
+    items:['Sedang Dipesan', 'Pesanan Selesai'],
 
    
     isLoggedIn: localStorage.getItem('jwt') != null,
@@ -163,11 +184,17 @@ export default {
     search: '',
     headers: [
       
-      { text: 'Nama Service', value: 'Nama_Service', sortable: true },
-      { text: 'Harga', value: 'Tarif', sortable: true },      
+      { text: 'Nama Barang', value: 'Nama_Barang', sortable: true },
+      { text: 'Status', value: 'Status', sortable: false },
+      { text: 'Tanggal Pesan', value: 'Tanggal_Pesan', sortable: true },
+      { text: 'ID Sales', value: 'sales_id', sortable: true },
+      { text: 'Jumlah Pesan', value: 'Jumlah_Pesan', sortable: true },
+      { text: 'Jumlah Diterima', value: 'Jumlah_Diterima', sortable: true },
+      { text: 'Total Harga', value: 'Total_Harga_Beli', sortable: true },
+      { text: 'ID Sparepart', value: 'sparepart_id', sortable: true },      
       { text: 'Actions', value: 'id', sortable: false }
     ],
-    service: [],
+    pesanbarang: [],
     editedIndex: -1,
     editedItem: {
      
@@ -199,30 +226,30 @@ export default {
             this.$htmlToPaper('printMe');
         },
         
-    fetchservice() {
-      axios.get('/api/service/')
-      .then(response => this.service = response.data)
+    fetchpesanbarang() {
+      axios.get('/api/detailpesanan/all')
+      .then(response => this.pesanbarang = response.data)
       
     },
 
    
     
     initialize() {
-      this.fetchservice();
+      this.fetchpesanbarang();
     },
 
     editItem (item) {
-      this.editedIndex = this.service.indexOf(item)
+      this.editedIndex = this.pesanbarang.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem (item) {
-      const index = this.service.indexOf(item)
-      confirm('Are you sure you want to delete this item?') && this.service.splice(index, 1)
+      const index = this.pesanbarang.indexOf(item)
+      confirm('Are you sure you want to delete this item?') && this.pesanbarang.splice(index, 1)
       console.log('deleted data');
 
-      axios.delete('/api/service/'+item.id)
+      axios.delete('/api/pesanbarang/'+item.id)
         .then(response => {
           console.log(response);
         })
@@ -240,22 +267,37 @@ export default {
       if (this.editedIndex > -1) {
         console.log('Edited Data');
 
-        axios.patch('/api/service/'+this.editedItem.id,{
-          Nama_Service:this.editedItem.Nama_Service,
+        axios.patch('/api/pesanbarang/'+this.editedItem.id,{
+          Nama_pesanbarang:this.editedItem.Nama_pesanbarang,
            Tarif:this.editedItem.Tarif
            })
         .then(response => {
           console.log(response);
         })
        
-        Object.assign(this.service[this.editedIndex], this.editedItem)
+        Object.assign(this.pesanbarang[this.editedIndex], this.editedItem)
       } else {
         console.log('created Data');
-        axios.post('/api/service/',{Nama_Service:this.editedItem.Nama_Service, Tarif:this.editedItem.Tarif})
+        axios.post('/api/pesanbarang/',{
+          Nama_Barang:this.editedItem.Nama_Barang,
+          Status:this.editedItem.Status,
+          Tanggal_Pesan:this.editedItem.Tanggal_Pesan,
+          sales_id:this.editedItem.sales_id,
+           })
         .then(response => {
           console.log(response);
         })
-        this.service.push(this.editedItem)
+        axios.post('/api/detailpesanan/',{
+          Jumlah_Pesan:this.editedItem.Jumlah_Pesan,
+          Jumlah_Diterima:this.editedItem.Jumlah_Diterima,
+          sparepart_id:this.editedItem.sparepart_id,
+          Total_Harga_Beli:this.editedItem.Total_Harga_Beli,
+          pesanan_id:this.editedItem.id,
+           })
+        .then(response => {
+          console.log(response);
+        })
+        this.pesanbarang.push(this.editedItem)
       }
       this.close()
     }

@@ -85,7 +85,7 @@ export default {
       snackbar: false,
       color: '',
       mode: '',
-      timeout: 6000,
+      timeout: 0,
       text: 'Stok Kurang Dari Stok Minimal',
      
 

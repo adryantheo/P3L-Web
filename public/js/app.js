@@ -30472,6 +30472,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AdminSparepart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminSparepart */ "./resources/js/components/admin/AdminSparepart.vue");
 //
 //
 //
@@ -30618,9 +30619,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      items: ['Sedang Dipesan', 'Pesanan Selesai'],
       isLoggedIn: localStorage.getItem('jwt') != null,
       beforeMount: function beforeMount() {
         this.setComponent(this.$route.params.page);
@@ -30631,19 +30652,43 @@ __webpack_require__.r(__webpack_exports__);
       dialog: false,
       search: '',
       headers: [{
-        text: 'Nama Service',
-        value: 'Nama_Service',
+        text: 'Nama Barang',
+        value: 'Nama_Barang',
         sortable: true
       }, {
-        text: 'Harga',
-        value: 'Tarif',
+        text: 'Status',
+        value: 'Status',
+        sortable: false
+      }, {
+        text: 'Tanggal Pesan',
+        value: 'Tanggal_Pesan',
+        sortable: true
+      }, {
+        text: 'ID Sales',
+        value: 'sales_id',
+        sortable: true
+      }, {
+        text: 'Jumlah Pesan',
+        value: 'Jumlah_Pesan',
+        sortable: true
+      }, {
+        text: 'Jumlah Diterima',
+        value: 'Jumlah_Diterima',
+        sortable: true
+      }, {
+        text: 'Total Harga',
+        value: 'Total_Harga_Beli',
+        sortable: true
+      }, {
+        text: 'ID Sparepart',
+        value: 'sparepart_id',
         sortable: true
       }, {
         text: 'Actions',
         value: 'id',
         sortable: false
       }],
-      service: [],
+      pesanbarang: [],
       editedIndex: -1,
       editedItem: {},
       defaultItem: {}
@@ -30666,26 +30711,26 @@ __webpack_require__.r(__webpack_exports__);
     printOrders: function printOrders() {
       this.$htmlToPaper('printMe');
     },
-    fetchservice: function fetchservice() {
+    fetchpesanbarang: function fetchpesanbarang() {
       var _this = this;
 
-      axios.get('/api/service/').then(function (response) {
-        return _this.service = response.data;
+      axios.get('/api/detailpesanan/all').then(function (response) {
+        return _this.pesanbarang = response.data;
       });
     },
     initialize: function initialize() {
-      this.fetchservice();
+      this.fetchpesanbarang();
     },
     editItem: function editItem(item) {
-      this.editedIndex = this.service.indexOf(item);
+      this.editedIndex = this.pesanbarang.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
     deleteItem: function deleteItem(item) {
-      var index = this.service.indexOf(item);
-      confirm('Are you sure you want to delete this item?') && this.service.splice(index, 1);
+      var index = this.pesanbarang.indexOf(item);
+      confirm('Are you sure you want to delete this item?') && this.pesanbarang.splice(index, 1);
       console.log('deleted data');
-      axios["delete"]('/api/service/' + item.id).then(function (response) {
+      axios["delete"]('/api/pesanbarang/' + item.id).then(function (response) {
         console.log(response);
       });
     },
@@ -30701,22 +30746,33 @@ __webpack_require__.r(__webpack_exports__);
     save: function save() {
       if (this.editedIndex > -1) {
         console.log('Edited Data');
-        axios.patch('/api/service/' + this.editedItem.id, {
-          Nama_Service: this.editedItem.Nama_Service,
+        axios.patch('/api/pesanbarang/' + this.editedItem.id, {
+          Nama_pesanbarang: this.editedItem.Nama_pesanbarang,
           Tarif: this.editedItem.Tarif
         }).then(function (response) {
           console.log(response);
         });
-        Object.assign(this.service[this.editedIndex], this.editedItem);
+        Object.assign(this.pesanbarang[this.editedIndex], this.editedItem);
       } else {
         console.log('created Data');
-        axios.post('/api/service/', {
-          Nama_Service: this.editedItem.Nama_Service,
-          Tarif: this.editedItem.Tarif
+        axios.post('/api/pesanbarang/', {
+          Nama_Barang: this.editedItem.Nama_Barang,
+          Status: this.editedItem.Status,
+          Tanggal_Pesan: this.editedItem.Tanggal_Pesan,
+          sales_id: this.editedItem.sales_id
         }).then(function (response) {
           console.log(response);
         });
-        this.service.push(this.editedItem);
+        axios.post('/api/detailpesanan/', {
+          Jumlah_Pesan: this.editedItem.Jumlah_Pesan,
+          Jumlah_Diterima: this.editedItem.Jumlah_Diterima,
+          sparepart_id: this.editedItem.sparepart_id,
+          Total_Harga_Beli: this.editedItem.Total_Harga_Beli,
+          pesanan_id: this.editedItem.id
+        }).then(function (response) {
+          console.log(response);
+        });
+        this.pesanbarang.push(this.editedItem);
       }
 
       this.close();
@@ -31552,7 +31608,7 @@ __webpack_require__.r(__webpack_exports__);
       snackbar: false,
       color: '',
       mode: '',
-      timeout: 6000,
+      timeout: 0,
       text: 'Stok Kurang Dari Stok Minimal',
       isLoggedIn: localStorage.getItem('jwt') != null,
       beforeMount: function beforeMount() {
@@ -34616,19 +34672,45 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Nama Service" },
+                                            attrs: { label: "Nama Barang" },
                                             model: {
-                                              value:
-                                                _vm.editedItem.Nama_Service,
+                                              value: _vm.editedItem.Nama_Barang,
                                               callback: function($$v) {
                                                 _vm.$set(
                                                   _vm.editedItem,
-                                                  "Nama_Service",
+                                                  "Nama_Barang",
                                                   $$v
                                                 )
                                               },
                                               expression:
-                                                "editedItem.Nama_Service"
+                                                "editedItem.Nama_Barang"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        {
+                                          attrs: { xs12: "", sm6: "", md4: "" }
+                                        },
+                                        [
+                                          _c("v-select", {
+                                            attrs: {
+                                              items: _vm.items,
+                                              label: "Status"
+                                            },
+                                            model: {
+                                              value: _vm.editedItem.Status,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "Status",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "editedItem.Status"
                                             }
                                           })
                                         ],
@@ -34642,17 +34724,147 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Tarif" },
+                                            attrs: { label: "Tanggal Pesan" },
                                             model: {
-                                              value: _vm.editedItem.Tarif,
+                                              value:
+                                                _vm.editedItem.Tanggal_Pesan,
                                               callback: function($$v) {
                                                 _vm.$set(
                                                   _vm.editedItem,
-                                                  "Tarif",
+                                                  "Tanggal_Pesan",
                                                   $$v
                                                 )
                                               },
-                                              expression: "editedItem.Tarif"
+                                              expression:
+                                                "editedItem.Tanggal_Pesan"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        {
+                                          attrs: { xs12: "", sm6: "", md4: "" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: { label: "ID Sales" },
+                                            model: {
+                                              value: _vm.editedItem.sales_id,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "sales_id",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "editedItem.sales_id"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        {
+                                          attrs: { xs12: "", sm6: "", md4: "" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: { label: "Jumlah Pesan" },
+                                            model: {
+                                              value:
+                                                _vm.editedItem.Jumlah_Pesan,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "Jumlah_Pesan",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "editedItem.Jumlah_Pesan"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        {
+                                          attrs: { xs12: "", sm6: "", md4: "" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: { label: "Jumlah Diterima" },
+                                            model: {
+                                              value:
+                                                _vm.editedItem.Jumlah_Diterima,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "Jumlah_Diterima",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "editedItem.Jumlah_Diterima"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        {
+                                          attrs: { xs12: "", sm6: "", md4: "" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: { label: "Total Harga" },
+                                            model: {
+                                              value:
+                                                _vm.editedItem.Total_Harga_Beli,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "Total_Harga_Beli",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "editedItem.Total_Harga_Beli"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        {
+                                          attrs: { xs12: "", sm6: "", md4: "" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: { label: "ID Sparepart" },
+                                            model: {
+                                              value:
+                                                _vm.editedItem.sparepart_id,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "sparepart_id",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "editedItem.sparepart_id"
                                             }
                                           })
                                         ],
@@ -34709,7 +34921,7 @@ var render = function() {
                   staticClass: "elevation-1",
                   attrs: {
                     headers: _vm.headers,
-                    items: _vm.service,
+                    items: _vm.pesanbarang,
                     search: _vm.search
                   },
                   scopedSlots: _vm._u(
@@ -34718,10 +34930,45 @@ var render = function() {
                         key: "items",
                         fn: function(props) {
                           return [
-                            _c("td", [_vm._v(_vm._s(props.item.Nama_Service))]),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(props.item.pesanan_barangs.Nama_Barang)
+                              )
+                            ]),
                             _vm._v(" "),
                             _c("td", [
-                              _vm._v("Rp. " + _vm._s(props.item.Tarif))
+                              _vm._v(
+                                " " + _vm._s(props.item.pesanan_barangs.Status)
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(props.item.pesanan_barangs.Tanggal_Pesan)
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                " " +
+                                  _vm._s(props.item.pesanan_barangs.sales_id)
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(" " + _vm._s(props.item.Jumlah_Pesan))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(" " + _vm._s(props.item.Jumlah_Diterima))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(" " + _vm._s(props.item.Total_Harga_Beli))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(" " + _vm._s(props.item.sparepart_id))
                             ]),
                             _vm._v(" "),
                             _c(
@@ -34779,7 +35026,7 @@ var render = function() {
                     ],
                     null,
                     false,
-                    3939313597
+                    2118052663
                   )
                 },
                 [
@@ -34833,7 +35080,9 @@ var render = function() {
                 _c("div", { staticClass: "text-xs-center" }, [
                   _c("p", { staticClass: "headline" }, [_vm._v("ATMA AUTO")]),
                   _vm._v(" "),
-                  _c("p", {}, [_vm._v("MOTORCYCLE SPAREPARTS AND SERVICES")]),
+                  _c("p", {}, [
+                    _vm._v("MOTORCYCLE SPAREPARTS AND pesanbarangS")
+                  ]),
                   _vm._v(" "),
                   _c("p", {}, [
                     _vm._v("Jl. Babarsari No. 43 Yogyakarta 552181")
