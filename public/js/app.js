@@ -30637,6 +30637,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -30768,7 +30779,7 @@ __webpack_require__.r(__webpack_exports__);
           Jumlah_Diterima: this.editedItem.Jumlah_Diterima,
           sparepart_id: this.editedItem.sparepart_id,
           Total_Harga_Beli: this.editedItem.Total_Harga_Beli,
-          pesanan_id: this.editedItem.sales_id
+          pesanan__barang_id: this.editedItem.sales_id
         }).then(function (response) {
           console.log(response);
         });
@@ -35135,8 +35146,31 @@ var render = function() {
                         _c("th", [_vm._v("Satuan")]),
                         _vm._v(" "),
                         _c("th", [_vm._v("Jumlah")])
-                      ])
-                    ]
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.pesanbarang, function(data, i) {
+                        return [
+                          _c("tr", { key: i }, [
+                            _c("td", [_vm._v(_vm._s(data.id))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(data.pesanan_barangs.Nama_Barang))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(data.spareparts.Merk))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(data.spareparts.Tipe))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(data.Jumlah_Pesan))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v("Rp. " + _vm._s(data.Total_Harga_Beli))
+                            ])
+                          ])
+                        ]
+                      })
+                    ],
+                    2
                   )
                 ]),
                 _vm._v(" "),

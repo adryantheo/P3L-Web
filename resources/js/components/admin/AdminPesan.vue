@@ -148,6 +148,17 @@
                       <th>Satuan</th>
                       <th>Jumlah</th>
                     </tr>
+                    <template v-for="(data, i) in pesanbarang">
+                      <tr :key="i">
+                        <td>{{data.id}}</td>
+                        <td>{{data.pesanan_barangs.Nama_Barang}}</td>
+                        <td>{{data.spareparts.Merk}}</td>
+                        <td>{{data.spareparts.Tipe}}</td>
+                        <td>{{data.Jumlah_Pesan}}</td>
+                        <td>Rp. {{data.Total_Harga_Beli}}</td>
+                        
+                      </tr>
+                    </template>
                    </table>
                 </div>
                 <br><br>
