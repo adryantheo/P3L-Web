@@ -85,7 +85,7 @@
           <td> {{ props.item.pesanan_barangs.sales_id }}</td>
           <td> {{ props.item.Jumlah_Pesan }}</td>
           <td> {{ props.item.Jumlah_Diterima }}</td>
-           <td> {{ props.item.Total_Harga_Beli }}</td>
+          <td> {{ props.item.Total_Harga_Beli }}</td>
           <td> {{ props.item.sparepart_id }}</td>
          
           <td class=" layout px-0">
@@ -292,7 +292,7 @@ export default {
           Jumlah_Diterima:this.editedItem.Jumlah_Diterima,
           sparepart_id:this.editedItem.sparepart_id,
           Total_Harga_Beli:this.editedItem.Total_Harga_Beli,
-          pesanan_id:this.editedItem.sales_id,
+          pesanan__barang_id:this.editedItem.sales_id,
            })
         .then(response => {
           console.log(response);
