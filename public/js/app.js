@@ -31653,7 +31653,7 @@ __webpack_require__.r(__webpack_exports__);
         return _this.sparepart = response.data;
       });
 
-      if (this.sparepart == null) {
+      if (this.sparepart != null) {
         this.snackbar = 1;
       }
     },

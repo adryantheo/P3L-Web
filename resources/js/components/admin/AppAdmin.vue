@@ -155,7 +155,7 @@ export default {
      fetchsparepart() {
       axios.get('/api/sparepart/all')
       .then(response => this.sparepart = response.data)
-      if(this.sparepart == null){
+      if(this.sparepart != null){
         this.snackbar = 1;  
       }
           
