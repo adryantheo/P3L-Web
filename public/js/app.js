@@ -30473,6 +30473,16 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AdminSparepart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminSparepart */ "./resources/js/components/admin/AdminSparepart.vue");
+/* harmony import */ var _AdminSales__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminSales */ "./resources/js/components/admin/AdminSales.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -30649,6 +30659,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -30700,6 +30711,7 @@ __webpack_require__.r(__webpack_exports__);
         sortable: false
       }],
       pesanbarang: [],
+      sales: [],
       editedIndex: -1,
       editedItem: {},
       defaultItem: {}
@@ -34938,9 +34950,7 @@ var render = function() {
                         fn: function(props) {
                           return [
                             _c("td", [
-                              _vm._v(
-                                _vm._s(props.item.pesanan_barangs.Nama_Barang)
-                              )
+                              _vm._v(_vm._s(props.item.spareparts.Nama))
                             ]),
                             _vm._v(" "),
                             _c("td", [
@@ -35033,7 +35043,7 @@ var render = function() {
                     ],
                     null,
                     false,
-                    2118052663
+                    1594763699
                   )
                 },
                 [
@@ -35087,9 +35097,7 @@ var render = function() {
                 _c("div", { staticClass: "text-xs-center" }, [
                   _c("p", { staticClass: "headline" }, [_vm._v("ATMA AUTO")]),
                   _vm._v(" "),
-                  _c("p", {}, [
-                    _vm._v("MOTORCYCLE SPAREPARTS AND pesanbarangS")
-                  ]),
+                  _c("p", {}, [_vm._v("MOTORCYCLE SPAREPARTS AND SERVICES")]),
                   _vm._v(" "),
                   _c("p", {}, [
                     _vm._v("Jl. Babarsari No. 43 Yogyakarta 552181")
@@ -35106,25 +35114,65 @@ var render = function() {
                   _c("p", { staticClass: "title" }, [_vm._v("SURAT PEMESANAN")])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "text-xs-right" }, [
-                  _c("p", [_vm._v("No: ")]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v("Tanggal: ")])
-                ]),
+                _c(
+                  "div",
+                  { staticClass: "text-xs-right" },
+                  [
+                    _vm._l(_vm.pesanbarang, function(data, i) {
+                      return [
+                        _c("tr", { key: i }, [
+                          _c("p", [_vm._v("No: " + _vm._s(data.id))]),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v("Tanggal: " + _vm._s(data.created_at) + " ")
+                          ])
+                        ])
+                      ]
+                    })
+                  ],
+                  2
+                ),
                 _vm._v(" "),
-                _c("div", { staticClass: "text-xs-left" }, [
-                  _c("p", [_vm._v("Kepada Yth: ")]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v("Nama Supplier")]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v("alamat")]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v("telp supplier")]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v("Mohon untuk disediakan barang-barang berikut:")
-                  ])
-                ]),
+                _c(
+                  "div",
+                  { staticClass: "text-xs-left" },
+                  [
+                    _vm._l(_vm.pesanbarang, function(data, i) {
+                      return [
+                        _c("tr", { key: i }, [
+                          _c("p", [_vm._v("Kepada Yth: ")]),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v(
+                              _vm._s(data.pesanan_barangs.sales.Nama_Supplier)
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v(
+                              _vm._s(data.pesanan_barangs.sales.Alamat_Sales)
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v(
+                              _vm._s(
+                                data.pesanan_barangs.sales.Nomor_Telphone_Sales
+                              )
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v(
+                              "Mohon untuk disediakan barang-barang berikut:"
+                            )
+                          ])
+                        ])
+                      ]
+                    })
+                  ],
+                  2
+                ),
                 _vm._v(" "),
                 _c("div", [
                   _c(

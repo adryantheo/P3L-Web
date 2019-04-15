@@ -79,7 +79,7 @@
       >
         <template v-slot:items="props">
          
-          <td>{{ props.item.pesanan_barangs.Nama_Barang }}</td>
+          <td>{{ props.item.spareparts.Nama }}</td>
           <td> {{ props.item.pesanan_barangs.Status }}</td>
           <td>{{ props.item.pesanan_barangs.Tanggal_Pesan }}</td>
           <td> {{ props.item.pesanan_barangs.sales_id }}</td>
@@ -119,7 +119,7 @@
             <div class="ma-3">              
                 <div class="text-xs-center">                  
                     <p class="headline">ATMA AUTO</p>
-                    <p class="" >MOTORCYCLE SPAREPARTS AND pesanbarangS</p>
+                    <p class="" >MOTORCYCLE SPAREPARTS AND SERVICES</p>
                     <p class="">Jl. Babarsari No. 43 Yogyakarta 552181</p>
                     <p class="">Telp. (0274)487711</p>
                     <p class="">http://www.atmaauto.com</p>
@@ -128,15 +128,24 @@
                     <p class="title">SURAT PEMESANAN</p>                                       
                 </div>
                 <div class="text-xs-right">
-                  <p>No: </p>
-                  <p>Tanggal: </p>                  
+                  <template v-for="(data, i) in pesanbarang">
+                  <tr :key="i">
+                  <p>No: {{data.id}}</p>
+                  <p>Tanggal: {{data.created_at}} </p>
+                  </tr>
+                  </template>                  
                 </div>
                 <div class="text-xs-left">
+                  <template v-for="(data, i) in pesanbarang">
+                  <tr :key="i">
                   <p>Kepada Yth: </p>
-                  <p>Nama Supplier</p>
-                  <p>alamat</p>
-                  <p>telp supplier</p>
-                  <p>Mohon untuk disediakan barang-barang berikut:</p>                
+                  <p>{{data.pesanan_barangs.sales.Nama_Supplier}}</p>
+                  <p>{{data.pesanan_barangs.sales.Alamat_Sales}}</p>
+                  <p>{{data.pesanan_barangs.sales.Nomor_Telphone_Sales}}</p>
+                  <p>Mohon untuk disediakan barang-barang berikut:</p>
+                    </tr>
+                  </template>                  
+                                  
                 </div>
                 <div>
                    <table style="width:100%" border="bold">
@@ -175,6 +184,7 @@
 
 <script>
 import spareparts from './AdminSparepart'
+import sales from './AdminSales'
 export default {
     
   data: () => ({
@@ -206,6 +216,7 @@ export default {
       { text: 'Actions', value: 'id', sortable: false }
     ],
     pesanbarang: [],
+    sales: [],
     editedIndex: -1,
     editedItem: {
      
