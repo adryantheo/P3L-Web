@@ -30768,7 +30768,7 @@ __webpack_require__.r(__webpack_exports__);
           Jumlah_Diterima: this.editedItem.Jumlah_Diterima,
           sparepart_id: this.editedItem.sparepart_id,
           Total_Harga_Beli: this.editedItem.Total_Harga_Beli,
-          pesanan_id: this.editedItem.id
+          pesanan_id: this.editedItem.sales_id
         }).then(function (response) {
           console.log(response);
         });
@@ -31657,10 +31657,6 @@ __webpack_require__.r(__webpack_exports__);
         this.snackbar = 1;
       }
     },
-    // stokKurang(){ 
-    //         if(this.response.data != null){              
-    //         }
-    //         },
     initialize: function initialize() {
       this.fetchsparepart();
     },

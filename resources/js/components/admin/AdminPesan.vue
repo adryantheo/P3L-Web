@@ -292,7 +292,7 @@ export default {
           Jumlah_Diterima:this.editedItem.Jumlah_Diterima,
           sparepart_id:this.editedItem.sparepart_id,
           Total_Harga_Beli:this.editedItem.Total_Harga_Beli,
-          pesanan_id:this.editedItem.id,
+          pesanan_id:this.editedItem.sales_id,
            })
         .then(response => {
           console.log(response);

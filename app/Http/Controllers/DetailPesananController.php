@@ -28,7 +28,7 @@ class DetailPesananController extends Controller
             'Total_Harga_Beli' => $request->Total_Harga_Beli,
             'Jumlah_Diterima' => $request->Jumlah_Diterima,
             'Jumlah_Pesan' => $request->Jumlah_Pesan,
-            'pesanan_id' => $request->pesanan_id,
+            'pesanan__barang_id' => $request->pesanan__barang_id,
             'sparepart_id' => $request->sparepart_id,
             
             
@@ -53,7 +53,7 @@ class DetailPesananController extends Controller
                 'Total_Harga_Beli',
                 'Jumlah_Diterima',
                 'Jumlah_Pesan',
-                'pesanan_id',
+                'pesanan__barang_id',
                 'sparepart_id',
         
             ])

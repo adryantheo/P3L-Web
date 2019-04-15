@@ -160,11 +160,7 @@ export default {
       }
           
     },
-    // stokKurang(){ 
-    //         if(this.response.data != null){              
-              
-    //         }
-    //         },
+    
     
     initialize() {
       this.fetchsparepart();
