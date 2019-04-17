@@ -42,7 +42,7 @@
                     <v-text-field v-model="editedItem.Tipe" label="Tipe"></v-text-field>
                   </v-flex>
                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.kustomer_id" label="ID Pemilik"></v-text-field>
+                      <v-select :items="items" item-text="Nama_Kustomer" item-value="id"  v-model="editedItem.kustomer_id" label="ID Pemilik"></v-select>
                   </v-flex>
                   
                 </v-layout>
@@ -95,6 +95,8 @@
 export default {
  
   data: () => ({
+
+    items: [],
     
     
     isLoggedIn: localStorage.getItem('jwt') != null,
@@ -118,6 +120,7 @@ export default {
       { text: 'Actions', value: 'id', sortable: false }
     ],
     kendaraan: [],
+    kustomer: [],
     editedIndex: -1,
     editedItem: {
      
@@ -137,6 +140,10 @@ export default {
   watch: {
     dialog (val) {
       val || this.close()
+    },
+    "editedItem.kustomer_id"(val){
+      console.log(val);
+      
     }
   },
 
@@ -145,7 +152,12 @@ export default {
   },
 
   methods: {
+    
 
+    fetchkustomer() {
+      axios.get('/api/kustomer/')
+      .then(response => this.items = response.data)
+    },
       
   
     
@@ -156,6 +168,7 @@ export default {
     
     initialize() {
       this.fetchkendaraan();
+      this.fetchkustomer();
       
       
     },

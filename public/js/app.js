@@ -31929,6 +31929,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      items: [],
       isLoggedIn: localStorage.getItem('jwt') != null,
       beforeMount: function beforeMount() {
         this.setComponent(this.$route.params.page);
@@ -31960,6 +31961,7 @@ __webpack_require__.r(__webpack_exports__);
         sortable: false
       }],
       kendaraan: [],
+      kustomer: [],
       editedIndex: -1,
       editedItem: {},
       defaultItem: {}
@@ -31973,21 +31975,32 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     dialog: function dialog(val) {
       val || this.close();
+    },
+    "editedItem.kustomer_id": function editedItemKustomer_id(val) {
+      console.log(val);
     }
   },
   created: function created() {
     this.initialize();
   },
   methods: {
-    fetchkendaraan: function fetchkendaraan() {
+    fetchkustomer: function fetchkustomer() {
       var _this = this;
 
+      axios.get('/api/kustomer/').then(function (response) {
+        return _this.items = response.data;
+      });
+    },
+    fetchkendaraan: function fetchkendaraan() {
+      var _this2 = this;
+
       axios.get('/api/kendaraan/all').then(function (response) {
-        return _this.kendaraan = response.data;
+        return _this2.kendaraan = response.data;
       });
     },
     initialize: function initialize() {
       this.fetchkendaraan();
+      this.fetchkustomer();
     },
     editItem: function editItem(item) {
       this.editedIndex = this.kendaraan.indexOf(item);
@@ -32003,12 +32016,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     close: function close() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.dialog = false;
       setTimeout(function () {
-        _this2.editedItem = Object.assign({}, _this2.defaultItem);
-        _this2.editedIndex = -1;
+        _this3.editedItem = Object.assign({}, _this3.defaultItem);
+        _this3.editedIndex = -1;
       }, 300);
     },
     save: function save() {
@@ -37081,8 +37094,13 @@ var render = function() {
                                           attrs: { xs12: "", sm6: "", md4: "" }
                                         },
                                         [
-                                          _c("v-text-field", {
-                                            attrs: { label: "ID Pemilik" },
+                                          _c("v-select", {
+                                            attrs: {
+                                              items: _vm.items,
+                                              "item-text": "Nama_Kustomer",
+                                              "item-value": "id",
+                                              label: "ID Pemilik"
+                                            },
                                             model: {
                                               value: _vm.editedItem.kustomer_id,
                                               callback: function($$v) {
