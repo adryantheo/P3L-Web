@@ -30664,6 +30664,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       items: ['Sedang Dipesan', 'Pesanan Selesai'],
+      dataSales: [],
+      dataSparepart: [],
       isLoggedIn: localStorage.getItem('jwt') != null,
       beforeMount: function beforeMount() {
         this.setComponent(this.$route.params.page);
@@ -30725,6 +30727,12 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     dialog: function dialog(val) {
       val || this.close();
+    },
+    "editedItem.sparepart_id": function editedItemSparepart_id(val) {
+      console.log(val);
+    },
+    "editedItem.sales_id": function editedItemSales_id(val) {
+      console.log(val);
     }
   },
   created: function created() {
@@ -30734,15 +30742,31 @@ __webpack_require__.r(__webpack_exports__);
     printOrders: function printOrders() {
       this.$htmlToPaper('printMe');
     },
-    fetchpesanbarang: function fetchpesanbarang() {
+    fetchsales: function fetchsales() {
       var _this = this;
 
+      axios.get('/api/sales/').then(function (response) {
+        return _this.dataSales = response.data;
+      });
+    },
+    fetchsparepart: function fetchsparepart() {
+      var _this2 = this;
+
+      axios.get('/api/sparepart/').then(function (response) {
+        return _this2.dataSparepart = response.data;
+      });
+    },
+    fetchpesanbarang: function fetchpesanbarang() {
+      var _this3 = this;
+
       axios.get('/api/detailpesanan/all').then(function (response) {
-        return _this.pesanbarang = response.data;
+        return _this3.pesanbarang = response.data;
       });
     },
     initialize: function initialize() {
       this.fetchpesanbarang();
+      this.fetchsales();
+      this.fetchsparepart();
     },
     editItem: function editItem(item) {
       this.editedIndex = this.pesanbarang.indexOf(item);
@@ -30758,12 +30782,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     close: function close() {
-      var _this2 = this;
+      var _this4 = this;
 
       this.dialog = false;
       setTimeout(function () {
-        _this2.editedItem = Object.assign({}, _this2.defaultItem);
-        _this2.editedIndex = -1;
+        _this4.editedItem = Object.assign({}, _this4.defaultItem);
+        _this4.editedIndex = -1;
       }, 300);
     },
     save: function save() {
@@ -34703,8 +34727,13 @@ var render = function() {
                                           attrs: { xs12: "", sm6: "", md4: "" }
                                         },
                                         [
-                                          _c("v-text-field", {
-                                            attrs: { label: "Nama Barang" },
+                                          _c("v-select", {
+                                            attrs: {
+                                              items: _vm.dataSparepart,
+                                              "item-text": "Nama",
+                                              "item-value": "Nama",
+                                              label: "Nama Barang"
+                                            },
                                             model: {
                                               value: _vm.editedItem.Nama_Barang,
                                               callback: function($$v) {
@@ -34781,8 +34810,13 @@ var render = function() {
                                           attrs: { xs12: "", sm6: "", md4: "" }
                                         },
                                         [
-                                          _c("v-text-field", {
-                                            attrs: { label: "ID Sales" },
+                                          _c("v-select", {
+                                            attrs: {
+                                              items: _vm.dataSales,
+                                              "item-text": "Nama_Supplier",
+                                              "item-value": "id",
+                                              label: "ID Sales"
+                                            },
                                             model: {
                                               value: _vm.editedItem.sales_id,
                                               callback: function($$v) {
@@ -34883,8 +34917,13 @@ var render = function() {
                                           attrs: { xs12: "", sm6: "", md4: "" }
                                         },
                                         [
-                                          _c("v-text-field", {
-                                            attrs: { label: "ID Sparepart" },
+                                          _c("v-select", {
+                                            attrs: {
+                                              items: _vm.dataSparepart,
+                                              "item-text": "Nama",
+                                              "item-value": "id",
+                                              label: "ID Sparepart"
+                                            },
                                             model: {
                                               value:
                                                 _vm.editedItem.sparepart_id,

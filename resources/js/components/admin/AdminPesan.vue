@@ -35,7 +35,7 @@
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Nama_Barang" label="Nama Barang"></v-text-field>
+                    <v-select :items="dataSparepart" item-text="Nama" item-value="Nama" v-model="editedItem.Nama_Barang" label="Nama Barang"></v-select>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
                     <v-select :items="items" v-model="editedItem.Status" label="Status"></v-select>
@@ -44,7 +44,7 @@
                     <v-text-field v-model="editedItem.Tanggal_Pesan" label="Tanggal Pesan"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.sales_id" label="ID Sales"></v-text-field>
+                    <v-select :items="dataSales" item-text="Nama_Supplier" item-value="id" v-model="editedItem.sales_id" label="ID Sales"></v-select>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Jumlah_Pesan" label="Jumlah Pesan"></v-text-field>
@@ -56,7 +56,7 @@
                     <v-text-field v-model="editedItem.Total_Harga_Beli" label="Total Harga"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.sparepart_id" label="ID Sparepart"></v-text-field>
+                    <v-select :items="dataSparepart" item-text="Nama" item-value="id" v-model="editedItem.sparepart_id" label="ID Sparepart"></v-select>
                   </v-flex>
                   
                 </v-layout>
@@ -191,6 +191,9 @@ export default {
 
     items:['Sedang Dipesan', 'Pesanan Selesai'],
 
+    dataSales: [],
+    dataSparepart: [],
+
    
     isLoggedIn: localStorage.getItem('jwt') != null,
 
@@ -235,6 +238,13 @@ export default {
   watch: {
     dialog (val) {
       val || this.close()
+    },
+    "editedItem.sparepart_id"(val){
+      console.log(val);      
+    },
+    "editedItem.sales_id"(val){
+      console.log(val);
+      
     }
   },
 
@@ -247,6 +257,18 @@ export default {
     printOrders() {
             this.$htmlToPaper('printMe');
         },
+
+    fetchsales(){
+      axios.get('/api/sales/')
+      .then(response => this.dataSales = response.data)
+
+    },
+
+    fetchsparepart(){
+      axios.get('/api/sparepart/')
+      .then(response => this.dataSparepart = response.data)
+
+    },
         
     fetchpesanbarang() {
       axios.get('/api/detailpesanan/all')
@@ -258,6 +280,8 @@ export default {
     
     initialize() {
       this.fetchpesanbarang();
+      this.fetchsales();
+      this.fetchsparepart();
     },
 
     editItem (item) {
