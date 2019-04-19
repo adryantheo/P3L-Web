@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pesanan_Barang;
+use App\Detail_Pesanan;
 use Illuminate\Http\Request;
 
 class PesananBarangController extends Controller
@@ -27,6 +28,15 @@ class PesananBarangController extends Controller
             'Tanggal_Pesan' => $request->Tanggal_Pesan,
             'sales_id' => $request->sales_id,
            
+        ]);
+        
+        //create detail pesanan
+        Detail_Pesanan::create([
+            'Total_Harga_Beli' => $request->Total_Harga_Beli,
+            'Jumlah_Diterima' => $request->Jumlah_Diterima,
+            'Jumlah_Pesan' => $request->Jumlah_Pesan,
+            'pesanan__barang_id' => $pesanan_Barang->id,
+            'sparepart_id' => $request->sparepart_id,
         ]);
 
         return response()->json([

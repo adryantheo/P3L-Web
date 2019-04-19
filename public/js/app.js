@@ -30714,6 +30714,7 @@ __webpack_require__.r(__webpack_exports__);
       }],
       pesanbarang: [],
       sales: [],
+      detailpesanan: [],
       editedIndex: -1,
       editedItem: {},
       defaultItem: {}
@@ -30763,10 +30764,18 @@ __webpack_require__.r(__webpack_exports__);
         return _this3.pesanbarang = response.data;
       });
     },
+    fetchdetailpesanan: function fetchdetailpesanan() {
+      var _this4 = this;
+
+      axios.get('/api/detailpesanan/').then(function (response) {
+        return _this4.detailpesanan = response.data;
+      });
+    },
     initialize: function initialize() {
       this.fetchpesanbarang();
       this.fetchsales();
       this.fetchsparepart();
+      this.fetchdetailpesanan();
     },
     editItem: function editItem(item) {
       this.editedIndex = this.pesanbarang.indexOf(item);
@@ -30777,20 +30786,20 @@ __webpack_require__.r(__webpack_exports__);
       var index = this.pesanbarang.indexOf(item);
       confirm('Are you sure you want to delete this item?') && this.pesanbarang.splice(index, 1);
       console.log('deleted data');
-      axios["delete"]('/api/detailpesanan/' + item.id).then(function (response) {
+      axios["delete"]('/api/pesanbarang/' + item.id).then(function (response) {
         console.log(response);
       });
-      axios["delete"]('/api/pesanbarang/' + item.id).then(function (response) {
+      axios["delete"]('/api/detailpesanan/' + item.id).then(function (response) {
         console.log(response);
       });
     },
     close: function close() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.dialog = false;
       setTimeout(function () {
-        _this4.editedItem = Object.assign({}, _this4.defaultItem);
-        _this4.editedIndex = -1;
+        _this5.editedItem = Object.assign({}, _this5.defaultItem);
+        _this5.editedIndex = -1;
       }, 300);
     },
     save: function save() {
@@ -30809,16 +30818,11 @@ __webpack_require__.r(__webpack_exports__);
           Nama_Barang: this.editedItem.Nama_Barang,
           Status: this.editedItem.Status,
           Tanggal_Pesan: this.editedItem.Tanggal_Pesan,
-          sales_id: this.editedItem.sales_id
-        }).then(function (response) {
-          console.log(response);
-        });
-        axios.post('/api/detailpesanan/', {
+          sales_id: this.editedItem.sales_id,
           Jumlah_Pesan: this.editedItem.Jumlah_Pesan,
           Jumlah_Diterima: this.editedItem.Jumlah_Diterima,
           sparepart_id: this.editedItem.sparepart_id,
-          Total_Harga_Beli: this.editedItem.Total_Harga_Beli,
-          pesanan__barang_id: this.editedItem.sales_id
+          Total_Harga_Beli: this.editedItem.Total_Harga_Beli
         }).then(function (response) {
           console.log(response);
         });
@@ -35036,7 +35040,9 @@ var render = function() {
                         fn: function(props) {
                           return [
                             _c("td", [
-                              _vm._v(_vm._s(props.item.spareparts.Nama))
+                              _vm._v(
+                                _vm._s(props.item.pesanan_barangs.Nama_Barang)
+                              )
                             ]),
                             _vm._v(" "),
                             _c("td", [
@@ -35129,7 +35135,7 @@ var render = function() {
                     ],
                     null,
                     false,
-                    1594763699
+                    2118052663
                   )
                 },
                 [

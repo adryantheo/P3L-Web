@@ -13,7 +13,7 @@ Route::get('/kendaraan/all', 'KendaraanController@all');
 Route::get('/kustomer/namakustomer', 'KustomerController@listNamaKustomer');
 Route::patch('/sales/{sales}', 'SalesController@update');
 Route::get('/sales/all', 'SalesController@all');
-Route::get('/pesanbarang/all', 'PesananBarangController@all');\
+Route::get('/pesanbarang/all', 'PesananBarangController@all');
 Route::delete('/pesanbarang/{pesanan_Barang}', 'PesananBarangController@destroy');
 Route::get('/detailpesanan/all', 'DetailPesananController@all');
 Route::delete('/detailpesanan/{detail_Pesanan}', 'DetailPesananController@destroy');

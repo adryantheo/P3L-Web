@@ -79,7 +79,7 @@
       >
         <template v-slot:items="props">
          
-          <td>{{ props.item.spareparts.Nama }}</td>
+          <td>{{ props.item.pesanan_barangs.Nama_Barang }}</td>
           <td> {{ props.item.pesanan_barangs.Status }}</td>
           <td>{{ props.item.pesanan_barangs.Tanggal_Pesan }}</td>
           <td> {{ props.item.pesanan_barangs.sales_id }}</td>
@@ -220,6 +220,7 @@ export default {
     ],
     pesanbarang: [],
     sales: [],
+    detailpesanan: [],
     editedIndex: -1,
     editedItem: {
      
@@ -232,7 +233,8 @@ export default {
   computed: {
     formTitle () {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
-    }
+    },
+    
   },
 
   watch: {
@@ -275,6 +277,11 @@ export default {
       .then(response => this.pesanbarang = response.data)
       
     },
+    fetchdetailpesanan() {
+      axios.get('/api/detailpesanan/')
+      .then(response => this.detailpesanan = response.data)
+      
+    },
 
    
     
@@ -282,6 +289,7 @@ export default {
       this.fetchpesanbarang();
       this.fetchsales();
       this.fetchsparepart();
+      this.fetchdetailpesanan()
     },
 
     editItem (item) {
@@ -294,18 +302,16 @@ export default {
       const index = this.pesanbarang.indexOf(item)
       confirm('Are you sure you want to delete this item?') && this.pesanbarang.splice(index, 1)
       console.log('deleted data');
-      
-      axios.delete('/api/detailpesanan/'+item.id)
-        .then(response => {
-          console.log(response);
-        })
 
       axios.delete('/api/pesanbarang/'+item.id)
         .then(response => {
           console.log(response);
         })
 
-      
+      axios.delete('/api/detailpesanan/'+item.id)
+        .then(response => {
+          console.log(response);
+        })
     },
 
     close () {
@@ -336,20 +342,15 @@ export default {
           Status:this.editedItem.Status,
           Tanggal_Pesan:this.editedItem.Tanggal_Pesan,
           sales_id:this.editedItem.sales_id,
-           })
-        .then(response => {
-          console.log(response);
-        })
-        axios.post('/api/detailpesanan/',{
           Jumlah_Pesan:this.editedItem.Jumlah_Pesan,
           Jumlah_Diterima:this.editedItem.Jumlah_Diterima,
           sparepart_id:this.editedItem.sparepart_id,
           Total_Harga_Beli:this.editedItem.Total_Harga_Beli,
-          pesanan__barang_id:this.editedItem.sales_id,
            })
         .then(response => {
           console.log(response);
         })
+        
         this.pesanbarang.push(this.editedItem)
       }
       this.close()
