@@ -294,11 +294,18 @@ export default {
       const index = this.pesanbarang.indexOf(item)
       confirm('Are you sure you want to delete this item?') && this.pesanbarang.splice(index, 1)
       console.log('deleted data');
+      
+      axios.delete('/api/detailpesanan/'+item.id)
+        .then(response => {
+          console.log(response);
+        })
 
       axios.delete('/api/pesanbarang/'+item.id)
         .then(response => {
           console.log(response);
         })
+
+      
     },
 
     close () {

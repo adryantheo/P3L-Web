@@ -97,6 +97,10 @@ export default {
         text: 'Kendaraan',
         route: '/karyawan/kendaraan'
       },
+      {
+        text: 'Transaksi',
+        route: '/karyawan/transaksi'
+      },
       
     ],
 

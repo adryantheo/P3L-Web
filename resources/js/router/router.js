@@ -31,6 +31,7 @@ import AdminPesan from '../components/admin/AdminPesan.vue'
 import AppKaryawan from '../components/karyawan/AppKaryawan.vue'
 import KaryawanKustomer from '../components/karyawan/KaryawanKustomer.vue'
 import KaryawanKendaraan from '../components/karyawan/KaryawanKendaraan.vue'
+import KaryawanTransaksi from '../components/karyawan/KaryawanTransaksi.vue'
 
 Vue.use(VueRouter)
 
@@ -158,6 +159,11 @@ const routes = [
 
                 path:'/karyawan/kendaraan',
                 component: KaryawanKendaraan,
+            },
+            {
+
+                path:'/karyawan/transaksi',
+                component: KaryawanTransaksi,
             },
           
         ]
