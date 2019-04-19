@@ -127,6 +127,7 @@ const routes = [
         {
 
             path:'/admin/sparepart',
+            name: 'AdminSparepart',
             component: AdminSparepart,
         },
         {

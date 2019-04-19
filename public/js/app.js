@@ -30685,7 +30685,7 @@ __webpack_require__.r(__webpack_exports__);
         sortable: false
       }, {
         text: 'Tanggal Pesan',
-        value: 'Tanggal_Pesan',
+        value: 'created_at',
         sortable: true
       }, {
         text: 'ID Sales',
@@ -30742,6 +30742,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     printOrders: function printOrders() {
       this.$htmlToPaper('printMe');
+    },
+    getHargaBeli: function getHargaBeli() {
+      parseFloat(this.dataSparepart.Harga_Beli);
     },
     fetchsales: function fetchsales() {
       var _this = this;
@@ -31338,9 +31341,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      types: ['Roda', 'Kelistrikan', 'Mesin', 'Kelistrikan', 'Rem', 'Copling', 'CVT'],
       isLoggedIn: localStorage.getItem('jwt') != null,
       beforeMount: function beforeMount() {
         this.setComponent(this.$route.params.page);
@@ -35053,7 +35063,7 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [
                               _vm._v(
-                                _vm._s(props.item.pesanan_barangs.Tanggal_Pesan)
+                                _vm._s(props.item.pesanan_barangs.created_at)
                               )
                             ]),
                             _vm._v(" "),
@@ -35073,7 +35083,9 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("td", [
-                              _vm._v(" " + _vm._s(props.item.Total_Harga_Beli))
+                              _vm._v(
+                                " Rp. " + _vm._s(props.item.Total_Harga_Beli)
+                              )
                             ]),
                             _vm._v(" "),
                             _c("td", [
@@ -35135,7 +35147,7 @@ var render = function() {
                     ],
                     null,
                     false,
-                    2118052663
+                    1978185105
                   )
                 },
                 [
@@ -35965,12 +35977,40 @@ var render = function() {
                 "v-toolbar",
                 { attrs: { flat: "", color: "white" } },
                 [
-                  _c("v-toolbar-title", [_vm._v("Sparepart")]),
+                  _c(
+                    "v-toolbar-title",
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link",
+                          attrs: { to: { name: "AdminSparepart" } }
+                        },
+                        [_vm._v("Sparepart")]
+                      )
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
                   _c("v-divider", {
                     staticClass: "mx-2",
                     attrs: { inset: "", vertical: "" }
                   }),
+                  _vm._v(" "),
+                  _c(
+                    "v-toolbar-title",
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link",
+                          attrs: { to: { name: "stok-min" } }
+                        },
+                        [_vm._v("Stok Kurang")]
+                      )
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
                   _c("v-spacer"),
                   _vm._v(" "),
@@ -36108,8 +36148,11 @@ var render = function() {
                                           attrs: { xs12: "", sm6: "", md4: "" }
                                         },
                                         [
-                                          _c("v-text-field", {
-                                            attrs: { label: "Tipe" },
+                                          _c("v-select", {
+                                            attrs: {
+                                              items: _vm.types,
+                                              label: "Tipe"
+                                            },
                                             model: {
                                               value: _vm.editedItem.Tipe,
                                               callback: function($$v) {
@@ -80973,6 +81016,7 @@ var routes = [{
     component: _components_admin_AdminJasaService_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
   }, {
     path: '/admin/sparepart',
+    name: 'AdminSparepart',
     component: _components_admin_AdminSparepart_vue__WEBPACK_IMPORTED_MODULE_17__["default"]
   }, {
     path: '/admin/laporan',

@@ -81,11 +81,11 @@
          
           <td>{{ props.item.pesanan_barangs.Nama_Barang }}</td>
           <td> {{ props.item.pesanan_barangs.Status }}</td>
-          <td>{{ props.item.pesanan_barangs.Tanggal_Pesan }}</td>
+          <td>{{ props.item.pesanan_barangs.created_at }}</td>
           <td> {{ props.item.pesanan_barangs.sales_id }}</td>
           <td> {{ props.item.Jumlah_Pesan }}</td>
           <td> {{ props.item.Jumlah_Diterima }}</td>
-          <td> {{ props.item.Total_Harga_Beli }}</td>
+          <td> Rp. {{ props.item.Total_Harga_Beli }}</td>
           <td> {{ props.item.sparepart_id }}</td>
          
           <td class=" layout px-0">
@@ -128,7 +128,7 @@
                     <p class="title">SURAT PEMESANAN</p>                                       
                 </div>
                 <div class="text-xs-right">
-                  <template v-for="(data, i) in pesanbarang">
+                  <template v-for="(data,i) in pesanbarang">
                   <tr :key="i">
                   <p>No: {{data.id}}</p>
                   <p>Tanggal: {{data.created_at}} </p>
@@ -210,7 +210,7 @@ export default {
       
       { text: 'Nama Barang', value: 'Nama_Barang', sortable: true },
       { text: 'Status', value: 'Status', sortable: false },
-      { text: 'Tanggal Pesan', value: 'Tanggal_Pesan', sortable: true },
+      { text: 'Tanggal Pesan', value: 'created_at', sortable: true },
       { text: 'ID Sales', value: 'sales_id', sortable: true },
       { text: 'Jumlah Pesan', value: 'Jumlah_Pesan', sortable: true },
       { text: 'Jumlah Diterima', value: 'Jumlah_Diterima', sortable: true },
@@ -235,6 +235,7 @@ export default {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
     },
     
+    
   },
 
   watch: {
@@ -246,8 +247,8 @@ export default {
     },
     "editedItem.sales_id"(val){
       console.log(val);
-      
-    }
+    },
+    
   },
 
   created () {
@@ -259,6 +260,11 @@ export default {
     printOrders() {
             this.$htmlToPaper('printMe');
         },
+
+    getHargaBeli(){
+       parseFloat(this.dataSparepart.Harga_Beli);
+
+    },
 
     fetchsales(){
       axios.get('/api/sales/')
