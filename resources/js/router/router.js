@@ -22,6 +22,7 @@ import AdminLaporan from '../components/admin/AdminLaporan.vue'
 import AdminRegister from '../components/admin/AdminRegister.vue'
 import AdminJasaService from '../components/admin/AdminJasaService.vue'
 import AdminSparepart from '../components/admin/AdminSparepart.vue'
+import AdminKurangSparepart from '../components/admin/AdminKurangSparepart.vue'
 import AdminLogout from '../components/admin/AdminLogout.vue'
 import AdminGantiPass from '../components/admin/AdminGantiPass.vue'
 import AdminSales from '../components/admin/AdminSales.vue'
@@ -143,7 +144,14 @@ const routes = [
         {
 
             path:'/admin/pesan',
+            name: 'AdminPesan',
             component: AdminPesan,
+        },
+        {
+
+            path:'/admin/sparepartkurang',
+            name: 'AdminKurangSparepart',
+            component: AdminKurangSparepart,
         },  
         ]
     },

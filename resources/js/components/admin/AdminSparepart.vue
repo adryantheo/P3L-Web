@@ -15,7 +15,7 @@
           vertical
         ></v-divider>
         <v-toolbar-title>
-          <router-link :to="{ name: 'stok-min' }" class="nav-link" >Stok Kurang</router-link>
+          <router-link :to="{ name: 'AdminKurangSparepart' }" class="nav-link" >Stok Kurang</router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">

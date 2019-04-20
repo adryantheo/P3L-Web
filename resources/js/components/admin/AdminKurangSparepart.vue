@@ -15,7 +15,7 @@
           vertical
         ></v-divider>
         <v-toolbar-title>
-          <router-link :to="{ name: 'stok-min' }" class="nav-link" >Stok Kurang</router-link>
+          <router-link :to="{ name: 'AdminKurangSparepart' }" class="nav-link" >Stok Kurang</router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
@@ -122,19 +122,9 @@
           <td >{{ props.item.Stok_Min }}</td>
          
           <td>
-            <v-icon
-              small
-              class="mr-2"
-              @click="editItem(props.item)"
-            >
-              edit
-            </v-icon>
-            <v-icon
-              small
-              @click="deleteItem(props.item)"
-            >
-              delete
-            </v-icon>
+            <v-btn>
+              <router-link :to="{ name: 'AdminPesan' }" class="nav-link" >Pesan Sekarang</router-link>
+            </v-btn>
           </td>
         </template>
         <template v-slot:no-data>
@@ -255,7 +245,7 @@ export default {
         },
     
     fetchsparepart() {
-      axios.get('/api/sparepart/')
+      axios.get('/api/sparepart/all')
       .then(response => this.sparepart = response.data)
     },
     
