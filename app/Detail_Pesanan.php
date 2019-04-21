@@ -13,6 +13,7 @@ class Detail_Pesanan extends Model
         'Total_Harga_Beli', 
         'Jumlah_Diterima',
         'Jumlah_Pesan',
+        'Harga_Beli',
         'pesanan__barang_id',
         'sparepart_id'
  ];

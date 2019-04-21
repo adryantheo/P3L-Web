@@ -28,111 +28,43 @@
           hide-details
         ></v-text-field>
         <v-spacer></v-spacer>
-            <v-btn color="primary" dark class="mb-2" v-on="on">New sparepart</v-btn>
+           
           </template>
           
-          <v-card>
-            <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
-            </v-card-title>
-  
-            <v-card-text>
-              <v-container grid-list-md>
-                <v-layout wrap>
-                  <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Kode_Sparepart" label="Kode Sparepart"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Nama" label="Nama"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-select :items="types" v-model="editedItem.Tipe" label="Tipe"></v-select>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Merk" label="Merk"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Jenis_Motor" label="Jenis Motor"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Harga_Beli" label="Harga Beli"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Harga_Jual" label="Harga Jual"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Letak" label="Letak"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Stok" label="Stok"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Stok_Min" label="Stok Min"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                     <v-btn color="primary" flat @click="pickFile" v-if="editedIndex" >
-                    Upload Gambar
-                </v-btn>
-                <v-img class="sparepart-img"
-                    v-if="!!fileUrl"
-                    :src="fileUrl"
-                    max-height="200px"
-                    contain
-                ></v-img>
-                <input type="file"
-                    ref="file"
-                    name="thumbnail"
-                    @change="onFileChange(
-                        $event.target.name, $event.target.files)"
-                    style="display:none">
-                  </v-flex>
-                 
-                  
-                  
-                </v-layout>
-              </v-container>
-            </v-card-text>
-  
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-              <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
-            </v-card-actions>
-          </v-card>
+          
         </v-dialog>
       </v-toolbar>
+
       <v-data-table
         :headers="headers"
         :items="sparepart"
         :search="search"
         class="elevation-1"
       >
-        <template v-slot:items="props">
-         
-          <td >{{ props.item.Kode_Sparepart }}</td>
-          <td >{{ props.item.Nama }}</td>
-          <td >{{ props.item.Tipe }}</td>
-          <td >{{ props.item.Merk }}</td>
-          <td >{{ props.item.Jenis_Motor }}</td>
-          <td ><v-img :src="props.item.Gambar"></v-img></td>
-          <td >{{ props.item.Harga_Beli }}</td>
-          <td >{{ props.item.Harga_Jual }}</td>
-          <td >{{ props.item.Letak }}</td>
-          <td >{{ props.item.Stok }}</td>
-          <td >{{ props.item.Stok_Min }}</td>
-         
-          <td>
-            <v-btn>
-              <router-link :to="{ name: 'AdminPesan' }" class="nav-link" >Pesan Sekarang</router-link>
-            </v-btn>
-          </td>
-        </template>
-        <template v-slot:no-data>
-          <v-btn color="primary" @click="initialize">Reset</v-btn>
-        </template>
-         <v-alert v-slot:no-results :value="true" color="error" icon="warning">
-          Your search for "{{ search }}" found no results.
-          </v-alert>
+          <template v-slot:items="props">          
+              <td >{{ props.item.Kode_Sparepart }}</td>
+              <td >{{ props.item.Nama }}</td>
+              <td >{{ props.item.Tipe }}</td>
+              <td >{{ props.item.Merk }}</td>
+              <td >{{ props.item.Jenis_Motor }}</td>
+              <td ><v-img :src="props.item.Gambar"></v-img></td>
+              <!-- <td >{{ props.item.Harga_Beli }}</td> -->
+              <td >{{ props.item.Harga_Jual }}</td>
+              <td >{{ props.item.Letak }}</td>
+              <td >{{ props.item.Stok }}</td>
+              <td >{{ props.item.Stok_Min }}</td>          
+              <td>
+                <v-btn>
+                  <router-link :to="{ name: 'AdminPesan' }" class="nav-link" >Pesan Sekarang</router-link>
+                </v-btn>
+              </td>
+          </template>
+          <template v-slot:no-data>
+            <v-btn color="primary" @click="initialize">Reset</v-btn>
+          </template>
+          <v-alert v-slot:no-results :value="true" color="error" icon="warning">
+            Your search for "{{ search }}" found no results.
+            </v-alert>
       </v-data-table>
 
     </v-flex>
@@ -141,17 +73,8 @@
 
 <script>
 export default {
-    
   data: () => ({
-
-    types:['Roda',
-      'Kelistrikan',
-      'Mesin',
-      'Kelistrikan',
-      'Rem',
-      'Copling',
-      'CVT',
-      ],
+    
 
     isLoggedIn: localStorage.getItem('jwt') != null,
 
@@ -165,18 +88,8 @@ export default {
 
     dialog: false,
     search: '',
-    fileUrl: '',
-    fileBin: '',
-    Kode_Sparepart: null,
-    Nama: null,
-    Tipe: null,
-    Merk: null,
-    Jenis_Motor: null,
-    Harga_Beli: null,
-    Harga_Jual: null,
-    Letak: null,
-    Stok: null,
-    Stok_Min: null,
+    
+    
     headers: [
       
       { text: 'Kode Sparepart', value: 'Kode_Sparepart', sortable: true },
@@ -185,7 +98,7 @@ export default {
       { text: 'Merk', value: 'Merk', sortable: true },
       { text: 'Jenis Motor', value: 'Jenis_Motor', sortable: true },
        { text: 'Gambar', value: 'Gambar', sortable: false },
-      { text: 'Harga Beli', value: 'Harga_Beli', sortable: true },
+      // { text: 'Harga Beli', value: 'Harga_Beli', sortable: true },
       { text: 'Harga Jual', value: 'Harga_Jual', sortable: true },
       { text: 'Letak', value: 'Letak', sortable: false },
       { text: 'Stok', value: 'Stok', sortable: true },    
@@ -201,6 +114,7 @@ export default {
       
     }
   }),
+
 
   computed: {
     formTitle () {
@@ -219,78 +133,15 @@ export default {
   },
 
   methods: {
-    pickFile(){
-            this.$refs.file.click();
-        },
-        onFileChange(fieldName, file) {
-            const { maxSize } = this;
-            console.log(fieldName);
-            
-            let imageFile = file[0]
-            if (file.length > 0) {
-                let size = imageFile.size / maxSize / maxSize
-                if (!imageFile.type.match('image.*')) {
-                    this.errorText = 'File harus berupa gambar!';
-                } else if (size>1) {
-                    // check whether the size is greater than the size limit
-                    this.errorText = 'Ukuran file harus dibawah 1 MB!'
-                } else {
-                    this.errorText = '';
-                    
-                    this.fileUrl = URL.createObjectURL(imageFile);
-                    this.fileBin = imageFile;
-                    
-                }
-            }
-        },
-    
-    fetchsparepart() {
-      axios.get('/api/sparepart/all')
-      .then(response => this.sparepart = response.data)
+   async fetchsparepart() {
+     const res = await axios.get('/api/sparepart/all').then(response => this.sparepart = response.data);
+
     },
     
     initialize() {
       this.fetchsparepart();
     },
 
-    editItem (item) {
-      this.editedIndex = this.sparepart.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialog = true
-    },
-
-    deleteItem (item) {
-      const index = this.sparepart.indexOf(item)
-      confirm('Are you sure you want to delete this item?') && this.sparepart.splice(index, 1)
-      console.log('deleted data');
-
-      axios.delete('/api/sparepart/'+item.id)
-        .then(response => {
-          console.log(response);
-        })
-    },
-
-    close () {
-      this.dialog = false
-      setTimeout(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      }, 300)
-    },
-
-    save () {
-      if (this.editedIndex > -1) {
-        console.log('Edited Data'); 
-
-       
-        Object.assign(this.sales[this.editedIndex], this.editedItem)
-        
-      } else {
-      
-        this.sparepart.push(this.editedItem)
-      }
-      this.close()
-    }
   }
 }
 </script>

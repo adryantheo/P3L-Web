@@ -8,15 +8,18 @@
         <v-toolbar-title>
           <router-link :to="{ name: 'AdminSparepart' }" class="nav-link" >Sparepart</router-link>
           </v-toolbar-title>
-        
-        <v-divider
+           <v-divider
           class="mx-2"
           inset
           vertical
         ></v-divider>
-        <v-toolbar-title>
+          <v-toolbar-title>
           <router-link :to="{ name: 'AdminKurangSparepart' }" class="nav-link" >Stok Kurang</router-link>
         </v-toolbar-title>
+          
+        
+       
+        
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on }">
@@ -54,9 +57,9 @@
                   <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Jenis_Motor" label="Jenis Motor"></v-text-field>
                   </v-flex>
-                  <v-flex xs12 sm6 md4>
+                  <!-- <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Harga_Beli" label="Harga Beli"></v-text-field>
-                  </v-flex>
+                  </v-flex> -->
                   <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Harga_Jual" label="Harga Jual"></v-text-field>
                   </v-flex>
@@ -115,7 +118,7 @@
           <td >{{ props.item.Merk }}</td>
           <td >{{ props.item.Jenis_Motor }}</td>
           <td ><v-img :src="props.item.Gambar"></v-img></td>
-          <td >{{ props.item.Harga_Beli }}</td>
+          <!-- <td >{{ props.item.Harga_Beli }}</td> -->
           <td >{{ props.item.Harga_Jual }}</td>
           <td >{{ props.item.Letak }}</td>
           <td >{{ props.item.Stok }}</td>
@@ -182,7 +185,7 @@ export default {
     Tipe: null,
     Merk: null,
     Jenis_Motor: null,
-    Harga_Beli: null,
+    // Harga_Beli: null,
     Harga_Jual: null,
     Letak: null,
     Stok: null,
@@ -195,7 +198,7 @@ export default {
       { text: 'Merk', value: 'Merk', sortable: true },
       { text: 'Jenis Motor', value: 'Jenis_Motor', sortable: true },
        { text: 'Gambar', value: 'Gambar', sortable: false },
-      { text: 'Harga Beli', value: 'Harga_Beli', sortable: true },
+     
       { text: 'Harga Jual', value: 'Harga_Jual', sortable: true },
       { text: 'Letak', value: 'Letak', sortable: false },
       { text: 'Stok', value: 'Stok', sortable: true },    
@@ -298,7 +301,7 @@ export default {
           Tipe:this.editedItem.Tipe,
           Merk:this.editedItem.Merk,
           Jenis_Motor:this.editedItem.Jenis_Motor,
-          Harga_Beli:this.editedItem.Harga_Beli,
+          // Harga_Beli:this.editedItem.Harga_Beli,
           Harga_Jual:this.editedItem.Harga_Jual,
           Letak:this.editedItem.Letak,
           Stok:this.editedItem.Stok,
@@ -317,7 +320,7 @@ export default {
         this.Tipe=this.editedItem.Tipe,
         this.Merk=this.editedItem.Merk,
         this.Jenis_Motor=this.editedItem.Jenis_Motor,
-        this.Harga_Beli=this.editedItem.Harga_Beli,
+        // this.Harga_Beli=this.editedItem.Harga_Beli,
         this.Harga_Jual=this.editedItem.Harga_Jual,
         this.Letak=this.editedItem.Letak,
         this.Stok=this.editedItem.Stok,
@@ -330,7 +333,7 @@ export default {
         data.append(`Merk`, this.Merk);
         data.append(`Jenis_Motor`, this.Jenis_Motor);
         data.append(`Gambar`, this.fileBin);
-        data.append(`Harga_Beli`, this.Harga_Beli);
+        // data.append(`Harga_Beli`, this.Harga_Beli);
         data.append(`Harga_Jual`, this.Harga_Jual);
         data.append(`Letak`, this.Letak);
         data.append(`Stok`, this.Stok);

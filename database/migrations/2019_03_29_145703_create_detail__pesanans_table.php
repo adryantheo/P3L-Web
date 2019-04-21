@@ -14,6 +14,7 @@ class CreateDetailPesanansTable extends Migration
             $table->double('Total_Harga_Beli');
             $table->Integer('Jumlah_Diterima');
             $table->Integer('Jumlah_Pesan');
+            $table->double('Harga_Beli');
             $table->unsignedInteger('pesanan__barang_id');
             $table->unsignedInteger('sparepart_id');
             $table->softDeletes();

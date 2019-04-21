@@ -25,7 +25,7 @@ class PesananBarangController extends Controller
         $pesanan_Barang = Pesanan_Barang::create([
             'Nama_Barang' => $request->Nama_Barang,
             'Status' => $request->Status,
-            'Tanggal_Pesan' => $request->Tanggal_Pesan,
+            
             'sales_id' => $request->sales_id,
            
         ]);
@@ -35,6 +35,7 @@ class PesananBarangController extends Controller
             'Total_Harga_Beli' => $request->Total_Harga_Beli,
             'Jumlah_Diterima' => $request->Jumlah_Diterima,
             'Jumlah_Pesan' => $request->Jumlah_Pesan,
+            'Harga_Beli' => $request->Harga_Beli,
             'pesanan__barang_id' => $pesanan_Barang->id,
             'sparepart_id' => $request->sparepart_id,
         ]);

@@ -30,7 +30,7 @@ class SparepartController extends Controller
             'Merk' => $request->Merk,
             'Gambar' => $this->uploadGambar($request),
             'Jenis_Motor' => $request->Jenis_Motor,
-            'Harga_Beli' => $request->Harga_Beli,
+            
             'Harga_Jual' => $request->Harga_Jual,
             'Letak' => $request->Letak,
             'Stok' => $request->Stok,

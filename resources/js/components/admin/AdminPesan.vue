@@ -1,18 +1,15 @@
 <template>
-
-    <v-layout align-space-around justify-center fill-height v-if="isLoggedIn">
-    <v-flex>
-    
-  
-    <v-toolbar flat color="white">
+  <v-layout align-space-around justify-center fill-height v-if="isLoggedIn">
+    <v-flex>  
+      <v-toolbar flat color="white">
         <v-toolbar-title>Pemesanan Barang</v-toolbar-title>
-        <v-divider
-          class="mx-2"
-          inset
-          vertical
-        ></v-divider>
-        <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="500px">
+          <v-divider
+            class="mx-2"
+            inset
+            vertical
+          ></v-divider>
+          <v-spacer></v-spacer>
+          <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on }">
               <v-text-field
           v-model="search"
@@ -40,9 +37,9 @@
                   <v-flex xs12 sm6 md4>
                     <v-select :items="items" v-model="editedItem.Status" label="Status"></v-select>
                   </v-flex>
-                  <v-flex xs12 sm6 md4>
+                  <!-- <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Tanggal_Pesan" label="Tanggal Pesan"></v-text-field>
-                  </v-flex>
+                  </v-flex> -->
                   <v-flex xs12 sm6 md4>
                     <v-select :items="dataSales" item-text="Nama_Supplier" item-value="id" v-model="editedItem.sales_id" label="ID Sales"></v-select>
                   </v-flex>
@@ -53,8 +50,11 @@
                     <v-text-field v-model="editedItem.Jumlah_Diterima" label="Jumlah Diterima"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Total_Harga_Beli" label="Total Harga"></v-text-field>
+                    <v-text-field v-model="editedItem.Harga_Beli" label="Harga Beli"></v-text-field>
                   </v-flex>
+                  <!-- <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Total_Harga_Beli" label="Total Harga"></v-text-field>
+                  </v-flex> -->
                   <v-flex xs12 sm6 md4>
                     <v-select :items="dataSparepart" item-text="Nama" item-value="id" v-model="editedItem.sparepart_id" label="ID Sparepart"></v-select>
                   </v-flex>
@@ -85,6 +85,7 @@
           <td> {{ props.item.pesanan_barangs.sales_id }}</td>
           <td> {{ props.item.Jumlah_Pesan }}</td>
           <td> {{ props.item.Jumlah_Diterima }}</td>
+          <td>Rp. {{ props.item.Harga_Beli }}</td>
           <td> Rp. {{ props.item.Total_Harga_Beli }}</td>
           <td> {{ props.item.sparepart_id }}</td>
          
@@ -191,10 +192,6 @@ export default {
 
     items:['Sedang Dipesan', 'Pesanan Selesai'],
 
-    dataSales: [],
-    dataSparepart: [],
-
-   
     isLoggedIn: localStorage.getItem('jwt') != null,
 
     beforeMount(){
@@ -214,13 +211,16 @@ export default {
       { text: 'ID Sales', value: 'sales_id', sortable: true },
       { text: 'Jumlah Pesan', value: 'Jumlah_Pesan', sortable: true },
       { text: 'Jumlah Diterima', value: 'Jumlah_Diterima', sortable: true },
+      { text: 'Harga Beli', value: 'Harga_Beli', sortable: true },
       { text: 'Total Harga', value: 'Total_Harga_Beli', sortable: true },
       { text: 'ID Sparepart', value: 'sparepart_id', sortable: true },      
       { text: 'Actions', value: 'id', sortable: false }
     ],
     pesanbarang: [],
-    sales: [],
+    dataSales: [],
+    dataSparepart: [], 
     detailpesanan: [],
+    Total_Harga_Beli: 0,
     editedIndex: -1,
     editedItem: {
      
@@ -234,6 +234,11 @@ export default {
     formTitle () {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
     },
+    getTotalHarga(){
+      
+      var hargaBeli = parseFloat(this.dataSparepart.Harga_Beli)
+      this.Total_Harga_Beli = this.hargaBeli
+    }
     
     
   },
@@ -346,12 +351,13 @@ export default {
         axios.post('/api/pesanbarang/',{
           Nama_Barang:this.editedItem.Nama_Barang,
           Status:this.editedItem.Status,
-          Tanggal_Pesan:this.editedItem.Tanggal_Pesan,
+          
           sales_id:this.editedItem.sales_id,
           Jumlah_Pesan:this.editedItem.Jumlah_Pesan,
           Jumlah_Diterima:this.editedItem.Jumlah_Diterima,
           sparepart_id:this.editedItem.sparepart_id,
-          Total_Harga_Beli:this.editedItem.Total_Harga_Beli,
+          Harga_Beli:this.editedItem.Harga_Beli,
+          Total_Harga_Beli:this.editedItem.Jumlah_Pesan * this.editedItem.Harga_Beli,
            })
         .then(response => {
           console.log(response);
