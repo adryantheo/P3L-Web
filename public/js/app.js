@@ -32556,9 +32556,345 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      items: ['Sedang Dipesan', 'Pesanan Selesai'],
+      isLoggedIn: localStorage.getItem('jwt') != null,
+      beforeMount: function beforeMount() {
+        this.setComponent(this.$route.params.page);
+        this.user = JSON.parse(localStorage.getItem('user'));
+        axios.defaults.headers.common['Content-Type'] = 'application/json';
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt');
+      },
+      dialog: false,
+      search: '',
+      headers: [{
+        text: 'Nama Customer',
+        value: 'Nama_Barang',
+        sortable: true
+      }, {
+        text: 'Telepon Customer',
+        value: 'Status',
+        sortable: false
+      }, {
+        text: 'Motor Customer',
+        value: 'created_at',
+        sortable: true
+      }, {
+        text: 'Nama CS',
+        value: 'sales_id',
+        sortable: true
+      }, {
+        text: 'Nama Montir',
+        value: 'Jumlah_Pesan',
+        sortable: true
+      }, {
+        text: 'Tanggal',
+        value: 'Jumlah_Diterima',
+        sortable: true
+      }, {
+        text: 'Actions',
+        value: 'id',
+        sortable: false
+      }],
+      pesanbarang: [],
+      dataSales: [],
+      dataSparepart: [],
+      detailpesanan: [],
+      Total_Harga_Beli: 0,
+      editedIndex: -1,
+      editedItem: {},
+      defaultItem: {}
+    };
+  },
+  computed: {
+    formTitle: function formTitle() {
+      return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
+    },
+    getTotalHarga: function getTotalHarga() {
+      var hargaBeli = parseFloat(this.dataSparepart.Harga_Beli);
+      this.Total_Harga_Beli = this.hargaBeli;
+    }
+  },
+  watch: {
+    dialog: function dialog(val) {
+      val || this.close();
+    },
+    "editedItem.sparepart_id": function editedItemSparepart_id(val) {
+      console.log(val);
+    },
+    "editedItem.sales_id": function editedItemSales_id(val) {
+      console.log(val);
+    }
+  },
+  created: function created() {
+    this.initialize();
+  },
+  methods: {
+    printOrders: function printOrders() {
+      this.$htmlToPaper('printMe');
+    },
+    getHargaBeli: function getHargaBeli() {
+      parseFloat(this.dataSparepart.Harga_Beli);
+    },
+    fetchsales: function fetchsales() {
+      var _this = this;
+
+      axios.get('/api/sales/').then(function (response) {
+        return _this.dataSales = response.data;
+      });
+    },
+    fetchsparepart: function fetchsparepart() {
+      var _this2 = this;
+
+      axios.get('/api/sparepart/').then(function (response) {
+        return _this2.dataSparepart = response.data;
+      });
+    },
+    fetchpesanbarang: function fetchpesanbarang() {
+      var _this3 = this;
+
+      axios.get('/api/detailpesanan/all').then(function (response) {
+        return _this3.pesanbarang = response.data;
+      });
+    },
+    fetchdetailpesanan: function fetchdetailpesanan() {
+      var _this4 = this;
+
+      axios.get('/api/detailpesanan/').then(function (response) {
+        return _this4.detailpesanan = response.data;
+      });
+    },
+    initialize: function initialize() {
+      this.fetchpesanbarang();
+      this.fetchsales();
+      this.fetchsparepart();
+      this.fetchdetailpesanan();
+    },
+    editItem: function editItem(item) {
+      this.editedIndex = this.pesanbarang.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+    deleteItem: function deleteItem(item) {
+      var index = this.pesanbarang.indexOf(item);
+      confirm('Are you sure you want to delete this item?') && this.pesanbarang.splice(index, 1);
+      console.log('deleted data');
+      axios["delete"]('/api/pesanbarang/' + item.id).then(function (response) {
+        console.log(response);
+      });
+      axios["delete"]('/api/detailpesanan/' + item.id).then(function (response) {
+        console.log(response);
+      });
+    },
+    close: function close() {
+      var _this5 = this;
+
+      this.dialog = false;
+      setTimeout(function () {
+        _this5.editedItem = Object.assign({}, _this5.defaultItem);
+        _this5.editedIndex = -1;
+      }, 300);
+    },
+    save: function save() {
+      if (this.editedIndex > -1) {
+        console.log('Edited Data');
+        axios.patch('/api/pesanbarang/' + this.editedItem.id, {
+          Nama_pesanbarang: this.editedItem.Nama_pesanbarang,
+          Tarif: this.editedItem.Tarif
+        }).then(function (response) {
+          console.log(response);
+        });
+        Object.assign(this.pesanbarang[this.editedIndex], this.editedItem);
+      } else {
+        console.log('created Data');
+        axios.post('/api/pesanbarang/', {
+          Nama_Barang: this.editedItem.Nama_Barang,
+          Status: this.editedItem.Status,
+          sales_id: this.editedItem.sales_id,
+          Jumlah_Pesan: this.editedItem.Jumlah_Pesan,
+          Jumlah_Diterima: this.editedItem.Jumlah_Diterima,
+          sparepart_id: this.editedItem.sparepart_id,
+          Harga_Beli: this.editedItem.Harga_Beli,
+          Total_Harga_Beli: this.editedItem.Jumlah_Pesan * this.editedItem.Harga_Beli
+        }).then(function (response) {
+          console.log(response);
+        });
+        this.pesanbarang.push(this.editedItem);
+      }
+
+      this.close();
+    }
   }
 });
 
@@ -38978,7 +39314,655 @@ var render = function() {
             "fill-height": ""
           }
         },
-        [_c("v-flex")],
+        [
+          _c(
+            "v-flex",
+            [
+              _c(
+                "v-toolbar",
+                { attrs: { flat: "", color: "white" } },
+                [
+                  _c("v-toolbar-title", [_vm._v("Transaksi")]),
+                  _vm._v(" "),
+                  _c("v-divider", {
+                    staticClass: "mx-2",
+                    attrs: { inset: "", vertical: "" }
+                  }),
+                  _vm._v(" "),
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-dialog",
+                    {
+                      attrs: { "max-width": "500px" },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "activator",
+                            fn: function(ref) {
+                              var on = ref.on
+                              return [
+                                _c("v-text-field", {
+                                  attrs: {
+                                    "append-icon": "search",
+                                    label: "Search",
+                                    "single-line": "",
+                                    "hide-details": ""
+                                  },
+                                  model: {
+                                    value: _vm.search,
+                                    callback: function($$v) {
+                                      _vm.search = $$v
+                                    },
+                                    expression: "search"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("v-spacer"),
+                                _vm._v(" "),
+                                _c(
+                                  "v-btn",
+                                  _vm._g(
+                                    {
+                                      staticClass: "mb-2",
+                                      attrs: { color: "primary", dark: "" }
+                                    },
+                                    on
+                                  ),
+                                  [_vm._v("Tambah Transaksi")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "mb-2",
+                                    attrs: { color: "primary", dark: "" },
+                                    on: { click: _vm.printOrders }
+                                  },
+                                  [_vm._v("Cetak SPK")]
+                                )
+                              ]
+                            }
+                          }
+                        ],
+                        null,
+                        false,
+                        3429360519
+                      ),
+                      model: {
+                        value: _vm.dialog,
+                        callback: function($$v) {
+                          _vm.dialog = $$v
+                        },
+                        expression: "dialog"
+                      }
+                    },
+                    [
+                      _vm._v(" "),
+                      _c(
+                        "v-card",
+                        [
+                          _c("v-card-title", [
+                            _c("span", { staticClass: "headline" }, [
+                              _vm._v(_vm._s(_vm.formTitle))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-text",
+                            [
+                              _c(
+                                "v-container",
+                                { attrs: { "grid-list-md": "" } },
+                                [
+                                  _c(
+                                    "v-layout",
+                                    { attrs: { wrap: "" } },
+                                    [
+                                      _c(
+                                        "v-flex",
+                                        {
+                                          attrs: { xs12: "", sm6: "", md4: "" }
+                                        },
+                                        [
+                                          _c("v-select", {
+                                            attrs: {
+                                              items: _vm.dataSparepart,
+                                              "item-text": "Nama",
+                                              "item-value": "Nama",
+                                              label: "Nama Barang"
+                                            },
+                                            model: {
+                                              value: _vm.editedItem.Nama_Barang,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "Nama_Barang",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "editedItem.Nama_Barang"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        {
+                                          attrs: { xs12: "", sm6: "", md4: "" }
+                                        },
+                                        [
+                                          _c("v-select", {
+                                            attrs: {
+                                              items: _vm.items,
+                                              label: "Status"
+                                            },
+                                            model: {
+                                              value: _vm.editedItem.Status,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "Status",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "editedItem.Status"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        {
+                                          attrs: { xs12: "", sm6: "", md4: "" }
+                                        },
+                                        [
+                                          _c("v-select", {
+                                            attrs: {
+                                              items: _vm.dataSales,
+                                              "item-text": "Nama_Supplier",
+                                              "item-value": "id",
+                                              label: "ID Sales"
+                                            },
+                                            model: {
+                                              value: _vm.editedItem.sales_id,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "sales_id",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "editedItem.sales_id"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        {
+                                          attrs: { xs12: "", sm6: "", md4: "" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: { label: "Jumlah Pesan" },
+                                            model: {
+                                              value:
+                                                _vm.editedItem.Jumlah_Pesan,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "Jumlah_Pesan",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "editedItem.Jumlah_Pesan"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        {
+                                          attrs: { xs12: "", sm6: "", md4: "" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: { label: "Jumlah Diterima" },
+                                            model: {
+                                              value:
+                                                _vm.editedItem.Jumlah_Diterima,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "Jumlah_Diterima",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "editedItem.Jumlah_Diterima"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        {
+                                          attrs: { xs12: "", sm6: "", md4: "" }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: { label: "Harga Beli" },
+                                            model: {
+                                              value: _vm.editedItem.Harga_Beli,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "Harga_Beli",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "editedItem.Harga_Beli"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-flex",
+                                        {
+                                          attrs: { xs12: "", sm6: "", md4: "" }
+                                        },
+                                        [
+                                          _c("v-select", {
+                                            attrs: {
+                                              items: _vm.dataSparepart,
+                                              "item-text": "Nama",
+                                              "item-value": "id",
+                                              label: "ID Sparepart"
+                                            },
+                                            model: {
+                                              value:
+                                                _vm.editedItem.sparepart_id,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "sparepart_id",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "editedItem.sparepart_id"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-actions",
+                            [
+                              _c("v-spacer"),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { color: "blue darken-1", flat: "" },
+                                  on: { click: _vm.close }
+                                },
+                                [_vm._v("Cancel")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { color: "blue darken-1", flat: "" },
+                                  on: { click: _vm.save }
+                                },
+                                [_vm._v("Save")]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-data-table",
+                {
+                  staticClass: "elevation-1",
+                  attrs: {
+                    headers: _vm.headers,
+                    items: _vm.pesanbarang,
+                    search: _vm.search
+                  },
+                  scopedSlots: _vm._u(
+                    [
+                      {
+                        key: "items",
+                        fn: function(props) {
+                          return [
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(props.item.pesanan_barangs.Nama_Barang)
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                " " + _vm._s(props.item.pesanan_barangs.Status)
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(props.item.pesanan_barangs.created_at)
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                " " +
+                                  _vm._s(props.item.pesanan_barangs.sales_id)
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(" " + _vm._s(props.item.Jumlah_Pesan))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(" " + _vm._s(props.item.Jumlah_Diterima))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v("Rp. " + _vm._s(props.item.Harga_Beli))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(" " + _vm._s(props.item.sparepart_id))
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              { staticClass: " layout px-0" },
+                              [
+                                _c(
+                                  "v-icon",
+                                  {
+                                    staticClass: "mr-2",
+                                    attrs: { small: "" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.editItem(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("\n            edit\n          ")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-icon",
+                                  {
+                                    attrs: { small: "" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.deleteItem(props.item)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("\n            delete\n          ")]
+                                )
+                              ],
+                              1
+                            )
+                          ]
+                        }
+                      },
+                      {
+                        key: "no-data",
+                        fn: function() {
+                          return [
+                            _c(
+                              "v-btn",
+                              {
+                                attrs: { color: "primary" },
+                                on: { click: _vm.initialize }
+                              },
+                              [_vm._v("Reset")]
+                            )
+                          ]
+                        },
+                        proxy: true
+                      }
+                    ],
+                    null,
+                    false,
+                    317478028
+                  )
+                },
+                [
+                  _vm._v(" "),
+                  _vm._v(" "),
+                  _c("v-alert", {
+                    attrs: { value: true, color: "error", icon: "warning" },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "no-results",
+                          fn: function() {
+                            return [
+                              _vm._v(
+                                '\n        Your search for "' +
+                                  _vm._s(_vm.search) +
+                                  '" found no results.\n        '
+                              )
+                            ]
+                          },
+                          proxy: true
+                        }
+                      ],
+                      null,
+                      false,
+                      1408609967
+                    )
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: false,
+                  expression: "false"
+                }
+              ],
+              attrs: { id: "printMe" }
+            },
+            [
+              _c("div", { staticClass: "ma-3" }, [
+                _c("div", { staticClass: "text-xs-center" }, [
+                  _c("p", { staticClass: "headline" }, [_vm._v("ATMA AUTO")]),
+                  _vm._v(" "),
+                  _c("p", {}, [_vm._v("MOTORCYCLE SPAREPARTS AND SERVICES")]),
+                  _vm._v(" "),
+                  _c("p", {}, [
+                    _vm._v("Jl. Babarsari No. 43 Yogyakarta 552181")
+                  ]),
+                  _vm._v(" "),
+                  _c("p", {}, [_vm._v("Telp. (0274)487711")]),
+                  _vm._v(" "),
+                  _c("p", {}, [_vm._v("http://www.atmaauto.com")]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "title" }, [
+                    _vm._v("SURAT PERINTAH KERJA")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "text-xs-right" },
+                  [
+                    _vm._l(_vm.pesanbarang, function(data, i) {
+                      return [
+                        _c("tr", { key: i }, [
+                          _c("p", [_vm._v("No: " + _vm._s(data.id))]),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v("Tanggal: " + _vm._s(data.created_at) + " ")
+                          ])
+                        ])
+                      ]
+                    })
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "text-xs-left" },
+                  [
+                    _vm._l(_vm.pesanbarang, function(data, i) {
+                      return [
+                        _c("tr", { key: i }, [
+                          _c("p", [_vm._v("Kepada Yth: ")]),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v(
+                              _vm._s(data.pesanan_barangs.sales.Nama_Supplier)
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v(
+                              _vm._s(data.pesanan_barangs.sales.Alamat_Sales)
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v(
+                              _vm._s(
+                                data.pesanan_barangs.sales.Nomor_Telphone_Sales
+                              )
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("p", [
+                            _vm._v(
+                              "Mohon untuk disediakan barang-barang berikut:"
+                            )
+                          ])
+                        ])
+                      ]
+                    })
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c("div", [
+                  _c(
+                    "table",
+                    {
+                      staticStyle: { width: "100%" },
+                      attrs: { border: "bold" }
+                    },
+                    [
+                      _c("tr", [
+                        _c("th", [_vm._v("No")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Nama Barang")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Merk")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Tipe Barang")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Satuan")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Jumlah")])
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.pesanbarang, function(data, i) {
+                        return [
+                          _c("tr", { key: i }, [
+                            _c("td", [_vm._v(_vm._s(data.id))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(data.pesanan_barangs.Nama_Barang))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(data.spareparts.Merk))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(data.spareparts.Tipe))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(data.Jumlah_Pesan))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v("Rp. " + _vm._s(data.Total_Harga_Beli))
+                            ])
+                          ])
+                        ]
+                      })
+                    ],
+                    2
+                  )
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _c("br"),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-xs-right" }, [
+                  _c("p", [_vm._v("Hormat kami,")]),
+                  _c("br"),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("(Philips Purnomo )")])
+                ])
+              ])
+            ]
+          )
+        ],
         1
       )
     : _vm._e()

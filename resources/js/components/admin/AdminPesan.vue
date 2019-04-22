@@ -350,8 +350,7 @@ export default {
         console.log('created Data');
         axios.post('/api/pesanbarang/',{
           Nama_Barang:this.editedItem.Nama_Barang,
-          Status:this.editedItem.Status,
-          
+          Status:this.editedItem.Status,          
           sales_id:this.editedItem.sales_id,
           Jumlah_Pesan:this.editedItem.Jumlah_Pesan,
           Jumlah_Diterima:this.editedItem.Jumlah_Diterima,
