@@ -31774,22 +31774,6 @@ __webpack_require__.r(__webpack_exports__);
     save: function save() {
       if (this.editedIndex > -1) {
         console.log('Edited Data');
-        axios.patch('/api/sparepart/' + this.editedItem.id, {
-          Kode_Sparepart: this.editedItem.Kode_Sparepart,
-          Nama: this.editedItem.Nama,
-          Tipe: this.editedItem.Tipe,
-          Merk: this.editedItem.Merk,
-          Jenis_Motor: this.editedItem.Jenis_Motor,
-          // Harga_Beli:this.editedItem.Harga_Beli,
-          Harga_Jual: this.editedItem.Harga_Jual,
-          Letak: this.editedItem.Letak,
-          Stok: this.editedItem.Stok,
-          Stok_Min: this.editedItem.Stok_Min
-        }).then(function (response) {
-          console.log(response);
-        });
-        Object.assign(this.sparepart[this.editedIndex], this.editedItem);
-      } else {
         this.Kode_Sparepart = this.editedItem.Kode_Sparepart, this.Nama = this.editedItem.Nama, this.Tipe = this.editedItem.Tipe, this.Merk = this.editedItem.Merk, this.Jenis_Motor = this.editedItem.Jenis_Motor, // this.Harga_Beli=this.editedItem.Harga_Beli,
         this.Harga_Jual = this.editedItem.Harga_Jual, this.Letak = this.editedItem.Letak, this.Stok = this.editedItem.Stok, this.Stok_Min = this.editedItem.Stok_Min;
         console.log('created Data');
@@ -31805,7 +31789,43 @@ __webpack_require__.r(__webpack_exports__);
         data.append("Letak", this.Letak);
         data.append("Stok", this.Stok);
         data.append("Stok_Min", this.Stok_Min);
-        axios.post('/api/sparepart/', data, {
+        axios.post('/api/sparepart/' + this.editedItem.id, data, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then(function (response) {
+          console.log(response);
+        });
+        Object.assign(this.sparepart[this.editedIndex], this.editedItem);
+      } else {
+        this.Kode_Sparepart = this.editedItem.Kode_Sparepart, this.Nama = this.editedItem.Nama, this.Tipe = this.editedItem.Tipe, this.Merk = this.editedItem.Merk, this.Jenis_Motor = this.editedItem.Jenis_Motor, // this.Harga_Beli=this.editedItem.Harga_Beli,
+        this.Harga_Jual = this.editedItem.Harga_Jual, this.Letak = this.editedItem.Letak, this.Stok = this.editedItem.Stok, this.Stok_Min = this.editedItem.Stok_Min;
+        console.log('created Data');
+
+        var _data = new FormData();
+
+        _data.append("Kode_Sparepart", this.Kode_Sparepart);
+
+        _data.append("Nama", this.Nama);
+
+        _data.append("Tipe", this.Tipe);
+
+        _data.append("Merk", this.Merk);
+
+        _data.append("Jenis_Motor", this.Jenis_Motor);
+
+        _data.append("Gambar", this.fileBin); // data.append(`Harga_Beli`, this.Harga_Beli);
+
+
+        _data.append("Harga_Jual", this.Harga_Jual);
+
+        _data.append("Letak", this.Letak);
+
+        _data.append("Stok", this.Stok);
+
+        _data.append("Stok_Min", this.Stok_Min);
+
+        axios.post('/api/sparepart/', _data, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -37986,23 +38006,21 @@ var render = function() {
                                           attrs: { xs12: "", sm6: "", md4: "" }
                                         },
                                         [
-                                          _vm.editedIndex
-                                            ? _c(
-                                                "v-btn",
-                                                {
-                                                  attrs: {
-                                                    color: "primary",
-                                                    flat: ""
-                                                  },
-                                                  on: { click: _vm.pickFile }
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                Upload Gambar\n            "
-                                                  )
-                                                ]
+                                          _c(
+                                            "v-btn",
+                                            {
+                                              attrs: {
+                                                color: "primary",
+                                                flat: ""
+                                              },
+                                              on: { click: _vm.pickFile }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                Upload Gambar\n            "
                                               )
-                                            : _vm._e(),
+                                            ]
+                                          ),
                                           _vm._v(" "),
                                           !!_vm.fileUrl
                                             ? _c("v-img", {

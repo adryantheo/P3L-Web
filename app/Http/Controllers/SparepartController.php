@@ -70,26 +70,39 @@ class SparepartController extends Controller
     }
 
     
-    public function update(Request $request, Sparepart $sparepart)
+    public function update(Request $request, $sparepart)
     {
-        $status = $sparepart->update(
+        // $status = $sparepart->update(
             
-            $request->only([
-                'Kode_Sparepart',
-                'Nama',
-                'Tipe',
-                'Merk',
-                'Jenis_Motor',
-                'Harga_Beli',
-                'Harga_Jual',
-                'Letak',
-                'Stok',
-                'Stok_Min',
-                '',            
-                                  
-        
-            ])
-        );
+        //     $request->only([
+        //         'Kode_Sparepart',
+        //         'Nama',
+        //         'Tipe',
+        //         'Merk',
+        //         'Jenis_Motor',
+        //         'Harga_Beli',
+        //         'Harga_Jual',
+        //         'Letak',
+        //         'Stok',
+        //         'Stok_Min',
+        //     ]);
+        // );
+
+        $status = Sparepart::find($sparepart);
+        $status->Kode_Sparepart= $request['Kode_Sparepart'];
+        $status->Nama= $request['Nama'];
+        $status->Tipe= $request['Tipe'];
+        $status->Merk= $request['Merk'];
+        $status->Jenis_Motor= $request['Jenis_Motor'];
+        $status->Harga_Jual= $request['Harga_Jual'];
+        $status->Letak= $request['Letak'];
+        $status->Stok= $request['Stok'];
+        $status->Stok_Min= $request['Stok_Min'];
+        $status->Gambar= $this->uploadGambar($request);
+        $status->update();
+
+
+
         return response()->json([
             'status' => $status,
             'message' => $status ? 'Sparepart Diupdate!' : 'Error Mengupdate Sparepart'
