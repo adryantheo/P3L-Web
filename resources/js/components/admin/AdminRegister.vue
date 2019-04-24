@@ -55,9 +55,8 @@
         password: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) || 'password must contain an upper case letter, a numeric character, and a special character',
         required: v => !!v || 'Tidak Boleh Kosong',
         number: v => /^[0-9]*$/.test(v) || 'Angka tidak valid',
-        notZero: v => v > 0 || 'Tidak boleh kurang dari 1',
+        notZero: v => v > 0 || 'Tidak boleh 0',
         tooMuch: v => v < 999999999 || 'Nilai terlalu besar!',
-
       },
       
       

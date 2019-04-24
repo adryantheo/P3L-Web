@@ -80,7 +80,7 @@ class UserController extends Controller
         
 
        $user = User::update([
-            'password' => Hash::make($request->password)
+            'password' => bcrypt($request->password)
         ])->save();
         
         return response()->json([

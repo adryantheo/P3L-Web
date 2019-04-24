@@ -33,16 +33,16 @@
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Plat_kendaraan" label="Plat Nomor"></v-text-field>
+                    <v-text-field v-model="editedItem.Plat_kendaraan" label="Plat Nomor" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Merk" label="Merk"></v-text-field>
+                    <v-text-field v-model="editedItem.Merk" label="Merk" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Tipe" label="Tipe"></v-text-field>
+                    <v-text-field v-model="editedItem.Tipe" label="Tipe" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                    <v-flex xs12 sm6 md4>
-                      <v-select :items="items" item-text="Nama_Kustomer" item-value="id"  v-model="editedItem.kustomer_id" label="ID Pemilik"></v-select>
+                      <v-select :items="items" item-text="Nama_Kustomer" item-value="id"  v-model="editedItem.kustomer_id" label="ID Pemilik" :rules="[rules.required]"></v-select>
                   </v-flex>
                   
                 </v-layout>
@@ -95,6 +95,16 @@
 export default {
  
   data: () => ({
+
+    rules: {
+        email: v => (v || '').match(/@/) || 'Format Email Salah',
+        length: len => v => (v || '').length >= len || `Invalid character length, required ${len}`,
+        password: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) || 'password must contain an upper case letter, a numeric character, and a special character',
+        required: v => !!v || 'Tidak Boleh Kosong',
+        number: v => /^[0-9]*$/.test(v) || 'Angka tidak valid',
+        notZero: v => v > 0 || 'Tidak boleh 0',
+        tooMuch: v => v < 999999999 || 'Nilai terlalu besar!',
+      },
 
     items: [],
     

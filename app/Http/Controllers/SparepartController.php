@@ -73,6 +73,7 @@ class SparepartController extends Controller
     public function update(Request $request, Sparepart $sparepart)
     {
         $status = $sparepart->update(
+            
             $request->only([
                 'Kode_Sparepart',
                 'Nama',
@@ -83,7 +84,9 @@ class SparepartController extends Controller
                 'Harga_Jual',
                 'Letak',
                 'Stok',
-                'Stok_Min',                  
+                'Stok_Min',
+                '',            
+                                  
         
             ])
         );

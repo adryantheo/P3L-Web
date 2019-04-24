@@ -33,13 +33,13 @@
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Nama_Kustomer" label="Nama Kustomer"></v-text-field>
+                    <v-text-field v-model="editedItem.Nama_Kustomer" label="Nama Kustomer" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Alamat_Kustomer" label="Alamat Kustomer"></v-text-field>
+                    <v-text-field v-model="editedItem.Alamat_Kustomer" label="Alamat Kustomer" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Telepon_Kustomer" label="Contact Kustomer"></v-text-field>
+                    <v-text-field v-model="editedItem.Telepon_Kustomer" label="Contact Kustomer" :rules="[rules.required, rules.number, rules.notZero]"></v-text-field>
                   </v-flex>
                   
                 </v-layout>
@@ -91,6 +91,16 @@ export default {
   
     
   data: () => ({
+
+    rules: {
+        email: v => (v || '').match(/@/) || 'Format Email Salah',
+        length: len => v => (v || '').length >= len || `Invalid character length, required ${len}`,
+        password: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) || 'password must contain an upper case letter, a numeric character, and a special character',
+        required: v => !!v || 'Tidak Boleh Kosong',
+        number: v => /^[0-9]*$/.test(v) || 'Angka tidak valid',
+        notZero: v => v > 0 || 'Tidak boleh 0',
+        tooMuch: v => v < 999999999 || 'Nilai terlalu besar!',
+      },
 
     isLoggedIn: localStorage.getItem('jwt') != null,
 

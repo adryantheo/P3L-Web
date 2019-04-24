@@ -124,7 +124,6 @@ export default {
         number: v => /^[0-9]*$/.test(v) || 'Angka tidak valid',
         notZero: v => v > 0 || 'Tidak boleh kurang dari 1',
         tooMuch: v => v < 999999999 || 'Nilai terlalu besar!',
-
       },
 
     beforeMount(){

@@ -30216,6 +30216,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      rules: {
+        email: function email(v) {
+          return (v || '').match(/@/) || 'Format Email Salah';
+        },
+        length: function length(len) {
+          return function (v) {
+            return (v || '').length >= len || "Invalid character length, required ".concat(len);
+          };
+        },
+        password: function password(v) {
+          return (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) || 'password must contain an upper case letter, a numeric character, and a special character';
+        },
+        required: function required(v) {
+          return !!v || 'Tidak Boleh Kosong';
+        },
+        number: function number(v) {
+          return /^[0-9]*$/.test(v) || 'Angka tidak valid';
+        },
+        notZero: function notZero(v) {
+          return v > 0 || 'Tidak boleh 0';
+        },
+        tooMuch: function tooMuch(v) {
+          return v < 999999999 || 'Nilai terlalu besar!';
+        }
+      },
       isLoggedIn: localStorage.getItem('jwt') != null,
       beforeMount: function beforeMount() {
         this.setComponent(this.$route.params.page);
@@ -31143,7 +31168,7 @@ __webpack_require__.r(__webpack_exports__);
           return /^[0-9]*$/.test(v) || 'Angka tidak valid';
         },
         notZero: function notZero(v) {
-          return v > 0 || 'Tidak boleh kurang dari 1';
+          return v > 0 || 'Tidak boleh 0';
         },
         tooMuch: function tooMuch(v) {
           return v < 999999999 || 'Nilai terlalu besar!';
@@ -31576,13 +31601,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      rules: {
+        email: function email(v) {
+          return (v || '').match(/@/) || 'Format Email Salah';
+        },
+        length: function length(len) {
+          return function (v) {
+            return (v || '').length >= len || "Invalid character length, required ".concat(len);
+          };
+        },
+        password: function password(v) {
+          return (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) || 'password must contain an upper case letter, a numeric character, and a special character';
+        },
+        required: function required(v) {
+          return !!v || 'Tidak Boleh Kosong';
+        },
+        number: function number(v) {
+          return /^[0-9]*$/.test(v) || 'Angka tidak valid';
+        },
+        notZero: function notZero(v) {
+          return v > 0 || 'Tidak boleh 0';
+        },
+        tooMuch: function tooMuch(v) {
+          return v < 999999999 || 'Nilai terlalu besar!';
+        }
+      },
       types: ['Roda', 'Kelistrikan', 'Mesin', 'Kelistrikan', 'Rem', 'Copling', 'CVT'],
       isLoggedIn: localStorage.getItem('jwt') != null,
       beforeMount: function beforeMount() {
@@ -31742,7 +31788,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (response) {
           console.log(response);
         });
-        Object.assign(this.sales[this.editedIndex], this.editedItem);
+        Object.assign(this.sparepart[this.editedIndex], this.editedItem);
       } else {
         this.Kode_Sparepart = this.editedItem.Kode_Sparepart, this.Nama = this.editedItem.Nama, this.Tipe = this.editedItem.Tipe, this.Merk = this.editedItem.Merk, this.Jenis_Motor = this.editedItem.Jenis_Motor, // this.Harga_Beli=this.editedItem.Harga_Beli,
         this.Harga_Jual = this.editedItem.Harga_Jual, this.Letak = this.editedItem.Letak, this.Stok = this.editedItem.Stok, this.Stok_Min = this.editedItem.Stok_Min;
@@ -32203,6 +32249,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      rules: {
+        email: function email(v) {
+          return (v || '').match(/@/) || 'Format Email Salah';
+        },
+        length: function length(len) {
+          return function (v) {
+            return (v || '').length >= len || "Invalid character length, required ".concat(len);
+          };
+        },
+        password: function password(v) {
+          return (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) || 'password must contain an upper case letter, a numeric character, and a special character';
+        },
+        required: function required(v) {
+          return !!v || 'Tidak Boleh Kosong';
+        },
+        number: function number(v) {
+          return /^[0-9]*$/.test(v) || 'Angka tidak valid';
+        },
+        notZero: function notZero(v) {
+          return v > 0 || 'Tidak boleh 0';
+        },
+        tooMuch: function tooMuch(v) {
+          return v < 999999999 || 'Nilai terlalu besar!';
+        }
+      },
       items: [],
       isLoggedIn: localStorage.getItem('jwt') != null,
       beforeMount: function beforeMount() {
@@ -32428,6 +32499,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      rules: {
+        email: function email(v) {
+          return (v || '').match(/@/) || 'Format Email Salah';
+        },
+        length: function length(len) {
+          return function (v) {
+            return (v || '').length >= len || "Invalid character length, required ".concat(len);
+          };
+        },
+        password: function password(v) {
+          return (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) || 'password must contain an upper case letter, a numeric character, and a special character';
+        },
+        required: function required(v) {
+          return !!v || 'Tidak Boleh Kosong';
+        },
+        number: function number(v) {
+          return /^[0-9]*$/.test(v) || 'Angka tidak valid';
+        },
+        notZero: function notZero(v) {
+          return v > 0 || 'Tidak boleh 0';
+        },
+        tooMuch: function tooMuch(v) {
+          return v < 999999999 || 'Nilai terlalu besar!';
+        }
+      },
       isLoggedIn: localStorage.getItem('jwt') != null,
       beforeMount: function beforeMount() {
         this.setComponent(this.$route.params.page);
@@ -35549,7 +35645,10 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Nama Service" },
+                                            attrs: {
+                                              label: "Nama Service",
+                                              rules: [_vm.rules.required]
+                                            },
                                             model: {
                                               value:
                                                 _vm.editedItem.Nama_Service,
@@ -35575,7 +35674,14 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Tarif" },
+                                            attrs: {
+                                              label: "Tarif",
+                                              rules: [
+                                                _vm.rules.required,
+                                                _vm.rules.notZero,
+                                                _vm.rules.tooMuch
+                                              ]
+                                            },
                                             model: {
                                               value: _vm.editedItem.Tarif,
                                               callback: function($$v) {
@@ -37629,7 +37735,10 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Kode Sparepart" },
+                                            attrs: {
+                                              label: "Kode Sparepart",
+                                              rules: [_vm.rules.required]
+                                            },
                                             model: {
                                               value:
                                                 _vm.editedItem.Kode_Sparepart,
@@ -37655,7 +37764,10 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Nama" },
+                                            attrs: {
+                                              label: "Nama",
+                                              rules: [_vm.rules.required]
+                                            },
                                             model: {
                                               value: _vm.editedItem.Nama,
                                               callback: function($$v) {
@@ -37681,7 +37793,8 @@ var render = function() {
                                           _c("v-select", {
                                             attrs: {
                                               items: _vm.types,
-                                              label: "Tipe"
+                                              label: "Tipe",
+                                              rules: [_vm.rules.required]
                                             },
                                             model: {
                                               value: _vm.editedItem.Tipe,
@@ -37706,7 +37819,10 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Merk" },
+                                            attrs: {
+                                              label: "Merk",
+                                              rules: [_vm.rules.required]
+                                            },
                                             model: {
                                               value: _vm.editedItem.Merk,
                                               callback: function($$v) {
@@ -37730,7 +37846,10 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Jenis Motor" },
+                                            attrs: {
+                                              label: "Jenis Motor",
+                                              rules: [_vm.rules.required]
+                                            },
                                             model: {
                                               value: _vm.editedItem.Jenis_Motor,
                                               callback: function($$v) {
@@ -37755,7 +37874,14 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Harga Jual" },
+                                            attrs: {
+                                              label: "Harga Jual",
+                                              rules: [
+                                                _vm.rules.required,
+                                                _vm.rules.notZero,
+                                                _vm.rules.tooMuch
+                                              ]
+                                            },
                                             model: {
                                               value: _vm.editedItem.Harga_Jual,
                                               callback: function($$v) {
@@ -37780,7 +37906,10 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Letak" },
+                                            attrs: {
+                                              label: "Letak",
+                                              rules: [_vm.rules.required]
+                                            },
                                             model: {
                                               value: _vm.editedItem.Letak,
                                               callback: function($$v) {
@@ -37804,7 +37933,10 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Stok" },
+                                            attrs: {
+                                              label: "Stok",
+                                              rules: [_vm.rules.required]
+                                            },
                                             model: {
                                               value: _vm.editedItem.Stok,
                                               callback: function($$v) {
@@ -37828,7 +37960,10 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Stok Min" },
+                                            attrs: {
+                                              label: "Stok Min",
+                                              rules: [_vm.rules.required]
+                                            },
                                             model: {
                                               value: _vm.editedItem.Stok_Min,
                                               callback: function($$v) {
@@ -38646,7 +38781,10 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Plat Nomor" },
+                                            attrs: {
+                                              label: "Plat Nomor",
+                                              rules: [_vm.rules.required]
+                                            },
                                             model: {
                                               value:
                                                 _vm.editedItem.Plat_kendaraan,
@@ -38672,7 +38810,10 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Merk" },
+                                            attrs: {
+                                              label: "Merk",
+                                              rules: [_vm.rules.required]
+                                            },
                                             model: {
                                               value: _vm.editedItem.Merk,
                                               callback: function($$v) {
@@ -38696,7 +38837,10 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Tipe" },
+                                            attrs: {
+                                              label: "Tipe",
+                                              rules: [_vm.rules.required]
+                                            },
                                             model: {
                                               value: _vm.editedItem.Tipe,
                                               callback: function($$v) {
@@ -38724,7 +38868,8 @@ var render = function() {
                                               items: _vm.items,
                                               "item-text": "Nama_Kustomer",
                                               "item-value": "id",
-                                              label: "ID Pemilik"
+                                              label: "ID Pemilik",
+                                              rules: [_vm.rules.required]
                                             },
                                             model: {
                                               value: _vm.editedItem.kustomer_id,
@@ -39043,7 +39188,10 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Nama Kustomer" },
+                                            attrs: {
+                                              label: "Nama Kustomer",
+                                              rules: [_vm.rules.required]
+                                            },
                                             model: {
                                               value:
                                                 _vm.editedItem.Nama_Kustomer,
@@ -39069,7 +39217,10 @@ var render = function() {
                                         },
                                         [
                                           _c("v-text-field", {
-                                            attrs: { label: "Alamat Kustomer" },
+                                            attrs: {
+                                              label: "Alamat Kustomer",
+                                              rules: [_vm.rules.required]
+                                            },
                                             model: {
                                               value:
                                                 _vm.editedItem.Alamat_Kustomer,
@@ -39096,7 +39247,12 @@ var render = function() {
                                         [
                                           _c("v-text-field", {
                                             attrs: {
-                                              label: "Contact Kustomer"
+                                              label: "Contact Kustomer",
+                                              rules: [
+                                                _vm.rules.required,
+                                                _vm.rules.number,
+                                                _vm.rules.notZero
+                                              ]
                                             },
                                             model: {
                                               value:

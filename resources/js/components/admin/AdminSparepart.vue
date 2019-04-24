@@ -15,11 +15,7 @@
         ></v-divider>
           <v-toolbar-title>
           <router-link :to="{ name: 'AdminKurangSparepart' }" class="nav-link" >Stok Kurang</router-link>
-        </v-toolbar-title>
-          
-        
-       
-        
+        </v-toolbar-title>        
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on }">
@@ -43,34 +39,34 @@
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Kode_Sparepart" label="Kode Sparepart"></v-text-field>
+                    <v-text-field v-model="editedItem.Kode_Sparepart" label="Kode Sparepart" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Nama" label="Nama"></v-text-field>
+                    <v-text-field v-model="editedItem.Nama" label="Nama" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-select :items="types" v-model="editedItem.Tipe" label="Tipe"></v-select>
+                    <v-select :items="types" v-model="editedItem.Tipe" label="Tipe" :rules="[rules.required]"></v-select>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Merk" label="Merk"></v-text-field>
+                    <v-text-field v-model="editedItem.Merk" label="Merk" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Jenis_Motor" label="Jenis Motor"></v-text-field>
+                    <v-text-field v-model="editedItem.Jenis_Motor" label="Jenis Motor" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                   <!-- <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Harga_Beli" label="Harga Beli"></v-text-field>
                   </v-flex> -->
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Harga_Jual" label="Harga Jual"></v-text-field>
+                    <v-text-field v-model="editedItem.Harga_Jual" label="Harga Jual" :rules="[rules.required, rules.notZero, rules.tooMuch]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Letak" label="Letak"></v-text-field>
+                    <v-text-field v-model="editedItem.Letak" label="Letak" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Stok" label="Stok"></v-text-field>
+                    <v-text-field v-model="editedItem.Stok" label="Stok" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Stok_Min" label="Stok Min"></v-text-field>
+                    <v-text-field v-model="editedItem.Stok_Min" label="Stok Min" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
                      <v-btn color="primary" flat @click="pickFile" v-if="editedIndex" >
@@ -156,6 +152,16 @@
 export default {
     
   data: () => ({
+
+    rules: {
+        email: v => (v || '').match(/@/) || 'Format Email Salah',
+        length: len => v => (v || '').length >= len || `Invalid character length, required ${len}`,
+        password: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) || 'password must contain an upper case letter, a numeric character, and a special character',
+        required: v => !!v || 'Tidak Boleh Kosong',
+        number: v => /^[0-9]*$/.test(v) || 'Angka tidak valid',
+        notZero: v => v > 0 || 'Tidak boleh 0',
+        tooMuch: v => v < 999999999 || 'Nilai terlalu besar!',
+      },
 
     types:['Roda',
       'Kelistrikan',
@@ -312,7 +318,7 @@ export default {
           console.log(response);
         })
        
-        Object.assign(this.sales[this.editedIndex], this.editedItem)
+        Object.assign(this.sparepart[this.editedIndex], this.editedItem)
         
       } else {
         this.Kode_Sparepart=this.editedItem.Kode_Sparepart,
