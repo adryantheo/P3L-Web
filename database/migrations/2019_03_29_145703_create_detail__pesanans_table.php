@@ -11,6 +11,7 @@ class CreateDetailPesanansTable extends Migration
     {
         Schema::create('detail__pesanans', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('Nama_Barang');
             $table->double('Total_Harga_Beli');
             $table->Integer('Jumlah_Diterima');
             $table->Integer('Jumlah_Pesan');

@@ -10,8 +10,7 @@ class CreatePesananBarangsTable extends Migration
     public function up()
     {
         Schema::create('pesanan__barangs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('Nama_Barang');
+            $table->increments('id');            
             $table->string('Status');
             $table->string('Tanggal_Pesan')->nullable();
             $table->string('Tanggal_Terima')->nullable();

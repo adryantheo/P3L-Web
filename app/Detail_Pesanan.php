@@ -10,6 +10,7 @@ class Detail_Pesanan extends Model
     use SoftDeletes;
     
     protected $fillable = [
+        'Nama_Barang',
         'Total_Harga_Beli', 
         'Jumlah_Diterima',
         'Jumlah_Pesan',
