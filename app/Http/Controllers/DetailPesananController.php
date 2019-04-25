@@ -26,7 +26,7 @@ class DetailPesananController extends Controller
     public function store(Request $request)
     {
         $detail_Pesanan = Detail_Pesanan::create([
-            'Nama_Barang' => $request->Nama_Barang,
+            
             'Jumlah_Diterima' => $request->Jumlah_Diterima,
             'Jumlah_Pesan' => $request->Jumlah_Pesan,
             'Harga_Beli' => $request->Harga_Beli,

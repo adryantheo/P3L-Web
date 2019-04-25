@@ -10,6 +10,7 @@ class Pesanan_Barang extends Model
     use SoftDeletes;
     
     protected $fillable = [
+        'Nama_Barang',
         'Status', 
         'Tanggal_Pesan',
         'Tanggal_Terima',
