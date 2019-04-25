@@ -22,23 +22,20 @@ class PesananBarangController extends Controller
     
     public function store(Request $request)
     {
-        $pesanan_Barang = Pesanan_Barang::create([
-            'Nama_Barang' => $request->Nama_Barang,
-            'Status' => $request->Status,
-            
-            'sales_id' => $request->sales_id,
-           
+        $pesanan_Barang = Pesanan_Barang::create([            
+            'Status' => $request->Status,            
+            'sales_id' => $request->sales_id,           
         ]);
         
         //create detail pesanan
-        Detail_Pesanan::create([
-            'Total_Harga_Beli' => $request->Total_Harga_Beli,
-            'Jumlah_Diterima' => $request->Jumlah_Diterima,
-            'Jumlah_Pesan' => $request->Jumlah_Pesan,
-            'Harga_Beli' => $request->Harga_Beli,
-            'pesanan__barang_id' => $pesanan_Barang->id,
-            'sparepart_id' => $request->sparepart_id,
-        ]);
+        // Detail_Pesanan::create([
+        //     'Total_Harga_Beli' => $request->Total_Harga_Beli,
+        //     'Jumlah_Diterima' => $request->Jumlah_Diterima,
+        //     'Jumlah_Pesan' => $request->Jumlah_Pesan,
+        //     'Harga_Beli' => $request->Harga_Beli,
+        //     'pesanan__barang_id' => $pesanan_Barang->id,
+        //     'sparepart_id' => $request->sparepart_id,
+        // ]);
 
         return response()->json([
             'status' => (bool) $pesanan_Barang,
