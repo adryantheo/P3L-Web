@@ -83,6 +83,10 @@ export default {
         route: 'history',
       },
       {
+        text: 'Cari Pengunjung', 
+        route: 'pengunjungcari',
+      },
+      {
         text: 'Contact Us', 
         route: 'contactus',
       },

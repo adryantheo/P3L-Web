@@ -23,6 +23,14 @@ class KustomerController extends Controller
         return Kustomer::select('id', 'Nama_Kustomer')->get();
     }
 
+    public function findKustomer(Request $request, $notelp)
+    {
+        //$request->Telepon_Kustomer;
+        $data = Kustomer::where('Telepon_Kustomer', "LIKE", $notelp)->with('kendaraans')->first();
+
+        return response()->json($data, 200);
+    }
+
     
    
     public function store(Request $request)
@@ -31,9 +39,7 @@ class KustomerController extends Controller
             'Nama_Kustomer' => $request->Nama_Kustomer,
             'Alamat_Kustomer' => $request->Alamat_Kustomer,
             'Telepon_Kustomer' => $request->Telepon_Kustomer,
-            
-            
-            
+          
         ]);
 
         return response()->json([

@@ -34,16 +34,16 @@
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Nama_Sales" label="Nama Sales"></v-text-field>
+                    <v-text-field v-model="editedItem.Nama_Sales" label="Nama Sales" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Nama_Supplier" label="Nama Supplier"></v-text-field>
+                    <v-text-field v-model="editedItem.Nama_Supplier" label="Nama Supplier" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                    <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Alamat_Sales" label="Alamat Supplier"></v-text-field>
+                    <v-text-field v-model="editedItem.Alamat_Sales" label="Alamat Supplier" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                    <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Nomor_Telphone_Sales" label="Nomor Telphone Sales"></v-text-field>
+                    <v-text-field v-model="editedItem.Nomor_Telphone_Sales" label="Nomor Telphone Sales" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                   
                 </v-layout>
@@ -106,6 +106,16 @@ export default {
   data: () => ({
 
     isLoggedIn: localStorage.getItem('jwt') != null,
+
+    rules: {
+        email: v => (v || '').match(/@/) || 'Format Email Salah',
+        length: len => v => (v || '').length >= len || `Invalid character length, required ${len}`,
+        password: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) || 'password must contain an upper case letter, a numeric character, and a special character',
+        required: v => !!v || 'Tidak Boleh Kosong',
+        number: v => /^[0-9]*$/.test(v) || 'Angka tidak valid',
+        notZero: v => v > 0 || 'Tidak boleh kurang dari 1',
+        tooMuch: v => v < 999999999 || 'Nilai terlalu besar!',
+      },
 
     beforeMount(){
         this.setComponent(this.$route.params.page)

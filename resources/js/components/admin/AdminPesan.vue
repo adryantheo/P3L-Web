@@ -32,31 +32,31 @@
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
-                    <v-select :items="dataSparepart" item-text="Nama" item-value="Nama" v-model="editedItem.Nama_Barang" label="Nama Barang"></v-select>
+                    <v-select :items="dataSparepart" item-text="Nama" item-value="Nama" v-model="editedItem.Nama_Barang" label="Nama Barang" :rules="[rules.required]"></v-select>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-select :items="items" v-model="editedItem.Status" label="Status"></v-select>
+                    <v-select :items="items" v-model="editedItem.Status" label="Status" :rules="[rules.required]"></v-select>
                   </v-flex>
                   <!-- <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Tanggal_Pesan" label="Tanggal Pesan"></v-text-field>
                   </v-flex> -->
                   <v-flex xs12 sm6 md4>
-                    <v-select :items="dataSales" item-text="Nama_Supplier" item-value="id" v-model="editedItem.sales_id" label="ID Sales"></v-select>
+                    <v-select :items="dataSales" item-text="Nama_Supplier" item-value="id" v-model="editedItem.sales_id" label="ID Sales" :rules="[rules.required]"></v-select>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Jumlah_Pesan" label="Jumlah Pesan"></v-text-field>
+                    <v-text-field v-model="editedItem.Jumlah_Pesan" label="Jumlah Pesan" :rules="[rules.required, rules.notZero, rules.tooMuch]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Jumlah_Diterima" label="Jumlah Diterima"></v-text-field>
+                    <v-text-field v-model="editedItem.Jumlah_Diterima" label="Jumlah Diterima" :rules="[rules.required]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Harga_Beli" label="Harga Beli"></v-text-field>
+                    <v-text-field v-model="editedItem.Harga_Beli" label="Harga Beli" :rules="[rules.required, rules.number, rules.notZero, rules.tooMuch]"></v-text-field>
                   </v-flex>
                   <!-- <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Total_Harga_Beli" label="Total Harga"></v-text-field>
                   </v-flex> -->
                   <v-flex xs12 sm6 md4>
-                    <v-select :items="dataSparepart" item-text="Nama" item-value="id" v-model="editedItem.sparepart_id" label="ID Sparepart"></v-select>
+                    <v-select :items="dataSparepart" item-text="Nama" item-value="id" v-model="editedItem.sparepart_id" label="ID Sparepart" :rules="[rules.required]"></v-select>
                   </v-flex>
                   
                 </v-layout>
@@ -193,6 +193,16 @@ export default {
     items:['Sedang Dipesan', 'Pesanan Selesai'],
 
     isLoggedIn: localStorage.getItem('jwt') != null,
+
+    rules: {
+        email: v => (v || '').match(/@/) || 'Format Email Salah',
+        length: len => v => (v || '').length >= len || `Invalid character length, required ${len}`,
+        password: v => (v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) || 'password must contain an upper case letter, a numeric character, and a special character',
+        required: v => !!v || 'Tidak Boleh Kosong',
+        number: v => /^[0-9]*$/.test(v) || 'Angka tidak valid',
+        notZero: v => v > 0 || 'Tidak boleh kurang dari 1',
+        tooMuch: v => v < 999999999 || 'Nilai terlalu besar!',
+      },
 
     beforeMount(){
         this.setComponent(this.$route.params.page)

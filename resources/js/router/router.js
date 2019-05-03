@@ -9,7 +9,7 @@ import JasaService from '../components/pengunjung/PengunjungJS.vue'
 import Sparepart from '../components/pengunjung/PengunjungSparepart.vue'
 import History from '../components/pengunjung/PengunjungHistory.vue'
 import PengunjungPlat from '../components/pengunjung/PengunjungPlat.vue'
-import PengunjungHp from '../components/pengunjung/PengunjungHape.vue'
+import PengunjungCari from '../components/pengunjung/PengunjungHape.vue'
 
 import ContactUs from '../components/pengunjung/PengunjungContact.vue'
 
@@ -73,9 +73,9 @@ const routes = [
 
             },
             {
-                path: 'carinohp',
-                name: 'cari-nohp',
-                component: PengunjungHp,
+                path: 'pengunjungcari',
+                name: 'pengunjungcari',
+                component: PengunjungCari,
 
             },
             {
