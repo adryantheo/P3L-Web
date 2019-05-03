@@ -210,7 +210,7 @@ export default {
         console.log('Edited Data');
         Object.assign(this.pegawai[this.editedIndex], this.editedItem)
 
-        axios.patch('/api/pegawai/'+this.editedItem.id,{
+        axios.post('/api/pegawai/'+this.editedItem.id,{
           Nama:this.editedItem.Nama,
           email:this.editedItem.email,
           Alamat:this.editedItem.Alamat,

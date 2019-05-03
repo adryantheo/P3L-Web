@@ -74,14 +74,12 @@ class UserController extends Controller
         ]);
     }
 
-    public function gantipassword(Request $request)
+    public function gantipassword(Request $request, $user)
     {
-        
-        
-
-       $user = User::update([
-            'password' => bcrypt($request->password)
-        ])->save();
+       
+       $status = User::find($user);
+       $status->password = bcrypt($request->password);
+       $status->update();
         
         return response()->json([
             'status' => $status,
@@ -94,20 +92,28 @@ class UserController extends Controller
         return response()->json($user,200);
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, $user)
     {
-       
-        $status = $user->update(
-            $request->only([
-                'Nama' => $request->Nama,
-                'email' => $request->email,
-                'Alamat' => $request->Alamat,
-                'Gaji' => $request->Gaji,
-                'Role' => $request->Role,
-                'password' => Hash::make($request->password) 
-            ])         
+        // $status = $user->update(
+        //     $request->only([
+        //         'Nama' => $request->Nama,
+        //         'email' => $request->email,
+        //         'Alamat' => $request->Alamat,
+        //         'Gaji' => $request->Gaji,
+        //         'Role' => $request->Role,
+        //         'password' => bcrypt($request->password) 
+        //     ])
+        // );
 
-        );
+        $status = User::find($user);
+        $status->Nama= $request['Nama'];
+        $status->email= $request['email'];
+        $status->Alamat= $request['Alamat'];
+        $status->Gaji= $request['Gaji'];
+        $status->Role= $request['Role'];
+        $status->password = bcrypt($request['password']);
+        $status->update();
+
         return response()->json([
             'status' => $status,
             'message' => $status ? 'User Diupdate!' : 'Error Mengupdate User'
