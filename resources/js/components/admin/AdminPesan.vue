@@ -79,7 +79,7 @@
       >
         <template v-slot:items="props">
          
-          <td>{{ props.item.pesanan_barangs.Nama_Barang }}</td>
+          <td>{{ props.item.Nama_Barang }}</td>
           <td> {{ props.item.pesanan_barangs.Status }}</td>
           <td>{{ props.item.pesanan_barangs.created_at }}</td>
           <td> {{ props.item.pesanan_barangs.sales_id }}</td>
