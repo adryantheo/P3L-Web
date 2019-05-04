@@ -16,14 +16,16 @@ Route::patch('/sales/{sales}', 'SalesController@update');
 Route::get('/sales/all', 'SalesController@all');
 Route::get('/pesanbarang/all', 'PesananBarangController@all');
 Route::delete('/pesanbarang/{pesanan_Barang}', 'PesananBarangController@destroy');
+Route::patch('/pesanbarang/{pesanan_Barang}', 'PesananBarangController@update');
 Route::get('/detailpesanan/all', 'DetailPesananController@all');
 Route::delete('/detailpesanan/{detail_Pesanan}', 'DetailPesananController@destroy');
+Route::patch('/detailpesanan/{detail_Pesanan}', 'DetailPesananController@update');
 Route::get('/sparepart/all', 'SparepartController@all');
 Route::post('/sparepart/{sparepart}', 'SparepartController@update');
 Route::post('/pegawai/gantipass', 'UserController@gantipassword');
 
-Route::resource('/pesanbarang', 'PesananBarangController')->except(['all','destroy']);
-Route::resource('/detailpesanan', 'DetailPesananController')->except(['all', 'destroy']);
+Route::resource('/pesanbarang', 'PesananBarangController')->except(['all','destroy', 'patch']);
+Route::resource('/detailpesanan', 'DetailPesananController')->except(['all', 'destroy', 'patch']);
 Route::resource('/kustomer', 'KustomerController')->except(['search', 'all','listNamaKustomer']);
 Route::resource('/kendaraan', 'KendaraanController')->except(['all']);
 Route::resource('/transaksi', 'TransaksiController');
