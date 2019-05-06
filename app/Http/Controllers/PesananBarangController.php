@@ -28,15 +28,15 @@ class PesananBarangController extends Controller
         ]);
         
         //create detail pesanan
-        Detail_Pesanan::create([
-            'Nama_Barang' => $request->Nama_Barang,
-            'Total_Harga_Beli' => $request->Total_Harga_Beli,
-            'Jumlah_Diterima' => $request->Jumlah_Diterima,
-            'Jumlah_Pesan' => $request->Jumlah_Pesan,
-            'Harga_Beli' => $request->Harga_Beli,
-            'pesanan__barang_id' => $pesanan_Barang->id,
-            'sparepart_id' => $request->sparepart_id,
-        ]);
+        // Detail_Pesanan::create([
+        //     'Nama_Barang' => $request->Nama_Barang,
+        //     'Total_Harga_Beli' => $request->Total_Harga_Beli,
+        //     'Jumlah_Diterima' => $request->Jumlah_Diterima,
+        //     'Jumlah_Pesan' => $request->Jumlah_Pesan,
+        //     'Harga_Beli' => $request->Harga_Beli,
+        //     'pesanan__barang_id' => $pesanan_Barang->id,
+        //     'sparepart_id' => $request->sparepart_id,
+        // ]);
 
         return response()->json([
             'status' => (bool) $pesanan_Barang,

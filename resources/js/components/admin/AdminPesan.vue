@@ -31,19 +31,21 @@
             <v-card-text>
               <v-container grid-list-md>
                 <v-layout wrap>
-                  <v-flex xs12 sm6 md4>
+                  <!-- <v-flex xs12 sm6 md4>
                     <v-select :items="dataSparepart" item-text="Nama" item-value="Nama" v-model="editedItem.Nama_Barang" label="Nama Barang" :rules="[rules.required]"></v-select>
+                  </v-flex> -->
+                  <v-flex xs12 sm6 md4>
+                    <v-select :items="dataSales" item-text="Nama_Supplier" item-value="id" v-model="editedItem.sales_id" label="ID Sales" :rules="[rules.required]"></v-select>
                   </v-flex>
+
                   <v-flex xs12 sm6 md4>
                     <v-select :items="items" v-model="editedItem.Status" label="Status" :rules="[rules.required]"></v-select>
                   </v-flex>
                   <!-- <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Tanggal_Pesan" label="Tanggal Pesan"></v-text-field>
                   </v-flex> -->
-                  <v-flex xs12 sm6 md4>
-                    <v-select :items="dataSales" item-text="Nama_Supplier" item-value="id" v-model="editedItem.sales_id" label="ID Sales" :rules="[rules.required]"></v-select>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
+                  
+                  <!-- <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Jumlah_Pesan" label="Jumlah Pesan" :rules="[rules.required, rules.notZero, rules.tooMuch]"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
@@ -51,13 +53,13 @@
                   </v-flex>
                   <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Harga_Beli" label="Harga Beli" :rules="[rules.required, rules.number, rules.notZero, rules.tooMuch]"></v-text-field>
-                  </v-flex>
+                  </v-flex> -->
                   <!-- <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedItem.Total_Harga_Beli" label="Total Harga"></v-text-field>
                   </v-flex> -->
-                  <v-flex xs12 sm6 md4>
+                  <!-- <v-flex xs12 sm6 md4>
                     <v-select :items="dataSparepart" item-text="Nama" item-value="id" v-model="editedItem.sparepart_id" label="ID Sparepart" :rules="[rules.required]"></v-select>
-                  </v-flex>
+                  </v-flex> -->
                   
                 </v-layout>
               </v-container>
@@ -71,7 +73,33 @@
           </v-card>
         </v-dialog>
       </v-toolbar>
-      <v-data-table
+
+      <v-flex xs12 sm6 md4>
+        <v-card width="400px" height="200px">
+          <v-card-title>
+            Pesanan Dari Supplier : 
+          </v-card-title>
+          
+          <v-card-text>
+            {{pesanbarang.sales_id}}
+          </v-card-text>
+
+           <v-card-text>
+            {{pesanbarang.sales_id}}
+          </v-card-text>
+
+          <v-card-actions>
+            <v-btn color="blue darken-1">Tambah Detail Pesanan</v-btn>
+            <v-btn color="blue darken-1">Edit Pesanan</v-btn>
+          </v-card-actions>
+
+
+        </v-card>
+      </v-flex>
+
+
+
+      <!-- <v-data-table
         :headers="headers"
         :items="pesanbarang"
         :search="search"
@@ -111,7 +139,16 @@
          <v-alert v-slot:no-results :value="true" color="error" icon="warning">
           Your search for "{{ search }}" found no results.
           </v-alert>
-      </v-data-table>
+      </v-data-table> -->
+
+      <v-flex v-for="pesanbarang in pesanan_barangs" :key="pesanbarang.id">
+        <v-card>
+          test
+        </v-card>
+
+
+      </v-flex>
+
 
       
     </v-flex>
@@ -184,6 +221,7 @@
 </template>
 
 <script>
+
 import spareparts from './AdminSparepart'
 import sales from './AdminSales'
 export default {
@@ -294,7 +332,7 @@ export default {
     },
         
     fetchpesanbarang() {
-      axios.get('/api/detailpesanan/all')
+      axios.get('/api/pesanbarang/')
       .then(response => this.pesanbarang = response.data)
       
     },
@@ -359,14 +397,14 @@ export default {
       } else {
         console.log('created Data');
         axios.post('/api/pesanbarang/',{
-          Nama_Barang:this.editedItem.Nama_Barang,
+         // Nama_Barang:this.editedItem.Nama_Barang,
           Status:this.editedItem.Status,          
           sales_id:this.editedItem.sales_id,
-          Jumlah_Pesan:this.editedItem.Jumlah_Pesan,
-          Jumlah_Diterima:this.editedItem.Jumlah_Diterima,
-          sparepart_id:this.editedItem.sparepart_id,
-          Harga_Beli:this.editedItem.Harga_Beli,
-          Total_Harga_Beli:this.editedItem.Jumlah_Pesan * this.editedItem.Harga_Beli,
+          // Jumlah_Pesan:this.editedItem.Jumlah_Pesan,
+          // Jumlah_Diterima:this.editedItem.Jumlah_Diterima,
+          // sparepart_id:this.editedItem.sparepart_id,
+          // Harga_Beli:this.editedItem.Harga_Beli,
+          // Total_Harga_Beli:this.editedItem.Jumlah_Pesan * this.editedItem.Harga_Beli,
            })
         .then(response => {
           console.log(response);
