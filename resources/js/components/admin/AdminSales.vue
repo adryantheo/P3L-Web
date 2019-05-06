@@ -5,7 +5,7 @@
     
   
     <v-toolbar flat color="white">
-        <v-toolbar-title>Sales</v-toolbar-title>
+        <v-toolbar-title>Supplier</v-toolbar-title>
         <v-divider
           class="mx-2"
           inset
@@ -22,7 +22,7 @@
           hide-details
         ></v-text-field>
         <v-spacer></v-spacer>
-            <v-btn color="primary" dark class="mb-2" v-on="on">New Sales</v-btn>
+            <v-btn color="primary" dark class="mb-2" v-on="on">New Supplier</v-btn>
           </template>
           
           <v-card>

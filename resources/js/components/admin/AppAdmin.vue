@@ -125,7 +125,7 @@ export default {
         route: '/admin/sparepart'
       },
       {
-        text: 'Sales',
+        text: 'Supplier',
         route: '/admin/sales'
       },
       {
