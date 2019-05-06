@@ -73,29 +73,29 @@
           </v-card>
         </v-dialog>
       </v-toolbar>
-
-      <v-flex xs12 sm6 md4>
-        <v-card width="400px" height="200px">
+      
+        <v-divider class="my-4"></v-divider>
+      
+    <v-layout row wrap>
+      <v-flex xs12 md6 xl4 v-for="(item, id) in pesanbarang" :key="`pesanbarang-${id}`">
+        <v-card class="rounded" width="300px">
           <v-card-title>
-            Pesanan Dari Supplier : 
+            <span> Dari Sales ID : {{item.sales_id}} </span> 
           </v-card-title>
           
           <v-card-text>
-            {{pesanbarang.sales_id}}
-          </v-card-text>
-
-           <v-card-text>
-            {{pesanbarang.sales_id}}
+            {{item.Status}}
           </v-card-text>
 
           <v-card-actions>
-            <v-btn color="blue darken-1">Tambah Detail Pesanan</v-btn>
-            <v-btn color="blue darken-1">Edit Pesanan</v-btn>
+              <v-btn color="primary" @click="deleteItem(item)">Hapus</v-btn>
           </v-card-actions>
-
-
+          
         </v-card>
+      <v-divider class="my-2"></v-divider>  
       </v-flex>
+      
+    </v-layout>
 
 
 
@@ -140,20 +140,10 @@
           Your search for "{{ search }}" found no results.
           </v-alert>
       </v-data-table> -->
-
-      <v-flex v-for="pesanbarang in pesanan_barangs" :key="pesanbarang.id">
-        <v-card>
-          test
-        </v-card>
-
-
-      </v-flex>
-
-
-      
+    
     </v-flex>
 
-      <div v-show="false" id="printMe">
+      <!-- <div v-show="false" id="printMe">
             <div class="ma-3">              
                 <div class="text-xs-center">                  
                     <p class="headline">ATMA AUTO</p>
@@ -214,7 +204,7 @@
                   <p>(Philips Purnomo )</p>                  
                 </div>
             </div>
-        </div>
+        </div> -->
     
     </v-layout>
 
@@ -342,7 +332,7 @@ export default {
       
     },
 
-   
+
     
     initialize() {
       this.fetchpesanbarang();
@@ -367,10 +357,6 @@ export default {
           console.log(response);
         })
 
-      axios.delete('/api/detailpesanan/'+item.id)
-        .then(response => {
-          console.log(response);
-        })
     },
 
     close () {
