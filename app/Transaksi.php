@@ -18,6 +18,7 @@ class Transaksi extends Model
         'Status',
         'cabang_id',
         'kustomer_id',
+        'pegawai_id',
         
  ];
 
@@ -31,6 +32,10 @@ class Transaksi extends Model
 
     public function transaksi_sparepart(){
         return $this->hasMany(Transaksi_Sparepart::class);
+    }
+
+    public function pegawai(){
+        return $this->belongsTo(Pegawai::class, 'pegawai_id');
     }
 
     public function kustomer(){

@@ -14,11 +14,16 @@ class Transaksi_Sparepart extends Model
         'Subtotal', 
         'Sisa_Stok',
         'transaksi_id',
-        'sparepart_id'
+        'sparepart_id',
+        'pegawai_id',
  ];
 
     public function transaksi(){
         return $this->belongsTo(Transaksi::class, 'transaksi_id');
+    }
+
+    public function pegawai(){
+        return $this->belongsTo(Pegawai::class, 'pegawai_id');
     }
 
     public function sparepart(){

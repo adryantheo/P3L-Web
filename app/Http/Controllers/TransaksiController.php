@@ -22,8 +22,9 @@ class TransaksiController extends Controller
             'Total_Seluruh' => $request->Total_Seluruh,
             'Diskon' => $request->Diskon,
             'Status' => $request->Status,
-            'Cabang_Id' => $request->Cabang_Id,
-            'Kustomer_Id' => $request->Kustomer_Id,
+            'cabang_id' => $request->cabang_id,
+            'kustomer_id' => $request->kustomer_id,
+            'pegawai_id' => $request->pegawai_id,
             
         ]);
 
@@ -50,8 +51,9 @@ class TransaksiController extends Controller
                 'Total_Seluruh',
                 'Diskon', 
                 'Status', 
-                'Cabang_Id',
-                'Kustomer_Id', 
+                'cabang_id',
+                'kustomer_id',
+                'pegawai_id'
                
         
             ])

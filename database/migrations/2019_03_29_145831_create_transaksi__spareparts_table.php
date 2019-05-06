@@ -16,6 +16,7 @@ class CreateTransaksiSparepartsTable extends Migration
             $table->integer('Sisa_Stok');
             $table->unsignedInteger('transaksi_id');
             $table->unsignedInteger('sparepart_id');
+            $table->unsignedInteger('pegawai_id');
             $table->softDeletes();
             $table->timestamps();
         });

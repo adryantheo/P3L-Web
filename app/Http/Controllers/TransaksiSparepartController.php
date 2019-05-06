@@ -20,8 +20,9 @@ class TransaksiSparepartController extends Controller
             'Jumlah_Dibeli' => $request->Jumlah_Dibeli,
             'Subtotal' => $request->Subtotal,
             'Sisa_Stok' => $request->Sisa_Stok,
-            'Transaksi_Id' => $request->Transaksi_Id,
-            'Sparepart_id' => $request->Sparepart_id,
+            'transaksi_id' => $request->transaksi_id,
+            'sparepart_id' => $request->sparepart_id,
+            'pegawai_id' => $request->pegawai_id,
             
         ]);
 
@@ -46,8 +47,8 @@ class TransaksiSparepartController extends Controller
                 'Jumlah_Dibeli',
                 'Subtotal',
                 'Sisa_Stok',
-                'Transaksi_Id',
-                'Sparepart_id', 
+                'transaksi_id',
+                'sparepart_id', 
                
         
             ])

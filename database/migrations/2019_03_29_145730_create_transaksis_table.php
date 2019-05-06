@@ -15,7 +15,7 @@ class CreateTransaksisTable extends Migration
             $table->double('Total_Service');
             $table->double('Total_Seluruh');
             $table->double('Diskon');
-            
+            $table->unsignedInteger('pegawai_id');
             $table->string('Status');
             $table->unsignedInteger('cabang_id');
             $table->unsignedInteger('kustomer_id');

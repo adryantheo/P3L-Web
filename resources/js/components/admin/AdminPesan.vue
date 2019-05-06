@@ -20,7 +20,7 @@
         ></v-text-field>
         <v-spacer></v-spacer>
             <v-btn color="primary" dark class="mb-2" v-on="on">Tambah Pengadaan</v-btn>
-            <v-btn color="primary" dark class="mb-2" @click="printOrders">Cetak Surat Pengadaan</v-btn>
+            
           </template>
           
           <v-card>
@@ -89,6 +89,7 @@
 
           <v-card-actions>
               <v-btn color="primary" @click="deleteItem(item)">Hapus</v-btn>
+              <v-btn color="primary" dark class="mb-2" @click="dialogDetail = true">Detail Pesanan</v-btn>
           </v-card-actions>
           
         </v-card>
@@ -96,6 +97,134 @@
       </v-flex>
       
     </v-layout>
+
+    <v-dialog
+          v-model="dialogDetail"
+          fullscreen
+          hide-overlay
+          transition="dialog-bottom-transition"
+          scrollable
+        >
+          <v-card tile>
+            <v-toolbar card dark color="primary">
+              <v-btn icon dark @click="dialogDetail = false">
+                <v-icon>close</v-icon>
+              </v-btn>
+              <v-toolbar-title>Settings</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-toolbar-items>
+                <v-btn dark flat @click="dialogDetail = false">Save</v-btn>
+              </v-toolbar-items>
+              
+            </v-toolbar>
+            <v-card-text>
+              <v-btn color="primary" dark @click="dialog2 = true">Tambah Detail Pesanan</v-btn>
+
+
+              <v-dialog v-model="dialog2" max-width="500px">
+          <template v-slot:activator="{ on }">
+              <v-text-field
+          v-model="search"
+          append-icon="search"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+        <v-spacer></v-spacer>
+           
+            
+          </template>
+          
+          <v-card>
+            <v-card-title>
+              <span class="headline">{{ formTitle }}</span>
+            </v-card-title>
+  
+            <v-card-text>
+              <v-container grid-list-md>
+                <v-layout wrap>
+                  <v-flex xs12 sm6 md4>
+                    <v-select :items="dataSparepart" item-text="Nama" item-value="Nama" v-model="editedItem.Nama_Barang" label="Nama Barang" :rules="[rules.required]"></v-select>
+                  </v-flex>
+                  <!-- <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Tanggal_Pesan" label="Tanggal Pesan"></v-text-field>
+                  </v-flex> -->
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Jumlah_Pesan" label="Jumlah Pesan" :rules="[rules.required, rules.notZero, rules.tooMuch]"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Jumlah_Diterima" label="Jumlah Diterima" :rules="[rules.required]"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Harga_Beli" label="Harga Beli" :rules="[rules.required, rules.number, rules.notZero, rules.tooMuch]"></v-text-field>
+                  </v-flex>
+                  <!-- <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Total_Harga_Beli" label="Total Harga"></v-text-field>
+                  </v-flex> -->
+                  <v-flex xs12 sm6 md4>
+                    <v-select :items="dataSparepart" item-text="Nama" item-value="id" v-model="editedItem.sparepart_id" label="ID Sparepart" :rules="[rules.required]"></v-select>
+                  </v-flex>
+                  
+                </v-layout>
+              </v-container>
+            </v-card-text>
+  
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
+              <v-btn color="blue darken-1" flat @click="saveDetail">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
+
+              <v-data-table
+                :headers="headers"
+                :items="detailpesanan"
+                :search="search"
+                class="elevation-1"
+              >
+                <template v-slot:items="props">
+                
+                  <td>{{ props.item.Nama_Barang }}</td>
+                  <td> {{ props.item.Jumlah_Pesan }}</td>
+                  <td> {{ props.item.Jumlah_Diterima }}</td>
+                  <td>Rp. {{ props.item.Harga_Beli }}</td>
+                  <td> Rp. {{ props.item.Total_Harga_Beli }}</td>
+                  <td> {{ props.item.sparepart_id }}</td>
+                
+                  <td class=" layout px-0">
+                    <v-icon
+                      small
+                      class="mr-2"
+                      @click="editItem(props.item)"
+                    >
+                      edit
+                    </v-icon>
+                    <v-icon
+                      small
+                      @click="deleteItem(props.item)"
+                    >
+                      delete
+                    </v-icon>
+                  </td>
+                </template>
+                <template v-slot:no-data>
+                  <v-btn color="primary" @click="initialize">Reset</v-btn>
+                </template>
+                <v-alert v-slot:no-results :value="true" color="error" icon="warning">
+                  Your search for "{{ search }}" found no results.
+                  </v-alert>
+              </v-data-table>
+             
+              
+              <v-divider></v-divider>
+             
+            </v-card-text>
+  
+            <div style="flex: 1 1 auto;"></div>
+          </v-card>
+        </v-dialog>
 
 
 
@@ -240,13 +369,13 @@ export default {
         },
         
     dialog: false,
+    dialogDetail: false,
+    dialog2: false,
     search: '',
     headers: [
       
       { text: 'Nama Barang', value: 'Nama_Barang', sortable: true },
-      { text: 'Status', value: 'Status', sortable: false },
-      { text: 'Tanggal Pesan', value: 'created_at', sortable: true },
-      { text: 'ID Sales', value: 'sales_id', sortable: true },
+     
       { text: 'Jumlah Pesan', value: 'Jumlah_Pesan', sortable: true },
       { text: 'Jumlah Diterima', value: 'Jumlah_Diterima', sortable: true },
       { text: 'Harga Beli', value: 'Harga_Beli', sortable: true },
@@ -399,6 +528,44 @@ export default {
         this.pesanbarang.push(this.editedItem)
       }
       this.close()
+    },
+
+    saveDetail(){
+
+      if (this.editedIndex > -1) {
+        console.log('Edited Data');
+
+        axios.patch('/api/pesanbarang/'+this.editedItem.id,{
+          Nama_pesanbarang:this.editedItem.Nama_pesanbarang,
+           Tarif:this.editedItem.Tarif
+           })
+        .then(response => {
+          console.log(response);
+        })
+       
+        Object.assign(this.pesanbarang[this.editedIndex], this.editedItem)
+      } else {
+        console.log('created Data');
+        axios.post('/api/detailpesanan/',{
+         
+          // Status:this.editedItem.Status,          
+          // sales_id:this.editedItem.sales_id,
+          Nama_Barang:this.editedItem.Nama_Barang,
+          Jumlah_Pesan:this.editedItem.Jumlah_Pesan,
+          pesanan__barang_id:1,
+          Jumlah_Diterima:this.editedItem.Jumlah_Diterima,
+          sparepart_id:this.editedItem.sparepart_id,
+          Harga_Beli:this.editedItem.Harga_Beli,
+          Total_Harga_Beli:this.editedItem.Jumlah_Pesan * this.editedItem.Harga_Beli,
+           })
+        .then(response => {
+          console.log(response);
+        })
+        
+        this.pesanbarang.push(this.editedItem)
+      }
+      this.close()
+
     }
   }
 }

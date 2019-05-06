@@ -18,10 +18,10 @@ class TransaksiServiceController extends Controller
     {
         $transaksi_Service = Transaksi_Service::create([
             'Total_Biaya' => $request->Total_Biaya,
-            'Pegawai_Id' => $request->Pegawai_Id,
+            'pegawai_id' => $request->pegawai_id,
             'Jumlah_Service' => $request->Jumlah_Service,
             'Status' => $request->Status,
-            'Transaksi_Id' => $request->Transaksi_Id,
+            'transaksi_id' => $request->transaksi_id,
             
         ]);
 
@@ -44,10 +44,10 @@ class TransaksiServiceController extends Controller
         $status = $transaksi_Service->update(
             $request->only([
                 'Total_Biaya',
-                'Pegawai_Id',
+                'pegawai_id',
                 'Jumlah_Service',
                 'Status',
-                'Transaksi_Id', 
+                'transaksi_id', 
                
         
             ])
