@@ -15,7 +15,8 @@ class Transaksi_Service extends Model
         'Jumlah_Service',
         'Status',
         'transaksi_id',
-        'service_id'
+        'service_id',
+        
  ];
 
     public function transaksi(){
@@ -23,7 +24,7 @@ class Transaksi_Service extends Model
     }
 
     public function pegawai(){
-        return $this->belongsTo(Pegawai::class, 'pegawai_id');
+        return $this->belongsTo(User::class, 'pegawai_id');
     }
 
     public function service(){

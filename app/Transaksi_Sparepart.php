@@ -23,7 +23,7 @@ class Transaksi_Sparepart extends Model
     }
 
     public function pegawai(){
-        return $this->belongsTo(Pegawai::class, 'pegawai_id');
+        return $this->belongsTo(User::class, 'pegawai_id');
     }
 
     public function sparepart(){

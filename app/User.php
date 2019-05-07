@@ -31,7 +31,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function transaksi_service(){
+    public function transaksi_services(){
         return $this->hasMany(Transaksi_Service::class);
+    }
+
+    public function transaksi_spareparts(){
+        return $this->hasMany(Transaksi_Service::class);
+    }
+
+    public function transaksis(){
+        return $this->hasMany(transaksis::class);
     }
 }
