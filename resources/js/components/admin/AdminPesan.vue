@@ -89,7 +89,7 @@
 
           <v-card-actions>
               <v-btn color="primary" @click="deleteItem(item)">Hapus</v-btn>
-              <v-btn color="primary" dark class="mb-2" @click="dialogDetail = true">Detail Pesanan</v-btn>
+              <v-btn color="primary" dark class="mb-2" @click="openDialogDetail(item)">Detail Pesanan</v-btn>
           </v-card-actions>
           
         </v-card>
@@ -106,17 +106,19 @@
           scrollable
         >
           <v-card tile>
-            <v-toolbar card dark color="primary">
-              <v-btn icon dark @click="dialogDetail = false">
-                <v-icon>close</v-icon>
-              </v-btn>
-              <v-toolbar-title>Settings</v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-toolbar-items>
-                <v-btn dark flat @click="dialogDetail = false">Save</v-btn>
-              </v-toolbar-items>
+            <template v-if="!!pickedItem">
+              <v-toolbar card dark color="primary">
+                <v-btn icon dark @click="dialogDetail = false">
+                  <v-icon>close</v-icon>
+                </v-btn>
+                <v-toolbar-title>Order {{ pickedItem.id }}</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-toolbar-items>
+                  <v-btn dark flat @click="dialogDetail = false">Save</v-btn>
+                </v-toolbar-items>
               
-            </v-toolbar>
+              </v-toolbar>
+            </template>
             <v-card-text>
               <v-btn color="primary" dark @click="dialog2 = true">Tambah Detail Pesanan</v-btn>
 
@@ -394,7 +396,10 @@ export default {
     },
     defaultItem: {
       
-    }
+    },
+
+    // pesanan di dialog
+    pickedItem: null,
   }),
 
   computed: {
@@ -428,6 +433,12 @@ export default {
   },
 
   methods: {
+
+    openDialogDetail(item){
+      console.log(item);
+      this.pickedItem = item;
+      this.dialogDetail = true;
+    },
 
     printOrders() {
             this.$htmlToPaper('printMe');

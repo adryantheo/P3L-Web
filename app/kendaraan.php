@@ -14,12 +14,14 @@ class kendaraan extends Model
         'Merk', 
         'Tipe',
         'kustomer_id',
-        
-
     ];
 
     public function kustomers(){
         return $this->belongsTo(Kustomer::class, 'kustomer_id');
+    }
+
+    public function transaksi_services(){
+        return $this->hasMany(Transaksi_Service::class);
     }
 
 

@@ -16,6 +16,7 @@ class Transaksi_Service extends Model
         'Status',
         'transaksi_id',
         'service_id',
+        'kendaraan_id'
         
  ];
 
@@ -25,6 +26,10 @@ class Transaksi_Service extends Model
 
     public function pegawai(){
         return $this->belongsTo(User::class, 'pegawai_id');
+    }
+
+    public function kendaraan(){
+        return $this->belongsTo(Kendaraan::class, 'kendaraan_id');
     }
 
     public function service(){

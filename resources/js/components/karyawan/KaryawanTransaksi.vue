@@ -32,13 +32,13 @@
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
-                    <v-select :items="dataSparepart" item-text="Nama" item-value="Nama" v-model="editedItem.Nama_Barang" label="Nama Barang"></v-select>
+                    <v-select :items="kustomer" item-text="Nama_Kustomer" item-value="id" v-model="editedItem.Nama_Barang" label="Nama Kustomer"></v-select>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-select :items="items" v-model="editedItem.Status" label="Status"></v-select>
+                    <v-select :items="kendaraan" item-text="Tipe" item-value="id" v-model="editedItem.Status" label="Kendaraan"></v-select>
                   </v-flex>
                  
-                  <v-flex xs12 sm6 md4>
+                  <!-- <v-flex xs12 sm6 md4>
                     <v-select :items="dataSales" item-text="Nama_Supplier" item-value="id" v-model="editedItem.sales_id" label="ID Sales"></v-select>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
@@ -53,7 +53,7 @@
                  
                   <v-flex xs12 sm6 md4>
                     <v-select :items="dataSparepart" item-text="Nama" item-value="id" v-model="editedItem.sparepart_id" label="ID Sparepart"></v-select>
-                  </v-flex>
+                  </v-flex> -->
                   
                 </v-layout>
               </v-container>
@@ -67,7 +67,9 @@
           </v-card>
         </v-dialog>
       </v-toolbar>
-      <v-data-table
+      
+      
+      <!-- <v-data-table
         :headers="headers"
         :items="pesanbarang"
         :search="search"
@@ -106,7 +108,7 @@
          <v-alert v-slot:no-results :value="true" color="error" icon="warning">
           Your search for "{{ search }}" found no results.
           </v-alert>
-      </v-data-table>
+      </v-data-table> -->
 
       
     </v-flex>
@@ -123,49 +125,7 @@
                     <br>
                     <p class="title">SURAT PERINTAH KERJA</p>                                       
                 </div>
-                <div class="text-xs-right">
-                  <template v-for="(data,i) in pesanbarang">
-                  <tr :key="i">
-                  <p>No: {{data.id}}</p>
-                  <p>Tanggal: {{data.created_at}} </p>
-                  </tr>
-                  </template>                  
-                </div>
-                <div class="text-xs-left">
-                  <template v-for="(data, i) in pesanbarang">
-                  <tr :key="i">
-                  <p>Kepada Yth: </p>
-                  <p>{{data.pesanan_barangs.sales.Nama_Supplier}}</p>
-                  <p>{{data.pesanan_barangs.sales.Alamat_Sales}}</p>
-                  <p>{{data.pesanan_barangs.sales.Nomor_Telphone_Sales}}</p>
-                  <p>Mohon untuk disediakan barang-barang berikut:</p>
-                    </tr>
-                  </template>                  
-                                  
-                </div>
-                <div>
-                   <table style="width:100%" border="bold">
-                     <tr>
-                      <th>No</th>
-                      <th>Nama Barang</th> 
-                      <th>Merk</th>
-                      <th>Tipe Barang</th>
-                      <th>Satuan</th>
-                      <th>Jumlah</th>
-                    </tr>
-                    <template v-for="(data, i) in pesanbarang">
-                      <tr :key="i">
-                        <td>{{data.id}}</td>
-                        <td>{{data.pesanan_barangs.Nama_Barang}}</td>
-                        <td>{{data.spareparts.Merk}}</td>
-                        <td>{{data.spareparts.Tipe}}</td>
-                        <td>{{data.Jumlah_Pesan}}</td>
-                        <td>Rp. {{data.Total_Harga_Beli}}</td>
-                        
-                      </tr>
-                    </template>
-                   </table>
-                </div>
+                
                 <br><br>
                 <div class="text-xs-right">
                   <p>Hormat kami,</p><br><br>
@@ -209,8 +169,8 @@ export default {
       { text: 'Actions', value: 'id', sortable: false }
     ],
     pesanbarang: [],
-    dataSales: [],
-    dataSparepart: [], 
+    kustomer: [],
+    kendaraan: [], 
     detailpesanan: [],
     Total_Harga_Beli: 0,
     editedIndex: -1,
@@ -263,15 +223,15 @@ export default {
 
     },
 
-    fetchsales(){
-      axios.get('/api/sales/')
-      .then(response => this.dataSales = response.data)
+    fetchkustomer(){
+      axios.get('/api/kustomer/')
+      .then(response => this.kustomer = response.data)
 
     },
 
-    fetchsparepart(){
-      axios.get('/api/sparepart/')
-      .then(response => this.dataSparepart = response.data)
+    fetchkendaraan(){
+      axios.get('/api/kendaraan/')
+      .then(response => this.kendaraan = response.data)
 
     },
         
@@ -290,8 +250,8 @@ export default {
     
     initialize() {
       this.fetchpesanbarang();
-      this.fetchsales();
-      this.fetchsparepart();
+      this.fetchkustomer();
+      this.fetchkendaraan();
       this.fetchdetailpesanan()
     },
 
