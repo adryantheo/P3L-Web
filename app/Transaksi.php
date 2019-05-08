@@ -18,7 +18,7 @@ class Transaksi extends Model
         'Status',
         'cabang_id',
         'kustomer_id',
-        'pegawai_id',
+        'user_id',
         
  ];
 
@@ -35,7 +35,7 @@ class Transaksi extends Model
     }
 
     public function pegawai(){
-        return $this->belongsTo(User::class, 'pegawai_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function kustomer(){

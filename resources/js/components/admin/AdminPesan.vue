@@ -74,7 +74,7 @@
         </v-dialog>
       </v-toolbar>
       
-        <v-divider class="my-4"></v-divider>
+    <v-divider class="my-4"></v-divider>
       
     <v-layout row wrap>
       <v-flex xs12 md6 xl4 v-for="(item, id) in pesanbarang" :key="`pesanbarang-${id}`">
@@ -95,7 +95,6 @@
         </v-card>
       <v-divider class="my-2"></v-divider>  
       </v-flex>
-      
     </v-layout>
 
     <v-dialog
@@ -563,7 +562,7 @@ export default {
           // sales_id:this.editedItem.sales_id,
           Nama_Barang:this.editedItem.Nama_Barang,
           Jumlah_Pesan:this.editedItem.Jumlah_Pesan,
-          pesanan__barang_id:1,
+          pesanan__barang_id:this.pickedItem.id,
           Jumlah_Diterima:this.editedItem.Jumlah_Diterima,
           sparepart_id:this.editedItem.sparepart_id,
           Harga_Beli:this.editedItem.Harga_Beli,

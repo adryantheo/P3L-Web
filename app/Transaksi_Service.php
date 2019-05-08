@@ -11,12 +11,12 @@ class Transaksi_Service extends Model
 
     protected $fillable = [
         'Total_Biaya', 
-        'pegawai_id',
+        'kendaraan_id',
         'Jumlah_Service',
         'Status',
         'transaksi_id',
         'service_id',
-        'kendaraan_id'
+        'user_id'
         
  ];
 
@@ -25,14 +25,14 @@ class Transaksi_Service extends Model
     }
 
     public function pegawai(){
-        return $this->belongsTo(User::class, 'pegawai_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function kendaraan(){
         return $this->belongsTo(Kendaraan::class, 'kendaraan_id');
     }
 
-    public function service(){
+    public function services(){
         return $this->belongsTo(Service::class, 'service_id');
     }
     

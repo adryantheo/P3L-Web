@@ -16,17 +16,30 @@ class TransaksiController extends Controller
     
     public function store(Request $request)
     {
-        $transaksi = Transaksi::create([
+        $transaksi = Transaksi::create([            
+             'cabang_id' => $request->cabang_id,
             'Total_Pembelian' => $request->Total_Pembelian,
             'Total_Service' => $request->Total_Service,
             'Total_Seluruh' => $request->Total_Seluruh,
             'Diskon' => $request->Diskon,
-            'Status' => $request->Status,
-            'cabang_id' => $request->cabang_id,
+            'Status' => $request->Status,           
             'kustomer_id' => $request->kustomer_id,
-            'pegawai_id' => $request->pegawai_id,
-            
+            'user_id' => $request->user_id,  
         ]);
+
+        //create Transaksi Service
+        // foreach ($request->input('transaksi__services') as $detail){
+        //     Transaksi_Service::create([
+        //         'Total_Biaya' => detail['Total_Biaya'], 
+        //         'kendaraan_id' => detail['kendaraan_id'],
+        //         'Jumlah_Service' => detail['Jumlah_Service'],
+        //         'Status' => detail['Status'],
+        //         'transaksi_id' => detail['transaksi_id'],
+        //         'service_id' => detail['service_id'],
+        //         'user_id' => detail['user_id']
+        //     ]);
+
+        // }
 
         return response()->json([
             'status' => (bool) $transaksi,

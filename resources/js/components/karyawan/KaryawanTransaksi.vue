@@ -9,7 +9,10 @@
             vertical
           ></v-divider>
           <v-spacer></v-spacer>
-          <v-dialog v-model="dialog" max-width="500px">
+
+    
+
+        <v-dialog v-model="dialog" fullscreen>
           <template v-slot:activator="{ on }">
               <v-text-field
           v-model="search"
@@ -20,41 +23,185 @@
         ></v-text-field>
         <v-spacer></v-spacer>
             <v-btn color="primary" dark class="mb-2" v-on="on">Tambah Transaksi</v-btn>
-            <v-btn color="primary" dark class="mb-2" @click="printOrders">Cetak SPK</v-btn>
+            
           </template>
+
           
+          <template v-if="!!pickedItem" >        
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
             </v-card-title>
-  
+
+          
+    
+          
             <v-card-text>
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
-                    <v-select :items="kustomer" item-text="Nama_Kustomer" item-value="id" v-model="editedItem.Nama_Barang" label="Nama Kustomer"></v-select>
+                    <v-select :items="kustomer" item-text="Nama_Kustomer" item-value="id" v-model="editedItem.kustomer_id" label="Nama Kustomer"></v-select>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
                     <v-select :items="kendaraan" item-text="Tipe" item-value="id" v-model="editedItem.Status" label="Kendaraan"></v-select>
                   </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-btn color="primary" dark class="mb-2" @click="printOrders">Cetak SPK</v-btn>
+                  </v-flex>
+              
+                  <v-flex>
+                  <v-dialog v-model="dialogService" max-width="500px">
+                      <template v-slot:activator="{ on }">
+                    <v-spacer></v-spacer>
+                        <v-btn color="primary" dark class="mb-2" v-on="on">New Service</v-btn>
+                      </template>
+                      <v-card>
+                        <v-card-title>
+                          <span class="headline">{{ formTitle }}</span>
+                        </v-card-title>
+                        <v-card-text>
+                          <v-container grid-list-md>
+                            <v-layout wrap>
+                              <v-flex xs12 sm6 md4>
+                                <v-text-field v-model="editedItem.Total_Biaya" label="Total Biaya" ></v-text-field>
+                              </v-flex>
+                              <v-flex xs12 sm6 md4>
+                                <v-text-field v-model="editedItem.kendaraan_id" label="ID Kendaraan" ></v-text-field>
+                              </v-flex>
+                              <v-flex xs12 sm6 md4>
+                                <v-text-field v-model="editedItem.Jumlah_Service" label="Jumlah_Service"></v-text-field>
+                              </v-flex>
+                              <v-flex xs12 sm6 md4>
+                                <v-text-field v-model="editedItem.Status" label="Status" ></v-text-field>
+                              </v-flex>
+                              <v-flex xs12 sm6 md4>
+                                <v-text-field v-model="editedItem.transaksi_id" label="ID Transaksi" ></v-text-field>
+                              </v-flex>
+                              <v-flex xs12 sm6 md4>
+                                <v-text-field v-model="editedItem.service_id" label="Service ID" ></v-text-field>
+                              </v-flex>
+                              <v-flex xs12 sm6 md4>
+                                <v-text-field v-model="editedItem.user_id" label="Nama Pegawai" ></v-text-field>
+                              </v-flex>
+                            </v-layout>
+                          </v-container>
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                           
+                          <v-btn color="blue darken-1" flat @click="dialogSparepart = false">Cancel</v-btn>
+                          <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                    
+                    <v-data-table
+                        :headers="headerService"
+                        :items="pesanbarang"
+                        :search="search"
+                        class="elevation-1"
+                      >
+                        <template v-slot:items="props">
+                        
+                          <td>{{ props.item.pesanan_barangs.Nama_Barang }}</td>
+                          <td> {{ props.item.pesanan_barangs.Status }}</td>
+                          <td>{{ props.item.pesanan_barangs.created_at }}</td>
+                          <td> {{ props.item.pesanan_barangs.sales_id }}</td>
+                          <td> {{ props.item.Jumlah_Pesan }}</td>
+                          <td> {{ props.item.Jumlah_Diterima }}</td>
+                          <td>Rp. {{ props.item.Harga_Beli }}</td>
+                          <td> {{ props.item.sparepart_id }}</td>
+                        
+                          <td class=" layout px-0">
+                            <v-icon
+                              small
+                              class="mr-2"
+                              @click="editItem(props.item)"
+                            >
+                              edit
+                            </v-icon>
+                            <v-icon
+                              small
+                              @click="deleteItem(props.item)"
+                            >
+                              delete
+                            </v-icon>
+                          </td>
+                        </template>
+                        
+                      </v-data-table>
+                  </v-flex>
+
+
+                  <v-flex>
+                     <v-dialog v-model="dialogSparepart" max-width="500px">
+                      <template v-slot:activator="{ on }">
+                    <v-spacer></v-spacer>
+                        <v-btn color="primary" dark class="mb-2" v-on="on">New Sparepart</v-btn>
+                      </template>
+                      <v-card>
+                        <v-card-title>
+                          <span class="headline">{{ formTitle }}</span>
+                        </v-card-title>
+                        <v-card-text>
+                          <v-container grid-list-md>
+                            <v-layout wrap>
+                              <v-flex xs12 sm6 md4>
+                                <v-text-field v-model="editedItem.sparepart_id" label="ID Sparepart" ></v-text-field>
+                              </v-flex>
+                              <v-flex xs12 sm6 md4>
+                                <v-text-field v-model="editedItem.user_id" label="Nama Pegawai" ></v-text-field>
+                              </v-flex>
+                              <v-flex xs12 sm6 md4>
+                                <v-text-field v-model="editedItem.Jumlah_Dibeli" label="Jumlah Items"></v-text-field>
+                              </v-flex>
+                              <v-flex xs12 sm6 md4>
+                                <v-text-field v-model="editedItem.Subtotal" label="Subtotal" ></v-text-field>
+                              </v-flex>
+                            </v-layout>
+                          </v-container>
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn color="blue darken-1" flat @click="dialogSparepart = false">Cancel</v-btn>
+                          <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+
+                    <v-data-table
+                        :headers="headerSparepart"
+                        :items="pesanbarang"
+                        :search="search"
+                        class="elevation-1"
+                      >
+                        <template v-slot:items="props">
+                        
+                          <td>{{ props.item.pesanan_barangs.Nama_Sales }}</td>
+                          <td> {{ props.item.pesanan_barangs.Nama_Supplier }}</td>
+                          <td>{{ props.item.pesanan_barangs.Alamat_Sales }}</td>
+                          <td> {{ props.item.pesanan_barangs.Nomor_Telphone_Sales }}</td>
+                          
+                        
+                          <td class=" layout px-0">
+                            <v-icon
+                              small
+                              class="mr-2"
+                              @click="editItem(props.item)"
+                            >
+                              edit
+                            </v-icon>
+                            <v-icon
+                              small
+                              @click="deleteItem(props.item)"
+                            >
+                              delete
+                            </v-icon>
+                          </td>
+                        </template>
+                      </v-data-table>
+                  </v-flex>
                  
-                  <!-- <v-flex xs12 sm6 md4>
-                    <v-select :items="dataSales" item-text="Nama_Supplier" item-value="id" v-model="editedItem.sales_id" label="ID Sales"></v-select>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Jumlah_Pesan" label="Jumlah Pesan"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Jumlah_Diterima" label="Jumlah Diterima"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.Harga_Beli" label="Harga Beli"></v-text-field>
-                  </v-flex>
-                 
-                  <v-flex xs12 sm6 md4>
-                    <v-select :items="dataSparepart" item-text="Nama" item-value="id" v-model="editedItem.sparepart_id" label="ID Sparepart"></v-select>
-                  </v-flex> -->
-                  
                 </v-layout>
               </v-container>
             </v-card-text>
@@ -65,8 +212,40 @@
               <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
             </v-card-actions>
           </v-card>
+        </template>
         </v-dialog>
       </v-toolbar>
+
+      <v-divider class="my-4"></v-divider>
+      
+    <v-layout row wrap>
+      <v-flex xs12 md6 xl4 v-for="(item, id) in transaksi" :key="`transaksi-${id}`">
+        <v-card class="rounded" width="300px">
+          <v-card-title>
+            <span> Dari Kustomer ID : {{item.kustomer_id}} </span> 
+          </v-card-title>
+          
+          <v-card-text>
+            {{item.Status}}
+          </v-card-text>
+
+          <v-card-actions>
+              <v-btn color="primary" @click="deleteItem(item)">Hapus</v-btn>
+              <v-btn color="primary" dark class="mb-2" @click="openDialogDetail(item)">Detail Pesanan</v-btn>
+               <v-icon
+              small
+              class="mr-2"
+              @click="editItem(item)"
+            >
+              edit
+            </v-icon>
+              
+          </v-card-actions>
+          
+        </v-card>
+      <v-divider class="my-2"></v-divider>  
+      </v-flex>
+    </v-layout>
       
       
       <!-- <v-data-table
@@ -127,10 +306,7 @@
                 </div>
                 
                 <br><br>
-                <div class="text-xs-right">
-                  <p>Hormat kami,</p><br><br>
-                  <p>(Philips Purnomo )</p>                  
-                </div>
+               
             </div>
         </div>
     
@@ -156,9 +332,10 @@ export default {
         },
         
     dialog: false,
+    dialogSparepart: false,
+    dialogService: false,
     search: '',
     headers: [
-      
       { text: 'Nama Customer', value: 'Nama_Barang', sortable: true },
       { text: 'Telepon Customer', value: 'Status', sortable: false },
       { text: 'Motor Customer', value: 'created_at', sortable: true },
@@ -168,10 +345,26 @@ export default {
             
       { text: 'Actions', value: 'id', sortable: false }
     ],
-    pesanbarang: [],
+    headerService: [
+      { text: 'ID Service', value: '', sortable: true },
+      { text: 'Pegawai', value: '', sortable: false },
+      { text: 'Kendaraan', value: '', sortable: false },
+      { text: 'Status', value: '', sortable: false },
+      { text: 'Jumlah Service', value: '', sortable: true },
+      { text: 'Total Biaya', value: '', sortable: true },   
+      { text: 'Actions', value: 'id', sortable: false }
+    ],
+    headerSparepart: [
+      { text: 'ID Sparepart', value: '', sortable: true },
+      { text: 'Jumlah Beli', value: '', sortable: false },
+      { text: 'Pegawai', value: '', sortable: false },   
+      { text: 'Actions', value: 'id', sortable: false }
+    ],
+    transaksi: [],
     kustomer: [],
     kendaraan: [], 
     detailpesanan: [],
+    pickedItem: null,
     Total_Harga_Beli: 0,
     editedIndex: -1,
     editedItem: {
@@ -214,6 +407,12 @@ export default {
 
   methods: {
 
+    openDialogDetail(item){
+      console.log(item);
+      this.pickedItem = item;
+      this.dialog = true;
+    },
+
     printOrders() {
             this.$htmlToPaper('printMe');
         },
@@ -240,9 +439,9 @@ export default {
       .then(response => this.pesanbarang = response.data)
       
     },
-    fetchdetailpesanan() {
-      axios.get('/api/detailpesanan/')
-      .then(response => this.detailpesanan = response.data)
+    fetchtransaksi() {
+      axios.get('/api/transaksi/')
+      .then(response => this.transaksi = response.data)
       
     },
 
@@ -252,11 +451,11 @@ export default {
       this.fetchpesanbarang();
       this.fetchkustomer();
       this.fetchkendaraan();
-      this.fetchdetailpesanan()
+      this.fetchtransaksi()
     },
 
     editItem (item) {
-      this.editedIndex = this.pesanbarang.indexOf(item)
+      this.editedIndex = this.transaksi.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
@@ -286,37 +485,58 @@ export default {
     },
 
     save () {
-      if (this.editedIndex > -1) {
-        console.log('Edited Data');
+      console.log('created Data');
+      axios.post('/api/transaksi/',{
+          cabang_id:1,
+          Total_Pembelian: 0,
+          Total_Service: 0,
+          Total_Seluruh: 0,
+          Diskon: 0,
+          Status: "Pending",           
+          kustomer_id: this.editedItem.kustomer_id,
+          user_id: 1,
 
-        axios.patch('/api/pesanbarang/'+this.editedItem.id,{
-          Nama_pesanbarang:this.editedItem.Nama_pesanbarang,
-           Tarif:this.editedItem.Tarif
            })
         .then(response => {
           console.log(response);
         })
-       
-        Object.assign(this.pesanbarang[this.editedIndex], this.editedItem)
-      } else {
-        console.log('created Data');
-        axios.post('/api/pesanbarang/',{
-          Nama_Barang:this.editedItem.Nama_Barang,
-          Status:this.editedItem.Status,          
-          sales_id:this.editedItem.sales_id,
-          Jumlah_Pesan:this.editedItem.Jumlah_Pesan,
-          Jumlah_Diterima:this.editedItem.Jumlah_Diterima,
-          sparepart_id:this.editedItem.sparepart_id,
-          Harga_Beli:this.editedItem.Harga_Beli,
-          Total_Harga_Beli:this.editedItem.Jumlah_Pesan * this.editedItem.Harga_Beli,
-           })
-        .then(response => {
-          console.log(response);
-        })
+        this.close()
         
-        this.pesanbarang.push(this.editedItem)
-      }
-      this.close()
+     //   this.pesanbarang.push(this.editedItem)
+      // if (this.editedIndex > -1) {
+      //   console.log('Edited Data');
+
+      //   axios.patch('/api/pesanbarang/'+this.editedItem.id,{
+      //     Nama_pesanbarang:this.editedItem.Nama_pesanbarang,
+      //      Tarif:this.editedItem.Tarif
+      //      })
+      //   .then(response => {
+      //     console.log(response);
+      //   })
+       
+      //   Object.assign(this.pesanbarang[this.editedIndex], this.editedItem)
+      // }
+      //  else 
+      //  {
+      //   console.log('created Data');
+      //   axios.post('/api/transaksi/',{
+      //     cabang_id:1,
+      //     Total_Pembelian: 0,
+      //     Total_Service: 0,
+      //     Total_Seluruh: 0,
+      //     Diskon: 0,
+      //     Status: "Pending",           
+      //     kustomer_id: editedItem.kustomer_id,
+      //     user_id: 1,
+
+      //      })
+      //   .then(response => {
+      //     console.log(response);
+      //   })
+        
+      //   this.pesanbarang.push(this.editedItem)
+      // }
+      // this.close()
     }
   }
 }

@@ -15,7 +15,7 @@ class Transaksi_Sparepart extends Model
         'Sisa_Stok',
         'transaksi_id',
         'sparepart_id',
-        'pegawai_id',
+        'user_id',
  ];
 
     public function transaksi(){
@@ -23,7 +23,7 @@ class Transaksi_Sparepart extends Model
     }
 
     public function pegawai(){
-        return $this->belongsTo(User::class, 'pegawai_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function sparepart(){
