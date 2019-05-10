@@ -10,7 +10,7 @@ class TransaksiServiceController extends Controller
     
     public function index()
     {
-        return response()->json(Transaksi::all(),200);
+        return response()->json(Transaksi_Service::all(),200);
     }
 
     
@@ -18,11 +18,12 @@ class TransaksiServiceController extends Controller
     {
         $transaksi_Service = Transaksi_Service::create([
             'Total_Biaya' => $request->Total_Biaya,
-            'pegawai_id' => $request->pegawai_id,
+            'user_id' => $request->user_id,            
             'Jumlah_Service' => $request->Jumlah_Service,
             'Status' => $request->Status,
+            'service_id' => $request->service_id,
             'transaksi_id' => $request->transaksi_id,
-            
+            'kendaraan_id' => $request->kendaraan_id,
         ]);
 
         return response()->json([
@@ -44,10 +45,12 @@ class TransaksiServiceController extends Controller
         $status = $transaksi_Service->update(
             $request->only([
                 'Total_Biaya',
-                'pegawai_id',
+                'user_id',
                 'Jumlah_Service',
                 'Status',
-                'transaksi_id', 
+                'service_id',
+                'transaksi_id',
+                'kendaran_id',
                
         
             ])

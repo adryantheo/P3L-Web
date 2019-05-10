@@ -23,12 +23,15 @@ Route::patch('/detailpesanan/{detail_Pesanan}', 'DetailPesananController@update'
 Route::get('/sparepart/all', 'SparepartController@all');
 Route::post('/sparepart/{sparepart}', 'SparepartController@update');
 Route::post('/pegawai/gantipass', 'UserController@gantipassword');
+Route::patch('/transaksi-service/{transaksi_Service}', 'TransaksiServiceController@update');
 
 Route::resource('/pesanbarang', 'PesananBarangController')->except(['all','destroy', 'patch']);
 Route::resource('/detailpesanan', 'DetailPesananController')->except(['all', 'destroy', 'patch']);
 Route::resource('/kustomer', 'KustomerController')->except(['search', 'all','listNamaKustomer']);
 Route::resource('/kendaraan', 'KendaraanController')->except(['all']);
 Route::resource('/transaksi', 'TransaksiController');
+Route::resource('/transaksi-service', 'TransaksiServiceController');
+Route::resource('/transaksi-sparepart', 'TransaksiSparepartController');
 Route::resource('/service', 'ServiceController');
 Route::resource('/sales', 'SalesController')->except(['update', 'all']);
 Route::resource('/sparepart', 'SparepartController')->except(['uploadGambar','update']);

@@ -27,7 +27,7 @@
           </template>
 
           
-          <template v-if="!!pickedItem" >        
+                  
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
@@ -62,26 +62,24 @@
                         <v-card-text>
                           <v-container grid-list-md>
                             <v-layout wrap>
+                              
                               <v-flex xs12 sm6 md4>
-                                <v-text-field v-model="editedItem.Total_Biaya" label="Total Biaya" ></v-text-field>
+                                <v-select :items="kendaraan" item-text="Tipe" item-value="id" v-model="editedItem.kendaraan_id" label="ID Kendaraan" ></v-select>
                               </v-flex>
                               <v-flex xs12 sm6 md4>
-                                <v-text-field v-model="editedItem.kendaraan_id" label="ID Kendaraan" ></v-text-field>
+                                <v-select :items="service" item-text="Nama_Service" item-value="id" v-model="editedItem.service_id" label="Service ID" ></v-select>
                               </v-flex>
                               <v-flex xs12 sm6 md4>
                                 <v-text-field v-model="editedItem.Jumlah_Service" label="Jumlah_Service"></v-text-field>
                               </v-flex>
                               <v-flex xs12 sm6 md4>
-                                <v-text-field v-model="editedItem.Status" label="Status" ></v-text-field>
+                                <v-select :items="items" v-model="editedItem.StatusService" label="Status" ></v-select>
                               </v-flex>
-                              <v-flex xs12 sm6 md4>
+                              <!-- <v-flex xs12 sm6 md4>
                                 <v-text-field v-model="editedItem.transaksi_id" label="ID Transaksi" ></v-text-field>
-                              </v-flex>
+                              </v-flex>                               -->
                               <v-flex xs12 sm6 md4>
-                                <v-text-field v-model="editedItem.service_id" label="Service ID" ></v-text-field>
-                              </v-flex>
-                              <v-flex xs12 sm6 md4>
-                                <v-text-field v-model="editedItem.user_id" label="Nama Pegawai" ></v-text-field>
+                                <v-select :items="pegawai" item-text="Nama" item-value="id" v-model="editedItem.user_id" label="Nama Montir" ></v-select>
                               </v-flex>
                             </v-layout>
                           </v-container>
@@ -89,40 +87,38 @@
                         <v-card-actions>
                           <v-spacer></v-spacer>
                            
-                          <v-btn color="blue darken-1" flat @click="dialogSparepart = false">Cancel</v-btn>
-                          <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
+                          <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
+                          <v-btn color="blue darken-1" flat @click="saveService">Save</v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
                     
                     <v-data-table
                         :headers="headerService"
-                        :items="pesanbarang"
+                        :items="TService"
                         :search="search"
                         class="elevation-1"
                       >
                         <template v-slot:items="props">
                         
-                          <td>{{ props.item.pesanan_barangs.Nama_Barang }}</td>
-                          <td> {{ props.item.pesanan_barangs.Status }}</td>
-                          <td>{{ props.item.pesanan_barangs.created_at }}</td>
-                          <td> {{ props.item.pesanan_barangs.sales_id }}</td>
-                          <td> {{ props.item.Jumlah_Pesan }}</td>
-                          <td> {{ props.item.Jumlah_Diterima }}</td>
-                          <td>Rp. {{ props.item.Harga_Beli }}</td>
-                          <td> {{ props.item.sparepart_id }}</td>
+                          <td>{{ props.item.service_id }}</td>
+                          <td> {{ props.item.user_id }}</td>
+                          <td>{{ props.item.kendaraan_id }}</td>
+                          <td> {{ props.item.Status }}</td>
+                          <td> {{ props.item.Jumlah_Service }}</td>
+                          <td> {{ props.item.Total_Biaya }}</td>
                         
                           <td class=" layout px-0">
                             <v-icon
                               small
                               class="mr-2"
-                              @click="editItem(props.item)"
+                              @click="editItemService(props.item)"
                             >
                               edit
                             </v-icon>
                             <v-icon
                               small
-                              @click="deleteItem(props.item)"
+                              @click="deleteItemService(props.item)"
                             >
                               delete
                             </v-icon>
@@ -147,40 +143,40 @@
                           <v-container grid-list-md>
                             <v-layout wrap>
                               <v-flex xs12 sm6 md4>
-                                <v-text-field v-model="editedItem.sparepart_id" label="ID Sparepart" ></v-text-field>
+                                <v-select :items="sparepart" item-text="Nama" item-value="id" v-model="editedItem.sparepart_id" label="ID Sparepart" ></v-select>
                               </v-flex>
                               <v-flex xs12 sm6 md4>
-                                <v-text-field v-model="editedItem.user_id" label="Nama Pegawai" ></v-text-field>
+                                <v-select :items="pegawai" item-text="Nama" item-value="id"  v-model="editedItem.user_id" label="Nama Pegawai" ></v-select>
                               </v-flex>
                               <v-flex xs12 sm6 md4>
                                 <v-text-field v-model="editedItem.Jumlah_Dibeli" label="Jumlah Items"></v-text-field>
                               </v-flex>
-                              <v-flex xs12 sm6 md4>
-                                <v-text-field v-model="editedItem.Subtotal" label="Subtotal" ></v-text-field>
-                              </v-flex>
+
+                             
                             </v-layout>
                           </v-container>
                         </v-card-text>
                         <v-card-actions>
                           <v-spacer></v-spacer>
                           <v-btn color="blue darken-1" flat @click="dialogSparepart = false">Cancel</v-btn>
-                          <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
+                          <v-btn color="blue darken-1" flat @click="saveSparepart">Save</v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
 
                     <v-data-table
                         :headers="headerSparepart"
-                        :items="pesanbarang"
+                        :items="TSparepart"
                         :search="search"
                         class="elevation-1"
                       >
                         <template v-slot:items="props">
                         
-                          <td>{{ props.item.pesanan_barangs.Nama_Sales }}</td>
-                          <td> {{ props.item.pesanan_barangs.Nama_Supplier }}</td>
-                          <td>{{ props.item.pesanan_barangs.Alamat_Sales }}</td>
-                          <td> {{ props.item.pesanan_barangs.Nomor_Telphone_Sales }}</td>
+                          <td>{{ props.item.sparepart_id }}</td>
+                          <td> {{ props.item.Jumlah_Dibeli }}</td>
+                          <td>{{ props.item.Subtotal }}</td>
+                          
+                          
                           
                         
                           <td class=" layout px-0">
@@ -212,7 +208,7 @@
               <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
             </v-card-actions>
           </v-card>
-        </template>
+        
         </v-dialog>
       </v-toolbar>
 
@@ -320,7 +316,7 @@ export default {
     
   data: () => ({
 
-    items:['Sedang Dipesan', 'Pesanan Selesai'],
+    items:['Sedang Dikerjakan','Sudah Selesai'],
 
     isLoggedIn: localStorage.getItem('jwt') != null,
 
@@ -357,13 +353,18 @@ export default {
     headerSparepart: [
       { text: 'ID Sparepart', value: '', sortable: true },
       { text: 'Jumlah Beli', value: '', sortable: false },
-      { text: 'Pegawai', value: '', sortable: false },   
+      { text: 'Subtotal', value: '', sortable: false },   
       { text: 'Actions', value: 'id', sortable: false }
     ],
     transaksi: [],
+    sparepart: [],
+    TService: [],
+    TSparepart:[],
+    service: [],
     kustomer: [],
     kendaraan: [], 
     detailpesanan: [],
+    pegawai: [],
     pickedItem: null,
     Total_Harga_Beli: 0,
     editedIndex: -1,
@@ -444,6 +445,26 @@ export default {
       .then(response => this.transaksi = response.data)
       
     },
+    fetchservice(){
+      axios.get('/api/service/')
+      .then(response => this.service = response.data)
+    },
+    fetchpegawai(){
+      axios.get('/api/pegawai/')
+      .then(response => this.pegawai = response.data)
+    },
+    fetchTService(){
+      axios.get('/api/transaksi-service/')
+      .then(response => this.TService = response.data)
+    },
+    fetchTSparepart(){
+      axios.get('/api/transaksi-sparepart/')
+      .then(response => this.TSparepart = response.data)
+    },
+    fetchsparepart(){
+      axios.get('/api/sparepart/')
+      .then(response => this.sparepart = response.data)
+    },
 
    
     
@@ -452,6 +473,11 @@ export default {
       this.fetchkustomer();
       this.fetchkendaraan();
       this.fetchtransaksi()
+      this.fetchservice();
+      this.fetchpegawai();
+      this.fetchTService();
+      this.fetchTSparepart();
+      this.fetchsparepart()
     },
 
     editItem (item) {
@@ -460,20 +486,34 @@ export default {
       this.dialog = true
     },
 
+    editItemService (item) {
+      this.editedIndex = this.TService.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialogService = true
+    },
+
     deleteItem (item) {
-      const index = this.pesanbarang.indexOf(item)
+      const index = this.transaksi.indexOf(item)
       confirm('Are you sure you want to delete this item?') && this.pesanbarang.splice(index, 1)
       console.log('deleted data');
 
-      axios.delete('/api/pesanbarang/'+item.id)
+      axios.delete('/api/transaksi/'+item.id)
         .then(response => {
           console.log(response);
         })
 
-      axios.delete('/api/detailpesanan/'+item.id)
+    },
+
+     deleteItemService (item) {
+      const index = this.TService.indexOf(item)
+      confirm('Are you sure you want to delete this item?') && this.TService.splice(index, 1)
+      console.log('deleted data');
+
+      axios.delete('/api/transaksi-service/'+item.id)
         .then(response => {
           console.log(response);
         })
+
     },
 
     close () {
@@ -537,7 +577,65 @@ export default {
       //   this.pesanbarang.push(this.editedItem)
       // }
       // this.close()
+    },
+    saveService () {
+
+      
+      if (this.editedIndex > -1) {
+        console.log('Edited Data');
+
+        axios.patch('/api/transaksi-service/'+this.editedItem.id,{
+          Total_Biaya: 0,
+          Jumlah_Service: 0,
+          Status: this.editedItem.StatusService,
+          service_id: this.editedItem.service_id,
+          kendaraan_id: 1,           
+          transaksi_id: 1,
+          user_id: 1,
+           })
+        .then(response => {
+          console.log(response);
+        })
+       
+        Object.assign(this.TService[this.editedIndex], this.editedItem)
+      }else{
+        console.log('created Data');
+      axios.post('/api/transaksi-service/',{
+          Total_Biaya: 0,
+          Jumlah_Service: 0,
+          Status: this.editedItem.StatusService,
+          service_id: this.editedItem.service_id,
+          kendaraan_id: 1,           
+          transaksi_id: 1,
+          user_id: 1,
+
+           })
+        .then(response => {
+          console.log(response);
+        })
+
+      }
+
+      
+        this.close()
+    },
+    saveSparepart () {
+      console.log('created Data');
+      axios.post('/api/transaksi-sparepart/',{
+          Jumlah_Dibeli:this.editedItem.Jumlah_Dibeli,
+          Subtotal: this.editedItem.Jumlah_Dibeli*2000,
+          Sisa_Stok: 0,
+          transaksi_id: 1,
+          sparepart_id: 1,
+          user_id: 1,           
+          
+           })
+        .then(response => {
+          console.log(response);
+        })
+        this.close()
     }
+        
   }
 }
 </script>

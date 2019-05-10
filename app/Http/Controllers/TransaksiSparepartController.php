@@ -16,13 +16,13 @@ class TransaksiSparepartController extends Controller
     
     public function store(Request $request)
     {
-        $transaksi_Sparepart = Transaksi_Service::create([
+        $transaksi_Sparepart = Transaksi_Sparepart::create([
             'Jumlah_Dibeli' => $request->Jumlah_Dibeli,
             'Subtotal' => $request->Subtotal,
             'Sisa_Stok' => $request->Sisa_Stok,
             'transaksi_id' => $request->transaksi_id,
             'sparepart_id' => $request->sparepart_id,
-            'pegawai_id' => $request->pegawai_id,
+            'user_id' => $request->user_id,
             
         ]);
 
