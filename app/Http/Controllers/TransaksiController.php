@@ -17,14 +17,17 @@ class TransaksiController extends Controller
     public function store(Request $request)
     {
         $transaksi = Transaksi::create([            
-             'cabang_id' => $request->cabang_id,
+            'cabang_id' => $request->cabang_id,
             'Total_Pembelian' => $request->Total_Pembelian,
             'Total_Service' => $request->Total_Service,
             'Total_Seluruh' => $request->Total_Seluruh,
             'Diskon' => $request->Diskon,
             'Status' => $request->Status,           
             'kustomer_id' => $request->kustomer_id,
-            'user_id' => $request->user_id,  
+            'user_id' => $request->user_id, 
+            'nama_cs' => $request->nama_cs, 
+             
+             
         ]);
 
         //create Transaksi Service
@@ -51,8 +54,26 @@ class TransaksiController extends Controller
     
     public function show(Transaksi $transaksi)
     {
-        return response()->json($transaksi,200);
+        //return response()->json($transaksi,200);
+        return response()->json(
+            Transaksi::with('transaksi_service','transaksi_sparepart')
+            ->where('id', '=', $transaksi->id)
+            ->first(),200
+        );
     }
+
+    public function detailTransaksi(Transaksi $transaksi)
+    {
+        // return response()->json($transaksi,200);
+        return response()->json(
+            Transaksi::with(['transaksi_sparepart',])
+            ->where('id', '=', $transaksi->id)
+            ->first(),200
+        );
+        
+    }
+
+    
 
     
     public function update(Request $request, Transaksi $transaksi)
@@ -66,7 +87,9 @@ class TransaksiController extends Controller
                 'Status', 
                 'cabang_id',
                 'kustomer_id',
-                'pegawai_id'
+                'user_id',
+                'nama_cs'
+                
                
         
             ])

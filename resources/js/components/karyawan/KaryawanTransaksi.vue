@@ -43,9 +43,6 @@
                     <v-select :items="kustomer" item-text="Nama_Kustomer" item-value="id" v-model="editedItem.kustomer_id" label="Nama Kustomer"></v-select>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-select :items="kendaraan" item-text="Tipe" item-value="id" v-model="editedItem.Status" label="Kendaraan"></v-select>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
                     <v-btn color="primary" dark class="mb-2" @click="printOrders">Cetak SPK</v-btn>
                   </v-flex>
               
@@ -222,69 +219,24 @@
           </v-card-title>
           
           <v-card-text>
-            {{item.Status}}
+          Status:  {{item.Status}}
+          <br>
+          Tanggal: {{item.created_at}}
+
           </v-card-text>
 
           <v-card-actions>
               <v-btn color="primary" @click="deleteItem(item)">Hapus</v-btn>
-              <v-btn color="primary" dark class="mb-2" @click="openDialogDetail(item)">Detail Pesanan</v-btn>
-               <v-icon
-              small
-              class="mr-2"
-              @click="editItem(item)"
-            >
-              edit
-            </v-icon>
-              
+              <!-- <v-btn color="primary" dark class="mb-2" @click="openDialogDetail(item)">Detail Pesanan</v-btn> -->
+              <v-btn color="primary" dark class="mb-2" :to="`/karyawan/transaksi/${item.id}`">Detail Pesanan</v-btn>
+                             
           </v-card-actions>
           
         </v-card>
       <v-divider class="my-2"></v-divider>  
       </v-flex>
     </v-layout>
-      
-      
-      <!-- <v-data-table
-        :headers="headers"
-        :items="pesanbarang"
-        :search="search"
-        class="elevation-1"
-      >
-        <template v-slot:items="props">
-         
-          <td>{{ props.item.pesanan_barangs.Nama_Barang }}</td>
-          <td> {{ props.item.pesanan_barangs.Status }}</td>
-          <td>{{ props.item.pesanan_barangs.created_at }}</td>
-          <td> {{ props.item.pesanan_barangs.sales_id }}</td>
-          <td> {{ props.item.Jumlah_Pesan }}</td>
-          <td> {{ props.item.Jumlah_Diterima }}</td>
-          <td>Rp. {{ props.item.Harga_Beli }}</td>
-          <td> {{ props.item.sparepart_id }}</td>
-         
-          <td class=" layout px-0">
-            <v-icon
-              small
-              class="mr-2"
-              @click="editItem(props.item)"
-            >
-              edit
-            </v-icon>
-            <v-icon
-              small
-              @click="deleteItem(props.item)"
-            >
-              delete
-            </v-icon>
-          </td>
-        </template>
-        <template v-slot:no-data>
-          <v-btn color="primary" @click="initialize">Reset</v-btn>
-        </template>
-         <v-alert v-slot:no-results :value="true" color="error" icon="warning">
-          Your search for "{{ search }}" found no results.
-          </v-alert>
-      </v-data-table> -->
-
+   
       
     </v-flex>
 
@@ -528,6 +480,7 @@ export default {
       console.log('created Data');
       axios.post('/api/transaksi/',{
           cabang_id:1,
+          nama_cs:"hehe",
           Total_Pembelian: 0,
           Total_Service: 0,
           Total_Seluruh: 0,

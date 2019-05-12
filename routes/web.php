@@ -2,9 +2,9 @@
 
 
 
- Route::any('/', function () {
-     return view('welcome');
- });
+Route::any('/{any}', function () {
+    return view('welcome');
+})->where('any', '.*');
 
 Route::any('{page}', function(){return view('welcome');});
 

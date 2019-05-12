@@ -19,6 +19,7 @@ class Transaksi extends Model
         'cabang_id',
         'kustomer_id',
         'user_id',
+        'nama_cs',
         
  ];
 
