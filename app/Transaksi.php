@@ -20,6 +20,7 @@ class Transaksi extends Model
         'kustomer_id',
         'user_id',
         'nama_cs',
+        'is_paid'
         
  ];
 

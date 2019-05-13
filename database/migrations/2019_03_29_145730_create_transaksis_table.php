@@ -20,6 +20,7 @@ class CreateTransaksisTable extends Migration
             $table->string('Status');
             $table->unsignedInteger('cabang_id');
             $table->unsignedInteger('kustomer_id');
+            $table->boolean('is_paid')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -7,6 +7,8 @@
                 </v-btn>
                 <div class="ml-4">
                     <div class="headline font-weight-bold mb-1">Detail Transaksi</div>
+                    <v-btn color="primary" dark class="mb-2" @click="printOrders">Cetak SPK</v-btn>
+                    <v-btn color="primary" dark class="mb-2" @click="printNota">Cetak Nota</v-btn>
                 </div>
             </v-layout>
             
@@ -148,10 +150,9 @@
                 </td>
             </template>
         </v-data-table>
+      </v-flex>
 
-        
-       
-        </v-flex>
+      <!-- Print Area -->
 
             <div v-show="false" id="printMe">
              <div class="ma-3">              
@@ -166,8 +167,102 @@
                     <p class="title">SURAT PERINTAH KERJA</p>                                       
                 </div>
                     <br><br>
+                    <div class="text-xs-center">
+                      <p class="headline">SERVICE</p>
+                      <table style="width:100%" border="bold">
+                      <tr>
+                        <th>No</th>
+                        <th>Nama</th> 
+                        <th>Merk</th>
+                        <th>Rak</th>
+                        <th>Jumlah</th>
+                      </tr>
+                      <template v-for="(data, i) in TService">
+                        <tr :key="i">
+                          <td>{{data.id}}</td>
+                          <td>{{data.Jumlah_Pesan}}</td>
+                        </tr>
+                      </template>
+                    </table>
+                    </div>
+                    <br>
+                    <div class="text-xs-center">
+                      <p class="headline">SPAREPARTS</p>
+                      <table style="width:100%" border="bold">
+                      <tr>
+                        <th>No</th>
+                        <th>Nama</th> 
+                        <th>Merk</th>
+                        <th>Rak</th>
+                        <th>Jumlah</th>
+                      </tr>
+                      <template v-for="(data, i) in TSparepart">
+                        <tr :key="i">
+                          <td>{{data.id}}</td>
+                          <td>{{data.Jumlah_Pesan}}</td>
+                        </tr>
+                      </template>
+                    </table>
+                  </div>
              </div>
             </div>
+
+  <!-- Print Nota -->
+
+          <div v-show="false" id="printNot">
+             <div class="ma-3">              
+                <div class="text-xs-center">                  
+                    <p class="headline">ATMA AUTO</p>
+                    <p class="" >MOTORCYCLE SPAREPARTS AND SERVICES</p>
+                    <p class="">Jl. Babarsari No. 43 Yogyakarta 552181</p>
+                    <p class="">Telp. (0274)487711</p>
+                    <p class="">http://www.atmaauto.com</p>
+                    <hr>
+                    <br>
+                    <p class="title">NOTA LUNAS</p>                                       
+                </div>
+                    <br><br>
+                    <div class="text-xs-center">
+                      <p class="headline">SERVICE</p>
+                      <table style="width:100%" border="bold">
+                      <tr>
+                        <th>No</th>
+                        <th>Nama</th> 
+                        <th>Merk</th>
+                        <th>Rak</th>
+                        <th>Jumlah</th>
+                      </tr>
+                      <template v-for="(data, i) in TService">
+                        <tr :key="i">
+                          <td>{{data.id}}</td>
+                          <td>{{data.Jumlah_Pesan}}</td>
+                        </tr>
+                      </template>
+                    </table>
+                    </div>
+                    <br>
+                    <div class="text-xs-center">
+                      <p class="headline">SPAREPARTS</p>
+                      <table style="width:100%" border="bold">
+                      <tr>
+                        <th>No</th>
+                        <th>Nama</th> 
+                        <th>Merk</th>
+                        <th>Rak</th>
+                        <th>Jumlah</th>
+                      </tr>
+                      <template v-for="(data, i) in TSparepart">
+                        <tr :key="i">
+                          <td>{{data.id}}</td>
+                          <td>{{data.Jumlah_Pesan}}</td>
+                        </tr>
+                      </template>
+                    </table>
+                  </div>
+             </div>
+            </div>
+
+
     </v-layout>
 
 </template>
@@ -215,8 +310,7 @@ export default {
       { text: 'Jumlah Beli', value: '', sortable: false },
       { text: 'Subtotal', value: '', sortable: false },   
       { text: 'Actions', value: 'id', sortable: false }
-    ],
-   
+    ],   
     sparepart: [],
     TService: [],
     TSparepart:[],
@@ -228,12 +322,8 @@ export default {
     pickedItem: null,
     idTS: 0,
     editedIndex: -1,
-    editedItem: {
-     
-    },
-    defaultItem: {
-      
-    }
+    editedItem: {},
+    defaultItem: {}
   }),
 
   computed: {
@@ -244,9 +334,7 @@ export default {
       
       var hargaBeli = parseFloat(this.dataSparepart.Harga_Beli)
       this.Total_Harga_Beli = this.hargaBeli
-    }
-    
-    
+    }  
   },
 
   watch: {
@@ -259,7 +347,6 @@ export default {
     "editedItem.sales_id"(val){
       console.log(val);
     },
-    
   },
 
   created () {
@@ -276,6 +363,10 @@ export default {
 
     printOrders() {
             this.$htmlToPaper('printMe');
+        },
+
+    printNota() {
+            this.$htmlToPaper('printNot');
         },
 
     getHargaBeli(){
@@ -297,10 +388,13 @@ export default {
     
     fetchTransaksiDetail() {
       axios.get(`/api/transaksi/${this.transaksi}`)
-       .then(response => this.detailTransaksi = response.data)
-      this.TService = detailTransaksi.transaksi_service;
-      this.TSparepart = detailTransaksi.transaksi_sparepart;
-         
+       .then(response => {
+         this.detailTransaksi = response.data
+         console.log(response.data)
+         this.TService = this.detailTransaksi.transaksi_service;
+        this.TSparepart = this.detailTransaksi.transaksi_sparepart;
+         })
+      
     },
 
     fetchservice(){
@@ -318,10 +412,7 @@ export default {
       .then(response => this.sparepart = response.data)
     },
 
-   
-    
     initialize() {
-      
       this.fetchkustomer();
       this.fetchkendaraan();
       this.fetchservice();
@@ -351,7 +442,6 @@ export default {
         .then(response => {
           console.log(response);
         })
-
     },
 
      deleteItemService (item) {
@@ -363,7 +453,6 @@ export default {
         .then(response => {
           console.log(response);
         })
-
     },
 
     close () {

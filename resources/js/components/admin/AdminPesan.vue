@@ -322,8 +322,7 @@
                         <td>{{data.spareparts.Merk}}</td>
                         <td>{{data.spareparts.Tipe}}</td>
                         <td>{{data.Jumlah_Pesan}}</td>
-                        <td>Rp. {{data.Total_Harga_Beli}}</td>
-                        
+                        <td>Rp. {{data.Total_Harga_Beli}}</td>                        
                       </tr>
                     </template>
                    </table>
