@@ -201,16 +201,6 @@ export default {
     dialogSparepart: false,
     dialogService: false,
     search: '',
-    headers: [
-      { text: 'Nama Customer', value: 'Nama_Barang', sortable: true },
-      { text: 'Telepon Customer', value: 'Status', sortable: false },
-      { text: 'Motor Customer', value: 'created_at', sortable: true },
-      { text: 'Nama CS', value: 'sales_id', sortable: true },
-      { text: 'Nama Montir', value: 'Jumlah_Pesan', sortable: true },
-      { text: 'Tanggal', value: 'Jumlah_Diterima', sortable: true },
-            
-      { text: 'Actions', value: 'id', sortable: false }
-    ],
     headerService: [
       { text: 'ID Service', value: '', sortable: true },
       { text: 'Pegawai', value: '', sortable: false },
@@ -304,12 +294,7 @@ export default {
       .then(response => this.kendaraan = response.data)
 
     },
-        
-    fetchpesanbarang() {
-      axios.get('/api/detailpesanan/all')
-      .then(response => this.pesanbarang = response.data)
-      
-    },
+    
     fetchTransaksiDetail() {
       axios.get(`/api/transaksi/${this.transaksi}`)
        .then(response => this.detailTransaksi = response.data)
@@ -336,15 +321,13 @@ export default {
    
     
     initialize() {
-      this.fetchpesanbarang();
+      
       this.fetchkustomer();
       this.fetchkendaraan();
-      this.fetchTransaksiDetail();
       this.fetchservice();
       this.fetchpegawai();
-      this.fetchTService();
-      this.fetchTSparepart();
       this.fetchsparepart()
+      this.fetchTransaksiDetail();
     },
 
     editItem (item) {
@@ -391,61 +374,7 @@ export default {
       }, 300)
     },
 
-    save () {
-      console.log('created Data');
-      axios.post('/api/transaksi/',{
-          cabang_id:1,
-          nama_cs:"hehe",
-          Total_Pembelian: 0,
-          Total_Service: 0,
-          Total_Seluruh: 0,
-          Diskon: 0,
-          Status: "Pending",           
-          kustomer_id: this.editedItem.kustomer_id,
-          user_id: 1,
-
-           })
-        .then(response => {
-          console.log(response);
-        })
-        this.close()
-        
-     //   this.pesanbarang.push(this.editedItem)
-      // if (this.editedIndex > -1) {
-      //   console.log('Edited Data');
-
-      //   axios.patch('/api/pesanbarang/'+this.editedItem.id,{
-      //     Nama_pesanbarang:this.editedItem.Nama_pesanbarang,
-      //      Tarif:this.editedItem.Tarif
-      //      })
-      //   .then(response => {
-      //     console.log(response);
-      //   })
-       
-      //   Object.assign(this.pesanbarang[this.editedIndex], this.editedItem)
-      // }
-      //  else 
-      //  {
-      //   console.log('created Data');
-      //   axios.post('/api/transaksi/',{
-      //     cabang_id:1,
-      //     Total_Pembelian: 0,
-      //     Total_Service: 0,
-      //     Total_Seluruh: 0,
-      //     Diskon: 0,
-      //     Status: "Pending",           
-      //     kustomer_id: editedItem.kustomer_id,
-      //     user_id: 1,
-
-      //      })
-      //   .then(response => {
-      //     console.log(response);
-      //   })
-        
-      //   this.pesanbarang.push(this.editedItem)
-      // }
-      // this.close()
-    },
+    
     saveService () {
 
       
@@ -483,8 +412,6 @@ export default {
         })
 
       }
-
-      
         this.close()
     },
     saveSparepart () {
