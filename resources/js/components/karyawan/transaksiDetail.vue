@@ -1,6 +1,52 @@
 <template>
     <v-layout align-space-around justify-center fill-height v-if="isLoggedIn">
         <v-flex>  
+          <v-layout row align-center>
+                <v-btn fab dark color="primary" to="/karyawan/transaksi">
+                    <v-icon>arrow_back</v-icon>
+                </v-btn>
+                <div class="ml-4">
+                    <div class="headline font-weight-bold mb-1">Detail Transaksi</div>
+                </div>
+            </v-layout>
+            
+            <v-dialog v-model="dialogService" max-width="500px">
+                      <template v-slot:activator="{ on }">
+                    <v-spacer></v-spacer>
+                        <v-btn color="primary" dark class="mb-2" v-on="on">New Service</v-btn>
+                      </template>
+                      <v-card>
+                        <v-card-title>
+                          <span class="headline">{{ formTitle }}</span>
+                        </v-card-title>
+                        <v-card-text>
+                          <v-container grid-list-md>
+                            <v-layout wrap>
+                              <v-flex xs12 sm6 md4>
+                                <v-select :items="kendaraan" item-text="Tipe" item-value="id" v-model="editedItem.kendaraan_id" label="ID Kendaraan" ></v-select>
+                              </v-flex>
+                              <v-flex xs12 sm6 md4>
+                                <v-select :items="service" item-text="Nama_Service" item-value="id" v-model="editedItem.service_id" label="Service ID" ></v-select>
+                              </v-flex>
+                              <v-flex xs12 sm6 md4>
+                                <v-text-field v-model="editedItem.Jumlah_Service" label="Jumlah_Service"></v-text-field>
+                              </v-flex>
+                              <v-flex xs12 sm6 md4>
+                                <v-select :items="items" v-model="editedItem.StatusService" label="Status" ></v-select>
+                              </v-flex>
+                              <v-flex xs12 sm6 md4>
+                                <v-select :items="pegawai" item-text="Nama" item-value="id" v-model="editedItem.user_id" label="Nama Montir" ></v-select>
+                              </v-flex>
+                            </v-layout>
+                          </v-container>
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
+                          <v-btn color="blue darken-1" flat @click="saveService">Save</v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
         
 
         <v-data-table
@@ -37,6 +83,38 @@
         </v-data-table>
 
         <br>
+
+        <v-dialog v-model="dialogSparepart" max-width="500px">
+          <template v-slot:activator="{ on }">
+        <v-spacer></v-spacer>
+            <v-btn color="primary" dark class="mb-2" v-on="on">New Sparepart</v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="headline">{{ formTitle }}</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container grid-list-md>
+                <v-layout wrap>
+                  <v-flex xs12 sm6 md4>
+                    <v-select :items="sparepart" item-text="Nama" item-value="id" v-model="editedItem.sparepart_id" label="ID Sparepart" ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-select :items="pegawai" item-text="Nama" item-value="id"  v-model="editedItem.user_id" label="Nama Pegawai" ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="editedItem.Jumlah_Dibeli" label="Jumlah Items"></v-text-field>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" flat @click="dialogSparepart = false">Cancel</v-btn>
+              <v-btn color="blue darken-1" flat @click="saveSparepart">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
 
         <v-data-table
             :headers="headerSparepart"
@@ -394,9 +472,9 @@ export default {
           Total_Biaya: 0,
           Jumlah_Service: 0,
           Status: this.editedItem.StatusService,
-          service_id: this.editedItem.service_id,
+          service_id: 1,
           kendaraan_id: 1,           
-          transaksi_id: 1,
+          transaksi_id: `${this.transaksi}`,
           user_id: 1,
 
            })
@@ -415,7 +493,7 @@ export default {
           Jumlah_Dibeli:this.editedItem.Jumlah_Dibeli,
           Subtotal: this.editedItem.Jumlah_Dibeli*2000,
           Sisa_Stok: 0,
-          transaksi_id: 1,
+          transaksi_id: `${this.transaksi}`,
           sparepart_id: 1,
           user_id: 1,           
           

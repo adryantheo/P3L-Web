@@ -59,7 +59,6 @@
                         <v-card-text>
                           <v-container grid-list-md>
                             <v-layout wrap>
-                              
                               <v-flex xs12 sm6 md4>
                                 <v-select :items="kendaraan" item-text="Tipe" item-value="id" v-model="editedItem.kendaraan_id" label="ID Kendaraan" ></v-select>
                               </v-flex>
@@ -72,9 +71,6 @@
                               <v-flex xs12 sm6 md4>
                                 <v-select :items="items" v-model="editedItem.StatusService" label="Status" ></v-select>
                               </v-flex>
-                              <!-- <v-flex xs12 sm6 md4>
-                                <v-text-field v-model="editedItem.transaksi_id" label="ID Transaksi" ></v-text-field>
-                              </v-flex>                               -->
                               <v-flex xs12 sm6 md4>
                                 <v-select :items="pegawai" item-text="Nama" item-value="id" v-model="editedItem.user_id" label="Nama Montir" ></v-select>
                               </v-flex>
@@ -83,7 +79,6 @@
                         </v-card-text>
                         <v-card-actions>
                           <v-spacer></v-spacer>
-                           
                           <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
                           <v-btn color="blue darken-1" flat @click="saveService">Save</v-btn>
                         </v-card-actions>
@@ -148,8 +143,6 @@
                               <v-flex xs12 sm6 md4>
                                 <v-text-field v-model="editedItem.Jumlah_Dibeli" label="Jumlah Items"></v-text-field>
                               </v-flex>
-
-                             
                             </v-layout>
                           </v-container>
                         </v-card-text>
