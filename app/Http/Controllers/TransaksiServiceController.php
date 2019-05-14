@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Transaksi_Service;
 use App\Service;
+use App\Transaksi;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -34,6 +35,12 @@ class TransaksiServiceController extends Controller
         $service = Service::find($transaksi_Service['service_id']);
         $transaksi_Service->Total_Biaya *= $service['Tarif'];
         $transaksi_Service->save();
+
+        //create total harga nota
+        $transaksi = Transaksi::find($transaksi_Service['transaksi_id']);
+        $transaksi->Total_Service += $transaksi_Service['Total_Biaya'];
+        $transaksi->Total_Seluruh += $transaksi_Service['Total_Biaya'];
+        $transaksi->save();
 
     },3);
         
@@ -70,8 +77,6 @@ class TransaksiServiceController extends Controller
                 'service_id',
                 'transaksi_id',
                 'kendaran_id',
-               
-        
             ])
         );
         return response()->json([

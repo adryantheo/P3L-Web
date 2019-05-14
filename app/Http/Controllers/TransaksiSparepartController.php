@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Transaksi_Sparepart;
 use App\Sparepart;
+use App\Transaksi;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -35,6 +36,12 @@ class TransaksiSparepartController extends Controller
             $transaksi_Sparepart->Subtotal *= $sparepart['Harga_Jual'];
             $sparepart->save();
             $transaksi_Sparepart->save();
+
+            //create total harga nota
+            $transaksi = Transaksi::find($transaksi_Sparepart['transaksi_id']);
+            $transaksi->Total_Pembelian += $transaksi_Sparepart['Subtotal'];
+            $transaksi->Total_Seluruh += $transaksi_Sparepart['Subtotal'];
+            $transaksi->save();
 
         },3);
 

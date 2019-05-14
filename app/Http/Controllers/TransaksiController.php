@@ -69,16 +69,16 @@ class TransaksiController extends Controller
         );
     }
 
-    // public function detailTransaksi(Transaksi $transaksi)
-    // {
-    //     // return response()->json($transaksi,200);
-    //     return response()->json(
-    //         Transaksi::with(['transaksi_sparepart',])
-    //         ->where('id', '=', $transaksi->id)
-    //         ->first(),200
-    //     );
-        
-    // }
+    public function paid(Transaksi $transaksi)
+    {
+        $transaksi->is_paid = true;
+        $status = $transaksi->save();
+
+        return response()->json([
+            'status' => $status,
+            'message' => $status ? 'Transaksi Paid!' : 'Error Paid Transaksi'
+        ]);
+    }
 
     
 

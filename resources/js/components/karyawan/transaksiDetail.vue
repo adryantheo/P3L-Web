@@ -8,6 +8,44 @@
                 <div class="ml-4">
                     <div class="headline font-weight-bold mb-1">Detail Transaksi</div>
                     <v-btn color="primary" dark class="mb-2" @click="printOrders">Cetak SPK</v-btn>
+
+                    <v-dialog v-model="dialogPay" persistent max-width="600px">
+                        <template v-slot:activator="{ on }">
+                          <v-btn color="primary" dark v-on="on">Bayar</v-btn>
+                        </template>
+                        <v-card>
+                          <v-card-title>
+                            <span class="headline">Pembayaran</span>
+                          </v-card-title>
+                          <v-card-text>
+                            <v-container grid-list-md>
+                              <v-layout wrap>
+                                <v-flex xs12 >
+                                  <p>ID Transaksi : {{this.transaksi}}</p>
+                                </v-flex>
+                                <v-flex xs12 >
+                                  <p>Customer : {{this.detailTransaksi.kustomer.Nama_Kustomer}}</p>
+                                </v-flex>
+                                <v-flex xs12 >
+                                  <p>Total Service : Rp. {{this.detailTransaksi.Total_Service}}</p>
+                                </v-flex>
+                                <v-flex xs12 >
+                                  <p>Total Sparepart : Rp. {{this.detailTransaksi.Total_Pembelian}}</p>
+                                </v-flex>
+                                <v-flex xs12 >
+                                  <p>Total Harga : Rp. {{this.detailTransaksi.Total_Seluruh}}</p>
+                                </v-flex>
+                              </v-layout>
+                            </v-container>
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="blue darken-1" flat @click="dialogPay = false">Close</v-btn>
+                            <v-btn color="blue darken-1" flat @click="PayItem">Bayar</v-btn>
+                          </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+
                     <v-btn color="primary" dark class="mb-2" @click="printNota">Cetak Nota</v-btn>
                 </div>
             </v-layout>
@@ -80,8 +118,7 @@
                 delete
                 </v-icon>
             </td>
-         </template>
-                        
+         </template>       
         </v-data-table>
 
         <br>
@@ -146,6 +183,10 @@
                 </td>
             </template>
         </v-data-table>
+
+      
+
+
       </v-flex>
 
   <!-- Print SPK -->
@@ -165,12 +206,12 @@
                  <p>{{this.detailTransaksi.created_at}}</p>
                  <p>CS: {{this.dataPegawai.Nama}}</p>
                  <p>Montir: {{this.dataPegawai.Nama}}</p>
-                </div>
-                <div class="text-xs-left">
+              </div>
+              <div class="text-xs-left">
                  <p>No: {{this.detailTransaksi.id}}</p>
                  <p>Cust: {{this.dataKustomer.Nama_Kustomer}}</p>
                  <p>Telepon: {{this.dataKustomer.Telepon_Kustomer}}</p> 
-                 </div>                                       
+              </div>                                       
         </div>
             <br><br>
             <div class="text-xs-center">
@@ -227,7 +268,17 @@
                     <p class="">http://www.atmaauto.com</p>
                     <hr>
                     <br>
-                    <p class="title">NOTA LUNAS</p>                                       
+                    <p class="title">NOTA LUNAS</p>
+                      <div class="text-xs-right">                  
+                        <p>{{this.detailTransaksi.created_at}}</p>
+                        <p>CS: {{this.dataPegawai.Nama}}</p>
+                        <p>Montir: {{this.dataPegawai.Nama}}</p>
+                      </div>
+                      <div class="text-xs-left">
+                        <p>No: {{this.detailTransaksi.id}}</p>
+                        <p>Cust: {{this.dataKustomer.Nama_Kustomer}}</p>
+                        <p>Telepon: {{this.dataKustomer.Telepon_Kustomer}}</p> 
+                      </div>                                                
                 </div>
                     <br><br>
                     <div class="text-xs-center">
@@ -311,6 +362,7 @@ export default {
     dialog: false,
     dialogSparepart: false,
     dialogService: false,
+    dialogPay:false,
     search: '',
     headerService: [
       { text: 'ID Service', value: '', sortable: true },
@@ -372,6 +424,12 @@ export default {
   },
 
   methods: {
+
+    PayItem(){
+      axios.patch(`/api/transaksi-paid/${this.transaksi}`)
+        this.dialogPay = false;
+
+    },
 
     openDialogDetail(item){
       console.log(item);
@@ -495,6 +553,9 @@ export default {
 
     close () {
       this.dialog = false
+      this.dialogSparepart = false
+      this.dialogService = false
+      this.dialogPay = false
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
@@ -523,7 +584,7 @@ export default {
         Object.assign(this.TService[this.editedIndex], this.editedItem)
       }else{
         console.log('created Data');
-      axios.post('/api/transaksi-service/',{
+        axios.post('/api/transaksi-service/',{
           Total_Biaya: this.editedItem.Jumlah_Service,
           Jumlah_Service: this.editedItem.Jumlah_Service,
           Status: this.editedItem.StatusService,
@@ -535,7 +596,6 @@ export default {
         .then(response => {
           console.log(response);
         })
-
       }
         this.close()
     },

@@ -51,7 +51,7 @@
     <v-divider class="my-4"></v-divider>      
     <v-layout row wrap>
       <v-flex xs12 md6 xl4 v-for="(item, id) in transaksi" :key="`transaksi-${id}`">
-        <v-card class="rounded" width="300px">
+        <v-card class="rounded" width="350px">
           <v-card-title>
             <span> ID Transaksi : {{item.id}} </span> 
           </v-card-title>          
@@ -64,12 +64,14 @@
           </v-card-text>
           <v-card-actions>
               <v-btn color="primary" @click="deleteItem(item)">Hapus</v-btn>
-              <v-btn color="primary" dark class="mb-2" :to="`/karyawan/transaksi/${item.id}`">Detail Pesanan</v-btn>
+              <v-btn color="primary"  :to="`/karyawan/transaksi/${item.id}`">Detail Pesanan</v-btn>
+             
           </v-card-actions>
         </v-card>
       <v-divider class="my-2"></v-divider>  
       </v-flex>
     </v-layout>
+
     </v-flex>
   </v-layout>
 </template>
@@ -168,35 +170,19 @@ export default {
       this.dialog = true
     },
 
-    editItemService (item) {
-      this.editedIndex = this.TService.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialogService = true
-    },
+
 
     deleteItem (item) {
       const index = this.transaksi.indexOf(item)
-      confirm('Are you sure you want to delete this item?') && this.pesanbarang.splice(index, 1)
+      confirm('Are you sure you want to delete this item?') && this.transaksi.splice(index, 1)
       console.log('deleted data');
 
       axios.delete('/api/transaksi/'+item.id)
         .then(response => {
           console.log(response);
         })
-
     },
-
-     deleteItemService (item) {
-      const index = this.TService.indexOf(item)
-      confirm('Are you sure you want to delete this item?') && this.TService.splice(index, 1)
-      console.log('deleted data');
-
-      axios.delete('/api/transaksi-service/'+item.id)
-        .then(response => {
-          console.log(response);
-        })
-
-    },
+   
 
     close () {
       this.dialog = false
