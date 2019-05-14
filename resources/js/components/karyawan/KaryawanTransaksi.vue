@@ -59,6 +59,8 @@
             Status:  {{item.Status}}
           <br>
             Tanggal: {{item.created_at}}
+            <br>
+            Status Pembayaran: {{item.is_paid}}
           </v-card-text>
           <v-card-actions>
               <v-btn color="primary" @click="deleteItem(item)">Hapus</v-btn>

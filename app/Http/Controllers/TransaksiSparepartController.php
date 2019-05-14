@@ -29,10 +29,12 @@ class TransaksiSparepartController extends Controller
                 'sparepart_id' => $request->sparepart_id,
                 'user_id' => $request->user_id,
             ]);
-
+            //Stock & Subtotal Function
             $sparepart = Sparepart::find($transaksi_Sparepart['sparepart_id']);
             $sparepart->Stok -= $transaksi_Sparepart['Jumlah_Dibeli'];
+            $transaksi_Sparepart->Subtotal *= $sparepart['Harga_Jual'];
             $sparepart->save();
+            $transaksi_Sparepart->save();
 
         },3);
 
@@ -54,17 +56,18 @@ class TransaksiSparepartController extends Controller
     
     public function update(Request $request, Transaksi_Sparepart $transaksi_Sparepart)
     {
-        $status = $transaksi_Sparepart->update(
-            $request->only([
-                'Jumlah_Dibeli',
-                'Subtotal',
-                'Sisa_Stok',
-                'transaksi_id',
-                'sparepart_id', 
-               
         
-            ])
-        );
+            //Update
+           $status= $transaksi_Sparepart->update(
+                $request->only([
+                    'Jumlah_Dibeli',
+                    'Subtotal',
+                    'Sisa_Stok',
+                    'transaksi_id',
+                    'sparepart_id', 
+                ])
+                );
+               
         return response()->json([
             'status' => $status,
             'message' => $status ? 'Transaksi Diupdate!' : 'Error Mengupdate Transaksi'

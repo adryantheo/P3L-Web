@@ -63,7 +63,7 @@
             <td>{{ props.item.kendaraan_id }}</td>
             <td> {{ props.item.Status }}</td>
             <td> {{ props.item.Jumlah_Service }}</td>
-            <td> {{ props.item.Total_Biaya }}</td>
+            <td>Rp. {{ props.item.Total_Biaya }}</td>
             
             <td class=" layout px-0">
                 <v-icon
@@ -128,18 +128,18 @@
             
                 <td>{{ props.item.sparepart_id }}</td>
                 <td> {{ props.item.Jumlah_Dibeli }}</td>
-                <td>{{ props.item.Subtotal }}</td>
+                <td>Rp. {{ props.item.Subtotal }}</td>
                 <td class=" layout px-0">
                 <v-icon
                     small
                     class="mr-2"
-                    @click="editItem(props.item)"
+                    @click="editItemSparepart(props.item)"
                 >
                     edit
                 </v-icon>
                 <v-icon
                     small
-                    @click="deleteItem(props.item)"
+                    @click="deleteItemSparepart(props.item)"
                 >
                     delete
                 </v-icon>
@@ -429,6 +429,12 @@ export default {
       this.dialogService = true
     },
 
+    editItemSparepart (item) {
+      this.editedIndex = this.TSparepart.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialogSparepart = true
+    },
+
     deleteItem (item) {
       const index = this.transaksi.indexOf(item)
       confirm('Are you sure you want to delete this item?') && this.pesanbarang.splice(index, 1)
@@ -451,6 +457,17 @@ export default {
         })
     },
 
+    deleteItemSparepart (item) {
+      const index = this.TSparepart.indexOf(item)
+      confirm('Are you sure you want to delete this item?') && this.TSparepart.splice(index, 1)
+      console.log('deleted data');
+
+      axios.delete('/api/transaksi-sparepart/'+item.id)
+        .then(response => {
+          console.log(response);
+        })
+    },
+
     close () {
       this.dialog = false
       setTimeout(() => {
@@ -466,7 +483,7 @@ export default {
       if (this.editedIndex > -1) {
         console.log('Edited Data');
         axios.patch('/api/transaksi-service/'+this.editedItem.id,{
-          Total_Biaya: 0,
+          Total_Biaya: this.editedItem.Jumlah_Service,
           Jumlah_Service: this.editedItem.Jumlah_Service,
           Status: this.editedItem.StatusService,
           service_id: this.editedItem.service_id,
@@ -482,7 +499,7 @@ export default {
       }else{
         console.log('created Data');
       axios.post('/api/transaksi-service/',{
-          Total_Biaya: 0,
+          Total_Biaya: this.editedItem.Jumlah_Service,
           Jumlah_Service: this.editedItem.Jumlah_Service,
           Status: this.editedItem.StatusService,
           service_id: this.editedItem.service_id,
@@ -515,8 +532,8 @@ export default {
       }else{
         console.log('created Data');
         axios.post('/api/transaksi-sparepart/',{
-           Jumlah_Dibeli:this.editedItem.Jumlah_Dibeli,
-          Subtotal: this.editedItem.Jumlah_Dibeli*2000,
+          Jumlah_Dibeli:this.editedItem.Jumlah_Dibeli,
+          Subtotal: this.editedItem.Jumlah_Dibeli,
           Sisa_Stok: 0,
           transaksi_id: `${this.transaksi}`,
           sparepart_id: this.editedItem.sparepart_id,

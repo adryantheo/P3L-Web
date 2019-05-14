@@ -24,6 +24,7 @@ Route::get('/sparepart/all', 'SparepartController@all');
 Route::post('/sparepart/{sparepart}', 'SparepartController@update');
 Route::post('/pegawai/gantipass', 'UserController@gantipassword');
 Route::patch('/transaksi-service/{transaksi_Service}', 'TransaksiServiceController@update');
+Route::patch('/transaksi-sparepart/{transaksi_Sparepart}', 'TransaksiSparepartController@update');
 
 Route::resource('/pesanbarang', 'PesananBarangController')->except(['all','destroy', 'patch']);
 Route::resource('/detailpesanan', 'DetailPesananController')->except(['all', 'destroy', 'patch']);

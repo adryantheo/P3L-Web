@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Transaksi_Service;
+use App\Service;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class TransaksiServiceController extends Controller
@@ -16,6 +18,8 @@ class TransaksiServiceController extends Controller
     
     public function store(Request $request)
     {
+    $status = DB::transaction(function () use ($request, &$transaksi_Service){
+        //create a new transaction
         $transaksi_Service = Transaksi_Service::create([
             'Total_Biaya' => $request->Total_Biaya,
             'user_id' => $request->user_id,            
@@ -26,8 +30,16 @@ class TransaksiServiceController extends Controller
             'kendaraan_id' => $request->kendaraan_id,
         ]);
 
+        //create Total Biaya
+        $service = Service::find($transaksi_Service['service_id']);
+        $transaksi_Service->Total_Biaya *= $service['Tarif'];
+        $transaksi_Service->save();
+
+    },3);
+        
+
         return response()->json([
-            'status' => (bool) $transaksi_Service,
+            'status' => (bool) $status,
             'data'   => $transaksi_Service,
             'message' => $transaksi_Service ? 'Transaksi Baru Berhasil Ditambahkan!' : 'Error Menambahkan Transaksi Baru'
         ]);
