@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Transaksi_Sparepart;
+use App\Sparepart;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class TransaksiSparepartController extends Controller
@@ -16,18 +18,28 @@ class TransaksiSparepartController extends Controller
     
     public function store(Request $request)
     {
-        $transaksi_Sparepart = Transaksi_Sparepart::create([
-            'Jumlah_Dibeli' => $request->Jumlah_Dibeli,
-            'Subtotal' => $request->Subtotal,
-            'Sisa_Stok' => $request->Sisa_Stok,
-            'transaksi_id' => $request->transaksi_id,
-            'sparepart_id' => $request->sparepart_id,
-            'user_id' => $request->user_id,
-            
-        ]);
+        $status = DB::transaction(function () use ($request, &$transaksi_Sparepart)
+        {
+            //create a new transaction
+            $transaksi_Sparepart = Transaksi_Sparepart::create([
+                'Jumlah_Dibeli' => $request->Jumlah_Dibeli,
+                'Subtotal' => $request->Subtotal,
+                'Sisa_Stok' => $request->Sisa_Stok,
+                'transaksi_id' => $request->transaksi_id,
+                'sparepart_id' => $request->sparepart_id,
+                'user_id' => $request->user_id,
+            ]);
+
+            $sparepart = Sparepart::find($transaksi_Sparepart['sparepart_id']);
+            $sparepart->Stok -= $transaksi_Sparepart['Jumlah_Dibeli'];
+            $sparepart->save();
+
+        },3);
+
+       
 
         return response()->json([
-            'status' => (bool) $transaksi_Sparepart,
+            'status' => (bool) $status,
             'data'   => $transaksi_Sparepart,
             'message' => $transaksi_Sparepart ? 'Transaksi Baru Berhasil Ditambahkan!' : 'Error Menambahkan Transaksi Baru'
         ]);

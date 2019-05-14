@@ -129,10 +129,6 @@
                 <td>{{ props.item.sparepart_id }}</td>
                 <td> {{ props.item.Jumlah_Dibeli }}</td>
                 <td>{{ props.item.Subtotal }}</td>
-                
-                
-                
-            
                 <td class=" layout px-0">
                 <v-icon
                     small
@@ -152,7 +148,7 @@
         </v-data-table>
       </v-flex>
 
-      <!-- Print Area -->
+      <!-- Print SPK -->
 
             <div v-show="false" id="printMe">
              <div class="ma-3">              
@@ -469,15 +465,14 @@ export default {
       
       if (this.editedIndex > -1) {
         console.log('Edited Data');
-
         axios.patch('/api/transaksi-service/'+this.editedItem.id,{
           Total_Biaya: 0,
-          Jumlah_Service: 0,
+          Jumlah_Service: this.editedItem.Jumlah_Service,
           Status: this.editedItem.StatusService,
           service_id: this.editedItem.service_id,
-          kendaraan_id: 1,           
-          transaksi_id: 1,
-          user_id: 1,
+          kendaraan_id: this.editedItem.kendaraan_id,           
+          transaksi_id: `${this.transaksi}`,
+          user_id: this.editedItem.user_id,
            })
         .then(response => {
           console.log(response);
@@ -488,13 +483,12 @@ export default {
         console.log('created Data');
       axios.post('/api/transaksi-service/',{
           Total_Biaya: 0,
-          Jumlah_Service: 0,
+          Jumlah_Service: this.editedItem.Jumlah_Service,
           Status: this.editedItem.StatusService,
-          service_id: 1,
-          kendaraan_id: 1,           
+          service_id: this.editedItem.service_id,
+          kendaraan_id: this.editedItem.kendaraan_id,           
           transaksi_id: `${this.transaksi}`,
-          user_id: 1,
-
+          user_id: this.editedItem.user_id,
            })
         .then(response => {
           console.log(response);
@@ -504,19 +498,35 @@ export default {
         this.close()
     },
     saveSparepart () {
-      console.log('created Data');
-      axios.post('/api/transaksi-sparepart/',{
+
+      if (this.editedIndex > -1) {
+        console.log('Edited Data');
+        axios.patch('/api/transaksi-sparepart/'+this.editedItem.id,{
           Jumlah_Dibeli:this.editedItem.Jumlah_Dibeli,
           Subtotal: this.editedItem.Jumlah_Dibeli*2000,
           Sisa_Stok: 0,
           transaksi_id: `${this.transaksi}`,
-          sparepart_id: 1,
-          user_id: 1,           
-          
+          sparepart_id: this.editedItem.sparepart_id,
+          user_id: this.editedItem.user_id,
            })
         .then(response => {
           console.log(response);
         })
+      }else{
+        console.log('created Data');
+        axios.post('/api/transaksi-sparepart/',{
+           Jumlah_Dibeli:this.editedItem.Jumlah_Dibeli,
+          Subtotal: this.editedItem.Jumlah_Dibeli*2000,
+          Sisa_Stok: 0,
+          transaksi_id: `${this.transaksi}`,
+          sparepart_id: this.editedItem.sparepart_id,
+          user_id: this.editedItem.user_id,       
+           })
+        .then(response => {
+          console.log(response);
+        })
+
+      }      
         this.close()
     }
         
