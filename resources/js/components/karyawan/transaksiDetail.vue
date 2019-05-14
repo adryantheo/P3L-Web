@@ -46,7 +46,7 @@
                         </v-card>
                     </v-dialog>
 
-                    <v-btn color="primary" dark class="mb-2" @click="printNota">Cetak Nota</v-btn>
+                    <!-- <v-btn color="primary" dark class="mb-2" @click="printNota">Cetak Nota</v-btn> -->
                 </div>
             </v-layout>
             
@@ -426,7 +426,8 @@ export default {
   methods: {
 
     PayItem(){
-      axios.patch(`/api/transaksi-paid/${this.transaksi}`)
+      axios.patch(`/api/transaksi-paid/${this.transaksi}`);
+      this.printNota();
         this.dialogPay = false;
 
     },
