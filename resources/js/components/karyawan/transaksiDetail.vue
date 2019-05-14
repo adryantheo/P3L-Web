@@ -58,9 +58,9 @@
             class="elevation-1">
          <template v-slot:items="props">
         
-            <td>{{ props.item.service_id }}</td>
-            <td> {{ props.item.user_id }}</td>
-            <td>{{ props.item.kendaraan_id }}</td>
+            <td>{{ props.item.services.Nama_Service }}</td>
+            <td> {{ props.item.pegawai.Nama }}</td>
+            <td>{{ props.item.kendaraans.Plat_kendaraan }}</td>
             <td> {{ props.item.Status }}</td>
             <td> {{ props.item.Jumlah_Service }}</td>
             <td>Rp. {{ props.item.Total_Biaya }}</td>
@@ -126,7 +126,7 @@
             >
             <template v-slot:items="props">
             
-                <td>{{ props.item.sparepart_id }}</td>
+                <td>{{ props.item.spareparts.Nama }}</td>
                 <td> {{ props.item.Jumlah_Dibeli }}</td>
                 <td>Rp. {{ props.item.Subtotal }}</td>
                 <td class=" layout px-0">
@@ -234,16 +234,19 @@
                       <p class="headline">SERVICE</p>
                       <table style="width:100%" border="bold">
                       <tr>
-                        <th>No</th>
-                        <th>Nama</th> 
-                        <th>Merk</th>
-                        <th>Rak</th>
+                        <th>Kode</th>
+                        <th>Nama</th>
+                        <th>Harga</th>
                         <th>Jumlah</th>
+                        <th>Sub Total</th>
                       </tr>
                       <template v-for="(data, i) in TService">
                         <tr :key="i">
                           <td>{{data.id}}</td>
-                          <td>{{data.Jumlah_Pesan}}</td>
+                          <td>{{data.services.Nama_Service}}</td>
+                           <td>{{data.services.Tarif}}</td>
+                          <td>{{data.Jumlah_Service}}</td>
+                          <td>Rp. {{data.Total_Biaya}}</td>
                         </tr>
                       </template>
                     </table>
@@ -253,16 +256,21 @@
                       <p class="headline">SPAREPARTS</p>
                       <table style="width:100%" border="bold">
                       <tr>
-                        <th>No</th>
+                        <th>Kode</th>
                         <th>Nama</th> 
                         <th>Merk</th>
-                        <th>Rak</th>
+                        <th>Harga</th>
                         <th>Jumlah</th>
+                        <th>Sub Total</th>
                       </tr>
                       <template v-for="(data, i) in TSparepart">
                         <tr :key="i">
-                          <td>{{data.id}}</td>
-                          <td>{{data.Jumlah_Pesan}}</td>
+                          <td>{{data.spareparts.Kode_Sparepart}}</td>
+                          <td>{{data.spareparts.Nama}}</td>
+                          <td>{{data.spareparts.Merk}}</td>
+                          <td>Rp. {{data.spareparts.Harga_Jual}}</td>
+                          <td>{{data.Jumlah_Dibeli}}</td>
+                          <td>Rp. {{data.Subtotal}}</td>
                         </tr>
                       </template>
                     </table>

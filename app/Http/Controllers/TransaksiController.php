@@ -59,6 +59,7 @@ class TransaksiController extends Controller
             Transaksi::with(
             'transaksi_service.pegawai',
             'transaksi_service.services',
+            'transaksi_service.kendaraans',
             'transaksi_sparepart.spareparts',
             'kustomer',
             'pegawai'

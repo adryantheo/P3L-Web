@@ -28,7 +28,7 @@ class Transaksi_Service extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function kendaraan(){
+    public function kendaraans(){
         return $this->belongsTo(Kendaraan::class, 'kendaraan_id');
     }
 
