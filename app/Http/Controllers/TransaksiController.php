@@ -56,22 +56,28 @@ class TransaksiController extends Controller
     {
         //return response()->json($transaksi,200);
         return response()->json(
-            Transaksi::with('transaksi_service','transaksi_sparepart')
+            Transaksi::with(
+            'transaksi_service.pegawai',
+            'transaksi_service.services',
+            'transaksi_sparepart.spareparts',
+            'kustomer',
+            'pegawai'
+            )
             ->where('id', '=', $transaksi->id)
             ->first(),200
         );
     }
 
-    public function detailTransaksi(Transaksi $transaksi)
-    {
-        // return response()->json($transaksi,200);
-        return response()->json(
-            Transaksi::with(['transaksi_sparepart',])
-            ->where('id', '=', $transaksi->id)
-            ->first(),200
-        );
+    // public function detailTransaksi(Transaksi $transaksi)
+    // {
+    //     // return response()->json($transaksi,200);
+    //     return response()->json(
+    //         Transaksi::with(['transaksi_sparepart',])
+    //         ->where('id', '=', $transaksi->id)
+    //         ->first(),200
+    //     );
         
-    }
+    // }
 
     
 

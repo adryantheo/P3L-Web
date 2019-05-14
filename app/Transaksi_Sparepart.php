@@ -26,7 +26,7 @@ class Transaksi_Sparepart extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function sparepart(){
+    public function spareparts(){
         return $this->belongsTo(Sparepart::class, 'sparepart_id');
     }
 }

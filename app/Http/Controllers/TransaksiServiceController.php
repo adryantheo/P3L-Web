@@ -48,7 +48,14 @@ class TransaksiServiceController extends Controller
     
     public function show(Transaksi_Service $transaksi_Service)
     {
-        return response()->json($transaksi_Service,200);
+       // return response()->json($transaksi_Service,200);
+       return response()->json(
+        Transaksi_Service::with(
+        'pegawai'
+        )
+        ->where('id', '=', $transaksi_Service->id)
+        ->first(),200
+    );
     }
 
     

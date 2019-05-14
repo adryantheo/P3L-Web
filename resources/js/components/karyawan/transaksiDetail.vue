@@ -148,60 +148,72 @@
         </v-data-table>
       </v-flex>
 
-      <!-- Print SPK -->
+  <!-- Print SPK -->
 
-            <div v-show="false" id="printMe">
-             <div class="ma-3">              
-                <div class="text-xs-center">                  
-                    <p class="headline">ATMA AUTO</p>
-                    <p class="" >MOTORCYCLE SPAREPARTS AND SERVICES</p>
-                    <p class="">Jl. Babarsari No. 43 Yogyakarta 552181</p>
-                    <p class="">Telp. (0274)487711</p>
-                    <p class="">http://www.atmaauto.com</p>
-                    <hr>
-                    <br>
-                    <p class="title">SURAT PERINTAH KERJA</p>                                       
+    <div v-show="false" id="printMe">
+      <div class="ma-3">              
+        <div class="text-xs-center">                  
+            <p class="headline">ATMA AUTO</p>
+            <p class="" >MOTORCYCLE SPAREPARTS AND SERVICES</p>
+            <p class="">Jl. Babarsari No. 43 Yogyakarta 552181</p>
+            <p class="">Telp. (0274)487711</p>
+            <p class="">http://www.atmaauto.com</p>
+            <hr>
+            <br>
+            <p class="title">SURAT PERINTAH KERJA</p>
+             <div class="text-xs-right">                  
+                 <p>{{this.detailTransaksi.created_at}}</p>
+                 <p>CS: {{this.dataPegawai.Nama}}</p>
+                 <p>Montir: {{this.dataPegawai.Nama}}</p>
                 </div>
-                    <br><br>
-                    <div class="text-xs-center">
-                      <p class="headline">SERVICE</p>
-                      <table style="width:100%" border="bold">
-                      <tr>
-                        <th>No</th>
-                        <th>Nama</th> 
-                        <th>Merk</th>
-                        <th>Rak</th>
-                        <th>Jumlah</th>
-                      </tr>
-                      <template v-for="(data, i) in TService">
-                        <tr :key="i">
-                          <td>{{data.id}}</td>
-                          <td>{{data.Jumlah_Pesan}}</td>
-                        </tr>
-                      </template>
-                    </table>
-                    </div>
-                    <br>
-                    <div class="text-xs-center">
-                      <p class="headline">SPAREPARTS</p>
-                      <table style="width:100%" border="bold">
-                      <tr>
-                        <th>No</th>
-                        <th>Nama</th> 
-                        <th>Merk</th>
-                        <th>Rak</th>
-                        <th>Jumlah</th>
-                      </tr>
-                      <template v-for="(data, i) in TSparepart">
-                        <tr :key="i">
-                          <td>{{data.id}}</td>
-                          <td>{{data.Jumlah_Pesan}}</td>
-                        </tr>
-                      </template>
-                    </table>
-                  </div>
-             </div>
+                <div class="text-xs-left">
+                 <p>No: {{this.detailTransaksi.id}}</p>
+                 <p>Cust: {{this.dataKustomer.Nama_Kustomer}}</p>
+                 <p>Telepon: {{this.dataKustomer.Telepon_Kustomer}}</p> 
+                 </div>                                       
+        </div>
+            <br><br>
+            <div class="text-xs-center">
+              <p class="headline">SERVICE</p>
+              <table style="width:100%" border="bold">
+              <tr>
+                <th>No</th>
+                <th>Nama</th> 
+                <th>Jumlah</th>
+              </tr>
+              <template v-for="(data, i) in TService">
+                <tr :key="i">
+                  <td>{{data.id}}</td>
+                  <td>{{data.services.Nama_Service}}</td>
+                  <td>{{data.Jumlah_Service}}</td>
+                </tr>
+              </template>
+            </table>
             </div>
+            <br>
+            <div class="text-xs-center">
+              <p class="headline">SPAREPARTS</p>
+              <table style="width:100%" border="bold">
+              <tr>
+                <th>No</th>
+                <th>Nama</th> 
+                <th>Merk</th>
+                <th>Rak</th>
+                <th>Jumlah</th>
+              </tr>
+              <template v-for="(data, i) in TSparepart">
+                <tr :key="i">
+                  <td>{{data.id}}</td>
+                  <td>{{data.spareparts.Nama}}</td>
+                  <td>{{data.spareparts.Merk}}</td>
+                  <td>{{data.spareparts.Letak}}</td>
+                  <td>{{data.Jumlah_Dibeli}}</td>
+                </tr>
+              </template>
+            </table>
+          </div>
+      </div>
+    </div>
 
   <!-- Print Nota -->
 
@@ -310,6 +322,8 @@ export default {
     sparepart: [],
     TService: [],
     TSparepart:[],
+    dataKustomer:[],
+    dataPegawai:[],
     service: [],
     kustomer: [],
     kendaraan: [], 
@@ -381,14 +395,17 @@ export default {
       .then(response => this.kendaraan = response.data)
 
     },
-    
+
+   
     fetchTransaksiDetail() {
       axios.get(`/api/transaksi/${this.transaksi}`)
        .then(response => {
          this.detailTransaksi = response.data
          console.log(response.data)
          this.TService = this.detailTransaksi.transaksi_service;
-        this.TSparepart = this.detailTransaksi.transaksi_sparepart;
+         this.TSparepart = this.detailTransaksi.transaksi_sparepart;
+         this.dataKustomer = this.detailTransaksi.kustomer;
+         this.dataPegawai = this.detailTransaksi.pegawai;
          })
       
     },
