@@ -33,6 +33,7 @@ import AppKaryawan from '../components/karyawan/AppKaryawan.vue'
 import KaryawanKustomer from '../components/karyawan/KaryawanKustomer.vue'
 import KaryawanKendaraan from '../components/karyawan/KaryawanKendaraan.vue'
 import KaryawanTransaksi from '../components/karyawan/KaryawanTransaksi.vue'
+import KaryawanUnpaid from '../components/karyawan/KaryawanUnpaid.vue'
 import TransaksiDetail from '../components/karyawan/transaksiDetail.vue'
 
 Vue.use(VueRouter)
@@ -174,6 +175,11 @@ const routes = [
 
                 path:'/karyawan/transaksi',
                 component: KaryawanTransaksi,
+            },
+            {
+
+                path:'/karyawan/unpaid',
+                component: KaryawanUnpaid,
             },
             {
                 path: '/karyawan/transaksi/:transaksi',

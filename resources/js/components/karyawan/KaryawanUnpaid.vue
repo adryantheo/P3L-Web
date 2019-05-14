@@ -151,7 +151,7 @@ export default {
     },
 
     fetchtransaksi() {
-      axios.get('/api/transaksi/')
+      axios.get('/api/transaksi/unpaid')
       .then(response => this.transaksi = response.data)  
     },
     
