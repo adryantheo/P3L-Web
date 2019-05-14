@@ -13,6 +13,11 @@ class TransaksiController extends Controller
         return response()->json(Transaksi::all(),200);
     }
 
+    public function unpaid()
+    {
+        return response()->json(Transaksi::where('is_paid', '=', 0)->get(),200);
+    }
+
     
     public function store(Request $request)
     {

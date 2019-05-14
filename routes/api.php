@@ -27,12 +27,13 @@ Route::patch('/transaksi-service/{transaksi_Service}', 'TransaksiServiceControll
 Route::get('/transaksi-service/{transaksi_Service}', 'TransaksiServiceController@show');
 Route::patch('/transaksi-sparepart/{transaksi_Sparepart}', 'TransaksiSparepartController@update');
 Route::patch('/transaksi-paid/{transaksi}', 'TransaksiController@paid');
+Route::get('/transaksi/unpaid', 'TransaksiController@unpaid');
 
 Route::resource('/pesanbarang', 'PesananBarangController')->except(['all','destroy', 'patch']);
 Route::resource('/detailpesanan', 'DetailPesananController')->except(['all', 'destroy', 'patch']);
 Route::resource('/kustomer', 'KustomerController')->except(['search', 'all','listNamaKustomer']);
 Route::resource('/kendaraan', 'KendaraanController')->except(['all']);
-Route::resource('/transaksi', 'TransaksiController')->except(['paid']);
+Route::resource('/transaksi', 'TransaksiController')->except(['paid', 'unpaid']);
 Route::resource('/transaksi-service', 'TransaksiServiceController');
 Route::resource('/transaksi-sparepart', 'TransaksiSparepartController');
 Route::resource('/service', 'ServiceController');
