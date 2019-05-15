@@ -4,10 +4,59 @@ namespace App\Http\Controllers;
 
 use App\Transaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller
 {
+    public function getPendapatanTotal()
+    {
+        $pendapatan = DB::table('transaksis')
+        ->where('is_paid', '>', 0)
+        ->sum('Total_Seluruh');
+        // ->sum('Total_Pembelian')
+        // ->sum('Total_Service');
+        
+                           
+        return response()->json([
+            'pendapatan' => $pendapatan,
+            'message' => $pendapatan ? 'Transaksi Paid!' : 'Error Paid Transaksi'
+        ]);
+            
+    }
     
+    public function getPendapatanService()
+    {
+        $pendapatan = DB::table('transaksis')
+        ->where('is_paid', '>', 0)
+        ->sum('Total_Service');
+        // ->sum('Total_Pembelian')
+        // ->sum('Total_Service');
+        
+                           
+        return response()->json([
+            'pendapatan' => $pendapatan,
+            'message' => $pendapatan ? 'Transaksi Paid!' : 'Error Paid Transaksi'
+        ]);
+            
+    }
+    
+    public function getPendapatanSparepart()
+    {
+        $pendapatan = DB::table('transaksis')
+        ->where('is_paid', '>', 0)
+        ->sum('Total_Pembelian');
+        // ->sum('Total_Pembelian')
+        // ->sum('Total_Service');
+        
+                           
+        return response()->json([
+            'pendapatan' => $pendapatan,
+            'message' => $pendapatan ? 'Transaksi Paid!' : 'Error Paid Transaksi'
+        ]);
+            
+    }
+
+
     public function index()
     {
         return response()->json(Transaksi::with(

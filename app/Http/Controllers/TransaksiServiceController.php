@@ -19,7 +19,7 @@ class TransaksiServiceController extends Controller
     
     public function store(Request $request)
     {
-    $status = DB::transaction(function () use ($request, &$transaksi_Service){
+     $status = DB::transaction(function () use ($request, &$transaksi_Service){
         //create a new transaction
         $transaksi_Service = Transaksi_Service::create([
             'Total_Biaya' => $request->Total_Biaya,

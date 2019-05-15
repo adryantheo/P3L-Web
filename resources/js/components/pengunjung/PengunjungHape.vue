@@ -12,7 +12,7 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
-                  <v-text-field prepend-icon="person" v-model="Telepon_Kustomer" label="No Hp" type="text" :rules="[rules.required]" ></v-text-field>
+                  <v-text-field prepend-icon="person" v-model="Plat_Kendaraan" label="Nomor Polisi" type="text" :rules="[rules.required]" ></v-text-field>
 
                 </v-form>
               </v-card-text>
@@ -32,20 +32,44 @@
             </v-card-title>
   
             <v-card-text>
-            <v-data-table
+              <table style="width:100%" border="bold">
+                      <tr>
+                        <th>Nama Cust</th>
+                        <th>Plat Nomor</th>
+                        <th>Status</th>
+                        <th>Tipe</th>
+                        <th>Service</th>
+                        <th>Jumlah</th>
+                        <th>Harga</th>
+                      </tr>
+                      <template v-for="(data, i) in kendaraan">
+                        <tr :key="i">
+                          <td>{{data.kustomers.Nama_Kustomer}}</td>
+                          <td>{{data.Plat_kendaraan}}</td>
+                           <td>{{data.transaksi_services.Status}}</td>
+                          <td>{{data.Tipe}}</td>
+                          <!-- <td>{{data.TS.Nama_Service}}</td> -->
+                        </tr>
+                      </template>
+                    </table>
+            <!-- <v-data-table
                 :headers="headers"
-                :items="kustomer"
+                :items="kendaraan"
                 class="elevation-1"
             >
                 <template v-slot:items="props">
-                <td >{{ props.item.Nama_Kustomer }}</td>
-                <td >{{ props.item.Alamat_Kustomer }}</td>
-                <td >{{ props.item.Telepon_Kustomer }}</td>
+                <td >{{ props.item.kustomers.Nama_Kustomer }}</td>
+                <td >{{ props.item.Plat_kendaraan }}</td>
+                <td >{{ props.item.transaksi_services.Status }}</td>
+                <td >{{ props.item.Tipe }}</td>
+                <td >{{ props.item.TS.Nama_Service }}</td>
+                <td >{{ props.item.transaksi_services.Jumlah_Service }}</td>
+                <td >{{ props.item.transaksi_services.Total_Biaya }}</td>
                 </template>
                 <template v-slot:no-data>
                
                 </template>
-            </v-data-table>
+            </v-data-table> -->
               
             </v-card-text>
   
@@ -61,9 +85,11 @@
   export default {
     props: ['nextUrl'],
     data: () => ({
-      kustomer: [],
+      kendaraan: [],
+      customers: [],
+      TS: [{}],
       Telepon_Kustomer: "",
-      Plat_kendaraan: "",
+      Plat_Kendaraan: "",
            
       rules: {
         email: v => (v || '').match(/@/) || 'Format Email Salah',
@@ -75,10 +101,13 @@
       editedItem: {  
     },
     headers: [
-      { text: 'Nama', value: 'Nama_Kustomer', sortable: true },
-      { text: 'Alamat', value: 'Alamat_Kustomer', sortable: false },
-      { text: 'No Hp', value: 'Telepon_Kustomer', sortable: true },
-      { text: 'Plat Nomor', value: 'Plat_Kendaraaan', sortable: true },
+      { text: 'Nama Customer', value: 'Nama_Kustomer', sortable: false },
+      { text: 'Plat Kendaraan', value: 'Plat_Kendaraan', sortable: false },
+      { text: 'Status', value: 'Status', sortable: false },
+      { text: 'Tipe Kendaraan', value: 'Tipe', sortable: false },
+      { text: 'Nama Service', value: 'Nama_Service', sortable: false },
+      { text: 'Jumlah', value: 'Jumlah_Service', sortable: true },
+      { text: 'Harga', value: 'Harga', sortable: true },
     ],
     
     }),
@@ -91,8 +120,13 @@
     methods:{
         cari(){
             this.dialog = true;
-            axios.get('api/kustomer/findKustomer/'+ this.Telepon_Kustomer)
-            .then(response => this.kustomer = [response.data])
+            axios.get('api/kendaraan/findKendaraan/'+ this.Plat_Kendaraan)
+            .then(response =>{
+              this.kendaraan = response.data
+              this.customers = this.kendaraan.kustomers;
+              this.TS = this.transaksi_services;
+              console.log(this.TS);
+              })
   
         },
         

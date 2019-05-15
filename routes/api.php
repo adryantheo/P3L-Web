@@ -28,12 +28,16 @@ Route::get('/transaksi-service/{transaksi_Service}', 'TransaksiServiceController
 Route::patch('/transaksi-sparepart/{transaksi_Sparepart}', 'TransaksiSparepartController@update');
 Route::patch('/transaksi-paid/{transaksi}', 'TransaksiController@paid');
 Route::get('/transaksi/unpaid', 'TransaksiController@unpaid');
+Route::get('/kendaraan/find-kendaraan/{plat}', 'KendaraanController@findKendaraan');
+Route::get('/transaksi/pendapatan/total', 'TransaksiController@getPendapatanTotal');
+Route::get('/transaksi/pendapatan/service', 'TransaksiController@getPendapatanService');
+Route::get('/transaksi/pendapatan/sparepart', 'TransaksiController@getPendapatanSparepart');
 
 Route::resource('/pesanbarang', 'PesananBarangController')->except(['all','destroy', 'patch']);
 Route::resource('/detailpesanan', 'DetailPesananController')->except(['all', 'destroy', 'patch']);
 Route::resource('/kustomer', 'KustomerController')->except(['search', 'all','listNamaKustomer']);
-Route::resource('/kendaraan', 'KendaraanController')->except(['all']);
-Route::resource('/transaksi', 'TransaksiController')->except(['paid', 'unpaid']);
+Route::resource('/kendaraan', 'KendaraanController')->except(['all', 'findKendaraan']);
+Route::resource('/transaksi', 'TransaksiController')->except(['paid', 'unpaid','getPendapatanTotal']);
 Route::resource('/transaksi-service', 'TransaksiServiceController');
 Route::resource('/transaksi-sparepart', 'TransaksiSparepartController');
 Route::resource('/service', 'ServiceController');

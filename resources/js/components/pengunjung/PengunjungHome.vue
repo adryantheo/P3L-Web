@@ -1,4 +1,5 @@
 <template>
+<div>
     <v-carousel>
           <v-carousel-item
             v-for="(item,i) in items"
@@ -8,6 +9,17 @@
             transition="fade"
           ></v-carousel-item>
         </v-carousel>
+
+        <div class="ma-3">              
+          <div class="text-xs-center">               
+            <p class="headline">ATMA AUTO</p>
+            <p>MOTORCYCLE SPAREPARTS AND SERVICES</p>
+            <p>Jl. Babarsari No. 43 Yogyakarta 552181</p>
+            <p>Telp. (0274)487711</p>
+            <p>http://www.atmaauto.com</p>
+          </div>
+        </div>                                    
+ </div>     
 </template>
 
 <script>

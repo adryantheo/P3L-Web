@@ -18,11 +18,14 @@ class KendaraanController extends Controller
         return response()->json(Kendaraan::with('kustomers')->get(),200);
     }
 
+
     public function findKendaraan(Request $request, $plat)
     {
         //$request->Telepon_Kustomer;
         $data = Kendaraan::where('Plat_kendaraan', "LIKE", $plat)
-        ->with('kustomers')
+        ->with([
+            'kustomers', 'transaksi_services.services'])
+        
         ->get();
 
         return response()->json($data, 200);
