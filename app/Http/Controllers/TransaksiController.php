@@ -10,12 +10,27 @@ class TransaksiController extends Controller
     
     public function index()
     {
-        return response()->json(Transaksi::all(),200);
+        return response()->json(Transaksi::with(
+            'transaksi_service.pegawai',
+            'transaksi_service.services',
+            'transaksi_service.kendaraans',
+            'transaksi_sparepart.spareparts',
+            'kustomer',
+            'pegawai'
+        )->get(),200);
     }
 
     public function unpaid()
     {
-        return response()->json(Transaksi::where('is_paid', '=', 0)->get(),200);
+        return response()->json(Transaksi::with(
+            'transaksi_service.pegawai',
+            'transaksi_service.services',
+            'transaksi_service.kendaraans',
+            'transaksi_sparepart.spareparts',
+            'kustomer',
+            'pegawai')
+            ->where('is_paid', '<', 1)
+            ->get(),200);
     }
 
     
@@ -34,21 +49,7 @@ class TransaksiController extends Controller
              
              
         ]);
-
-        //create Transaksi Service
-        // foreach ($request->input('transaksi__services') as $detail){
-        //     Transaksi_Service::create([
-        //         'Total_Biaya' => detail['Total_Biaya'], 
-        //         'kendaraan_id' => detail['kendaraan_id'],
-        //         'Jumlah_Service' => detail['Jumlah_Service'],
-        //         'Status' => detail['Status'],
-        //         'transaksi_id' => detail['transaksi_id'],
-        //         'service_id' => detail['service_id'],
-        //         'user_id' => detail['user_id']
-        //     ]);
-
-        // }
-
+        
         return response()->json([
             'status' => (bool) $transaksi,
             'data'   => $transaksi,

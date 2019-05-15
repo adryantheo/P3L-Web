@@ -427,6 +427,9 @@ export default {
 
     PayItem(){
       axios.patch(`/api/transaksi-paid/${this.transaksi}`);
+      axios.patch(`/api/transaksi/${this.transaksi}`,{
+        Status: "Sudah Selesai",
+      });
       this.printNota();
         this.dialogPay = false;
 

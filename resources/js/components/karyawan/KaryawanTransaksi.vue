@@ -53,17 +53,17 @@
       </v-toolbar>
     <v-divider class="my-4"></v-divider>      
     <v-layout row wrap>
-      <v-flex xs12 md6 xl4 v-for="(item, id) in transaksi" :key="`transaksi-${id}`">
-        <v-card class="rounded" width="350px">
+      <v-flex xs12 md6 xl4 v-for="(item, id) in transaksi" :key="`transaksi-${id}`" :search="search">
+        <v-card class="rounded" width="350px" :search="search">
           <v-card-title>
             <span> ID Transaksi : {{item.id}} </span> 
           </v-card-title>          
           <v-card-text>
+            Customer: {{item.kustomer.Nama_Kustomer}}
+          <br>
             Status:  {{item.Status}}
           <br>
             Tanggal: {{item.created_at}}
-            <br>
-            Status Pembayaran: {{item.is_paid}}
           </v-card-text>
           <v-card-actions>
               <v-btn color="primary" @click="deleteItem(item)">Hapus</v-btn>

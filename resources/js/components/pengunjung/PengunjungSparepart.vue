@@ -10,9 +10,7 @@
           </v-toolbar-title>
                
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ on }">
-              <v-text-field
+         <v-text-field
           v-model="search"
           append-icon="search"
           label="Search"
@@ -20,10 +18,6 @@
           hide-details
         ></v-text-field>
         <v-spacer></v-spacer>
-            
-          </template>
-          
-        </v-dialog>
       </v-toolbar>
       <v-data-table
         :headers="headers"
@@ -120,8 +114,6 @@ export default {
     initialize() {
       this.fetchsparepart();
     },
-
-   
 
   }
 }
