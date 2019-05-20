@@ -32,6 +32,11 @@ Route::get('/kendaraan/find-kendaraan/{plat}', 'KendaraanController@findKendaraa
 Route::get('/transaksi/pendapatan/total', 'TransaksiController@getPendapatanTotal');
 Route::get('/transaksi/pendapatan/service', 'TransaksiController@getPendapatanService');
 Route::get('/transaksi/pendapatan/sparepart', 'TransaksiController@getPendapatanSparepart');
+//Route::get('/laporan/pendapatan/{tahun}', 'LaporanController@getIncomeYear');
+Route::get('/laporan/pendapatan/{tahun}/', 'LaporanController@getIncomeMonth');
+Route::get('/laporan/best/{tahun}/', 'LaporanController@getSparepart');
+
+
 
 Route::resource('/pesanbarang', 'PesananBarangController')->except(['all','destroy', 'patch']);
 Route::resource('/detailpesanan', 'DetailPesananController')->except(['all', 'destroy', 'patch']);
