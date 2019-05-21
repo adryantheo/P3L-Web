@@ -36,6 +36,7 @@ Route::get('/transaksi/pendapatan/sparepart', 'TransaksiController@getPendapatan
 Route::get('/laporan/pendapatan/{tahun}/', 'LaporanController@getIncomeMonth');
 Route::get('/laporan/best/{tahun}/', 'LaporanController@getSparepart');
 Route::get('/laporan/most/{tahun}/', 'LaporanController@getJasa');
+Route::get('/laporan/outcome/{tahun}/', 'LaporanController@getOutcome');
 
 
 

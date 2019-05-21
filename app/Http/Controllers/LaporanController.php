@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Transaksi;
 use App\Transaksi_Sparepart;
 use App\Sparepart;
+use App\Detail_Pesanan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -71,7 +72,20 @@ class LaporanController extends Controller
         ]);
     }
 
-    public function getOutcome(){
+    public function getOutcome(Request $request, $year){
+
+        for($i = 1; $i <= 12; $i++){
+            $outcome[$i] = DB::table('detail__pesanans')
+            // ->where('is_paid', '>', 0)
+            ->whereYear('created_at', '=', $year)  
+            ->whereMonth('created_at', '=', $i)
+            ->sum('Total_Harga_Beli');    
+            }
+    
+            return response()->json([
+                'outcome' => $outcome,
+                'message' => $outcome ? 'Transaksi Ditemukan!' : 'Error Tidak ada Transaksi'
+            ]);
 
     }
 
