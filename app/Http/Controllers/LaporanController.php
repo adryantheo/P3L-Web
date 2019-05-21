@@ -14,7 +14,7 @@ class LaporanController extends Controller
     public function getSparepart(Request $request, $year){
 
         for($i = 1; $i <= 12; $i++){
-            $ppq[$i] = DB::table('transaksis')
+            $epicSeller[$i] = DB::table('transaksis')
                     ->join('transaksi__spareparts', 'transaksis.id', '=', 'transaksi__spareparts.transaksi_id')
                     ->join('spareparts', 'transaksi__spareparts.sparepart_id', '=', 'spareparts.id')
                     ->where('is_paid', '>', 0)
@@ -28,12 +28,30 @@ class LaporanController extends Controller
         } 
 
         return response()->json([
-            'pendapatan' => $ppq,
-            'message' => $ppq ? 'Transaksi Ditemukan!' : 'Error Tidak ada Transaksi'
+            'Best_Seller' => $epicSeller,
+            'message' => $epicSeller ? 'Transaksi Ditemukan!' : 'Error Tidak ada Transaksi'
         ]);
     }
 
-    public function getJasa(){
+    public function getJasa(Request $request, $year){
+
+        for($i = 1; $i <= 12; $i++){
+            $epicSeller[$i] = DB::table('transaksis')
+                    ->join('transaksi__services', 'transaksis.id', '=', 'transaksi__services.transaksi_id')
+                    ->join('services', 'transaksi__services.service_id', '=', 'services.id')
+                    ->where('is_paid', '>', 0)
+                    ->whereYear('transaksis.created_at', '=', $year)  
+                    ->whereMonth('transaksis.created_at', '=', $i)
+                    ->orderBy('transaksi__services.Jumlah_Service','desc')
+                    ->groupBy('transaksi__services.service_id')
+                    ->select('Nama_Service',DB::raw('sum(transaksi__services.Jumlah_Service) AS Count'))
+                    ->first();                    
+        } 
+
+        return response()->json([
+            'Best_Seller' => $epicSeller,
+            'message' => $epicSeller ? 'Transaksi Ditemukan!' : 'Error Tidak ada Transaksi'
+        ]);
 
     }
 
