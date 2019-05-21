@@ -27,6 +27,10 @@ import AdminLogout from '../components/admin/AdminLogout.vue'
 import AdminGantiPass from '../components/admin/AdminGantiPass.vue'
 import AdminSales from '../components/admin/AdminSales.vue'
 import AdminPesan from '../components/admin/AdminPesan.vue'
+import AdminLJasa from '../components/admin/laporan/Jasa.vue'
+import AdminLSparepart from '../components/admin/laporan/Sparepart.vue'
+import AdminLPendapatan from '../components/admin/laporan/Pendapatan.vue'
+import AdminLPengeluaran from '../components/admin/laporan/Pengeluaran.vue'
 
 //View Pegawai
 import AppKaryawan from '../components/karyawan/AppKaryawan.vue'
@@ -134,9 +138,24 @@ const routes = [
             component: AdminSparepart,
         },
         {
-
             path:'/admin/laporan',
             component: AdminLaporan,
+        },
+        {
+            path:'/admin/laporan/pendapatan',
+            component: AdminLPendapatan,
+        },
+        {
+            path:'/admin/laporan/pengeluaran',
+            component: AdminLPengeluaran,
+        },
+        {
+            path:'/admin/laporan/jasa',
+            component: AdminLJasa,
+        },
+        {
+            path:'/admin/laporan/sparepart',
+            component: AdminLSparepart,
         },
         {
 

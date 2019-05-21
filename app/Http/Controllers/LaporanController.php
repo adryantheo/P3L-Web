@@ -23,14 +23,14 @@ class LaporanController extends Controller
                     ->whereMonth('transaksis.created_at', '=', $i)
                     ->orderBy('transaksi__spareparts.Jumlah_Dibeli','desc')
                     ->groupBy('transaksi__spareparts.sparepart_id')
-                    ->select('Nama',DB::raw('sum(transaksi__spareparts.Jumlah_Dibeli) AS Count'))
+                    ->select('Nama','Tipe',DB::raw('sum(transaksi__spareparts.Jumlah_Dibeli) AS Jumlah_Penjualan'))
                     // ->sum('transaksi__spareparts.Jumlah_Dibeli')
                     ->first();                    
         } 
 
         return response()->json([
             'Best_Seller' => $epicSeller,
-            'message' => $epicSeller ? 'Transaksi Ditemukan!' : 'Error Tidak ada Transaksi'
+           
         ]);
     }
 
@@ -44,14 +44,13 @@ class LaporanController extends Controller
                     ->whereYear('transaksis.created_at', '=', $year)  
                     ->whereMonth('transaksis.created_at', '=', $i)
                     ->orderBy('transaksi__services.Jumlah_Service','desc')
-                    ->groupBy('transaksi__services.service_id')
-                    ->select('Nama_Service',DB::raw('sum(transaksi__services.Jumlah_Service) AS Count'))
+                    // ->groupBy('transaksi__services.service_id')
+                    ->select('created_at','Nama_Service',DB::raw('sum(transaksi__services.Jumlah_Service) AS Count'))
                     ->first();                    
         } 
 
         return response()->json([
-            'Best_Seller' => $epicSeller,
-            'message' => $epicSeller ? 'Transaksi Ditemukan!' : 'Error Tidak ada Transaksi'
+            'Best_Seller' => $epicSeller           
         ]);
 
     }
@@ -63,12 +62,13 @@ class LaporanController extends Controller
         ->where('is_paid', '>', 0)
         ->whereYear('created_at', '=', $year)  
         ->whereMonth('created_at', '=', $i)
-        ->sum('Total_Seluruh');    
+        ->select(DB::raw('sum(Total_Service) AS Service'), DB::raw('sum(Total_Pembelian) AS Sparepart'), DB::raw('sum(Total_Seluruh) AS Total'))
+        ->first();
         }
 
         return response()->json([
             'pendapatan' => $pendapatan,
-            'message' => $pendapatan ? 'Transaksi Ditemukan!' : 'Error Tidak ada Transaksi'
+           
         ]);
     }
 
@@ -84,7 +84,7 @@ class LaporanController extends Controller
     
             return response()->json([
                 'outcome' => $outcome,
-                'message' => $outcome ? 'Transaksi Ditemukan!' : 'Error Tidak ada Transaksi'
+               
             ]);
 
     }

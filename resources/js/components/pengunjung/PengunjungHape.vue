@@ -52,24 +52,7 @@
                         </tr>
                       </template>
                     </table>
-            <!-- <v-data-table
-                :headers="headers"
-                :items="kendaraan"
-                class="elevation-1"
-            >
-                <template v-slot:items="props">
-                <td >{{ props.item.kustomers.Nama_Kustomer }}</td>
-                <td >{{ props.item.Plat_kendaraan }}</td>
-                <td >{{ props.item.transaksi_services.Status }}</td>
-                <td >{{ props.item.Tipe }}</td>
-                <td >{{ props.item.TS.Nama_Service }}</td>
-                <td >{{ props.item.transaksi_services.Jumlah_Service }}</td>
-                <td >{{ props.item.transaksi_services.Total_Biaya }}</td>
-                </template>
-                <template v-slot:no-data>
-               
-                </template>
-            </v-data-table> -->
+            
               
             </v-card-text>
   
