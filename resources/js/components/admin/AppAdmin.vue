@@ -104,7 +104,6 @@ export default {
 
     menus: [
      
-
       {
         text: 'Kelola Pegawai',
         route: '/admin/pegawai'
@@ -125,6 +124,7 @@ export default {
         route: '/admin/sparepart'
       },
       {
+        id: 'btn-sales',
         text: 'Supplier',
         route: '/admin/sales'
       },
@@ -137,8 +137,6 @@ export default {
         text: 'Laporan',
         route: '/admin/laporan'
       },
-
-      
 
     ],
 

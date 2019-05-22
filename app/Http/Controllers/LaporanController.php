@@ -22,8 +22,8 @@ class LaporanController extends Controller
                     ->whereYear('transaksis.created_at', '=', $year)  
                     ->whereMonth('transaksis.created_at', '=', $i)
                     ->orderBy('transaksi__spareparts.Jumlah_Dibeli','desc')
-                    ->groupBy('transaksi__spareparts.sparepart_id')
-                    ->select('Nama','Tipe',DB::raw('sum(transaksi__spareparts.Jumlah_Dibeli) AS Jumlah_Penjualan'))
+                    // ->groupBy('transaksi__spareparts.sparepart_id')
+                    ->select('Nama','Tipe',DB::raw('sum(transaksi__spareparts.Jumlah_Dibeli) AS Count'))
                     // ->sum('transaksi__spareparts.Jumlah_Dibeli')
                     ->first();                    
         } 
@@ -45,7 +45,7 @@ class LaporanController extends Controller
                     ->whereMonth('transaksis.created_at', '=', $i)
                     ->orderBy('transaksi__services.Jumlah_Service','desc')
                     // ->groupBy('transaksi__services.service_id')
-                    ->select('created_at','Nama_Service',DB::raw('sum(transaksi__services.Jumlah_Service) AS Count'))
+                    ->select('Nama_Service',DB::raw('sum(transaksi__services.Jumlah_Service) AS Count'))
                     ->first();                    
         } 
 
@@ -72,6 +72,22 @@ class LaporanController extends Controller
         ]);
     }
 
+    public function getIncomeYear(Request $request, $year){
+
+        
+        $pendapatan = DB::table('transaksis')
+        ->join('cabangs', 'transaksis.cabang_id', '=', 'cabangs.id')
+        ->where('is_paid', '>', 0)
+        ->whereYear('transaksis.created_at', '=', $year)  
+        ->select('Nama_Cabang', DB::raw('sum(Total_Seluruh) AS Pendapatan'))  
+        ->first();
+
+        return response()->json([
+            'income' => $pendapatan,
+           
+        ]);
+    }
+
     public function getOutcome(Request $request, $year){
 
         for($i = 1; $i <= 12; $i++){
@@ -79,17 +95,31 @@ class LaporanController extends Controller
             // ->where('is_paid', '>', 0)
             ->whereYear('created_at', '=', $year)  
             ->whereMonth('created_at', '=', $i)
-            ->sum('Total_Harga_Beli');    
+            // ->sum('Total_Harga_Beli')
+            ->select(DB::raw('sum(Total_Harga_Beli) AS Total')) 
+            ->get();
             }
     
             return response()->json([
                 'outcome' => $outcome,
-               
             ]);
 
     }
 
-    public function getStok(){
+    public function getStok(Request $request, $year, $Tipe){
+
+        for($i = 1; $i <= 12; $i++){
+            $sisa[$i] = DB::table('spareparts')
+            ->where('Tipe', "LIKE", $Tipe)
+            ->whereYear('updated_at', '=', $year)  
+            ->whereMonth('updated_at', '=', $i)
+            ->select(DB::raw('sum(Stok) AS Sisa')) 
+            ->first();
+            }
+            return response()->json([
+                'Sisa' => $sisa,
+               
+            ]);
 
     }
 

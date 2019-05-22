@@ -30,7 +30,6 @@
             <v-card-title>
               <span class="headline">Laporan Pendapatan {{this.year}}</span>
             </v-card-title>
-  
             <v-card-text>
               <table style="width:100%" border="bold">
                       <tr>
@@ -39,7 +38,6 @@
                         <th>Service</th>
                         <th>Sparepart</th>
                         <th>Total</th>
-                        
                       </tr>
                       <template v-for="(data, i) in cek">
                         <tr :key="i">
@@ -55,10 +53,61 @@
                           <td>Rp.  </td>
                       </tr>
                     </table>
+                <v-btn color="primary" @click="printMe">Print</v-btn>
             </v-card-text>
           </v-card>
           </v-dialog>
         </v-layout>
+
+        <!-- PRINT -->
+
+    <div v-show="false" id="printMe">
+      <div class="ma-3">              
+        <div class="text-xs-center">                  
+            <p class="headline">ATMA AUTO</p>
+            <p class="" >MOTORCYCLE SPAREPARTS AND SERVICES</p>
+            <p class="">Jl. Babarsari No. 43 Yogyakarta 552181</p>
+            <p class="">Telp. (0274)487711</p>
+            <p class="">http://www.atmaauto.com</p>
+            <hr>
+            <br>
+            <p class="title">LAPORAN PENDAPATAN</p>
+             <div class="text-xs-left">                  
+                 <p>Tahun: {{this.year}}</p>
+              </div>                                  
+        </div>
+            <br>
+            <div class="text-xs-center">
+              <table style="width:100%" border="bold">
+                      <tr>
+                        <th>No</th>
+                        <th>Bulan</th>
+                        <th>Service</th>
+                        <th>Sparepart</th>
+                        <th>Total</th>
+                      </tr>
+                      <template v-for="(data, i) in cek">
+                        <tr :key="i">
+                          <td>{{i}}</td>
+                          <td>{{bulan[i]}}</td>
+                          <td>Rp. {{!!data.Service? data.Service:0}}</td>
+                          <td>Rp. {{!!data.Sparepart? data.Sparepart:0}}</td>
+                          <td>Rp. {{!!data.Total? data.Total:0}}</td>
+                        </tr>
+                      </template>
+                      
+                        <tr>
+                          <td colspan="4" align="right">Total</td>
+                          <td>Rp. {{this.cek2.Pendapatan}} </td>
+                        </tr>                       
+                      
+                      
+                </table>
+          </div>
+      </div>
+    </div>
+
+
       </v-container>
     
 </template>
@@ -69,7 +118,9 @@
     props: ['nextUrl'],
     data: () => ({
       pendapatan: [],
+      income: [],
       cek: [],
+      cek2: [],
       year: "",
       bulan: ['bulan','Jan','Feb','Mar','Apr','May','June','July','Aug','Sep','Oct','Nov','Des'],
            
@@ -91,14 +142,26 @@
 
     },
     methods:{
+        printMe(){
+            this.$htmlToPaper('printMe');
+        },
         cari(){
             this.dialog = true;
             axios.get('/api/laporan/pendapatan/'+ this.year)
             .then(response =>{
               this.pendapatan = response.data
               this.cek = this.pendapatan.pendapatan;
+              
               console.log(this.cek);
               })
+
+              axios.get('/api/laporan/income/'+ this.year)
+            .then(response =>{
+              this.income = response.data
+              this.cek2 = JSON.parse(JSON.stringify(this.income.income));
+              console.log(this.cek2);
+              })
+
         },
         
     }

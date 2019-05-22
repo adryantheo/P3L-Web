@@ -12,13 +12,13 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
-                  <v-text-field prepend-icon="person" v-model="email" label="Email" type="text" :rules="[rules.required, rules.email]" ></v-text-field>
+                  <v-text-field prepend-icon="person" v-model="email" label="Email" type="text" id="email" :rules="[rules.required, rules.email]" ></v-text-field>
                   <v-text-field prepend-icon="lock" v-model="password" label="Password" id="password" type="password" :rules="[rules.required, rules.password]"></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" @click="login">Login</v-btn>
+                <v-btn color="primary" id="btn-login" @click="login">Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -45,7 +45,6 @@
     }),
     methods:{
         login(){
-
           axios.post('/api/login', {
             email: this.email,
             password: this.password

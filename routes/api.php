@@ -32,11 +32,12 @@ Route::get('/kendaraan/find-kendaraan/{plat}', 'KendaraanController@findKendaraa
 Route::get('/transaksi/pendapatan/total', 'TransaksiController@getPendapatanTotal');
 Route::get('/transaksi/pendapatan/service', 'TransaksiController@getPendapatanService');
 Route::get('/transaksi/pendapatan/sparepart', 'TransaksiController@getPendapatanSparepart');
-//Route::get('/laporan/pendapatan/{tahun}', 'LaporanController@getIncomeYear');
+Route::get('/laporan/income/{tahun}', 'LaporanController@getIncomeYear');
 Route::get('/laporan/pendapatan/{tahun}/', 'LaporanController@getIncomeMonth');
 Route::get('/laporan/best/{tahun}/', 'LaporanController@getSparepart');
 Route::get('/laporan/most/{tahun}/', 'LaporanController@getJasa');
 Route::get('/laporan/outcome/{tahun}/', 'LaporanController@getOutcome');
+Route::get('/laporan/stok/{tahun}/{Tipe}', 'LaporanController@getStok');
 
 
 

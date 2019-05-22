@@ -25,7 +25,7 @@
             </template>
            <v-card>
             <v-card-title>
-              <span class="headline">Laporan Penjualan</span>
+              <span class="headline">Laporan Penjualan Jasa {{this.year}}</span>
             </v-card-title>
             <v-card-text>
               <table style="width:100%" border="bold">
@@ -34,7 +34,6 @@
                         <th>Bulan</th>
                         <th>Nama Service</th>
                         <th>Jumlah Penjualan</th>
-                        
                       </tr>
                       <template v-for="(data, i) in cek">
                         <tr :key="i">
@@ -45,19 +44,81 @@
                         </tr>
                       </template>
                     </table> 
+                  <v-btn color="primary" @click="printMe">Print</v-btn>
             </v-card-text>
+            <div>
+              <apexchart width="500" type="bar" :options="chartOptions" :series="series"></apexchart>
+            </div>
           </v-card>
           </v-dialog>
         </v-layout>
+
+        <!-- print -->
+
+        <div v-show="false" id="printMe">
+      <div class="ma-3">              
+        <div class="text-xs-center">                
+            <p class="headline">ATMA AUTO</p>
+            <p class="" >MOTORCYCLE SPAREPARTS AND SERVICES</p>
+            <p class="">Jl. Babarsari No. 43 Yogyakarta 552181</p>
+            <p class="">Telp. (0274)487711</p>
+            <p class="">http://www.atmaauto.com</p>
+            <hr>
+            <br>
+            <p class="title">LAPORAN PENJUALAN JASA</p>
+             <div class="text-xs-left">                  
+                 <p>Tahun: {{this.year}}</p>
+              </div>                                  
+        </div>
+            <br>
+            <div class="text-xs-center">
+              <table style="width:100%" border="bold">
+                      <tr>
+                        <th>No</th>
+                        <th>Bulan</th>
+                        <th>Nama Service</th>
+                        <th>Jumlah Penjualan</th>
+                      </tr>
+                      <template v-for="(data, i) in cek">
+                        <tr :key="i">
+                          <td>{{i}}</td>
+                          <td>{{bulan[i]}}</td>
+                          <td>{{!!data.Nama_Service? data.Nama_Service:"-"}}</td>
+                           <td>{{!!data.Count? data.Count:0}}</td>
+                        </tr>
+                      </template>
+                </table> 
+          </div>
+      </div>
+    </div>
+
+
       </v-container>
     
 </template>
 
 
 <script>
+
   export default {
     props: ['nextUrl'],
     data: () => ({
+      
+      chartOptions: {
+        chart: {
+            id: 'vuechart-example'
+          },
+          xaxis: {
+            categories: ['Jan','Feb','Mar','Apr','May','June','July','Aug','Sep','Oct','Nov','Des']
+          }
+      },
+
+      series: [{
+        name: 'series-1',
+          data: []
+
+      }],
+
       Best_Seller: [],
       cek: [],
       year: "",
@@ -79,13 +140,19 @@
     }
     },
     methods:{
+            
+       printMe(){
+            this.$htmlToPaper('printMe');
+        },
         cari(){
+          var Convert = [];
             this.dialog = true;
             axios.get('/api/laporan/most/'+ this.year)
             .then(response =>{
               this.Best_Seller = response.data
-              this.cek = this.Best_Seller.Best_Seller;
-              console.log(this.cek);
+              this.cek = this.Best_Seller.Best_Seller
+              this.Convert =JSON.parse(JSON.stringify(this.cek)) 
+              console.log(this.Convert);
               })
   
         },

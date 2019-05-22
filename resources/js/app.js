@@ -12,7 +12,7 @@ import VueApexCharts from 'vue-apexcharts'
 window.axios = axios.create()
 
 
-
+Vue.component('apexchart', VueApexCharts)
 
 Vue.use(Vuetify,{
     iconfont: 'md'

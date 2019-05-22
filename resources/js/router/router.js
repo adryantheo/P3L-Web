@@ -31,6 +31,7 @@ import AdminLJasa from '../components/admin/laporan/Jasa.vue'
 import AdminLSparepart from '../components/admin/laporan/Sparepart.vue'
 import AdminLPendapatan from '../components/admin/laporan/Pendapatan.vue'
 import AdminLPengeluaran from '../components/admin/laporan/Pengeluaran.vue'
+import AdminLStok from '../components/admin/laporan/Stok.vue'
 
 //View Pegawai
 import AppKaryawan from '../components/karyawan/AppKaryawan.vue'
@@ -156,6 +157,10 @@ const routes = [
         {
             path:'/admin/laporan/sparepart',
             component: AdminLSparepart,
+        },
+        {
+            path:'/admin/laporan/stok',
+            component: AdminLStok,
         },
         {
 
