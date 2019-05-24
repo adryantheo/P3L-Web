@@ -3,7 +3,7 @@ window.Vue = require('vue');
 //window.axios = require('axios');
 
 import AppComponent from './components/AppComponent.vue'
-import router from './router/router'
+import Router from './router/router.js'
 import Vuetify from 'vuetify'
 import axios from 'axios'
 import VueHtmlToPaper from 'vue-html-to-paper'
@@ -31,17 +31,15 @@ Vue.use(VueHtmlToPaper, {
     ],
 });
 
+
 Vue.use(VueApexCharts);
-
-
-
-
 
 const app = new Vue({
     el: '#app',
     components: {
         AppComponent,
     },
-    router
+    router: Router,
+    // render: h => h(AppComponent),
     
 });

@@ -221,11 +221,11 @@ const routes = [
 ]
 
 const router = new VueRouter({
+    base: '/P3L-Web/public/',
     routes,
     hashbang: false,
     mode: 'history',
-})
-
-
+});
 
 export default router;
+

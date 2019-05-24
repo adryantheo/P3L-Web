@@ -151,7 +151,7 @@ export default {
 
   methods:{
      fetchsparepart() {
-      axios.get('/api/sparepart/all')
+      axios.get('/P3L-Web/public/api/sparepart/all')
       .then(response => this.sparepart = response.data)
       if(this.sparepart != null){
         this.snackbar = 1;  

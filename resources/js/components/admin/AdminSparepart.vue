@@ -264,7 +264,7 @@ export default {
         },
     
     fetchsparepart() {
-      axios.get('/api/sparepart/')
+      axios.get('/P3L-Web/public/api/sparepart')
       .then(response => this.sparepart = response.data)
     },
     
@@ -283,7 +283,7 @@ export default {
       confirm('Are you sure you want to delete this item?') && this.sparepart.splice(index, 1)
       console.log('deleted data');
 
-      axios.delete('/api/sparepart/'+item.id)
+      axios.delete('/P3L-Web/public/api/sparepart/'+item.id)
         .then(response => {
           console.log(response);
         })
@@ -324,7 +324,7 @@ export default {
         data.append(`Letak`, this.Letak);
         data.append(`Stok`, this.Stok);
         data.append(`Stok_Min`, this.Stok_Min);
-       axios.post('/api/sparepart/'+this.editedItem.id,data,{
+       axios.post('/P3L-Web/public/api/sparepart/'+this.editedItem.id,data,{
          headers: {
               'Content-Type': 'multipart/form-data'
           }
@@ -359,7 +359,7 @@ export default {
         data.append(`Letak`, this.Letak);
         data.append(`Stok`, this.Stok);
         data.append(`Stok_Min`, this.Stok_Min);
-        axios.post('/api/sparepart/', data
+        axios.post('/P3L-Web/public/api/sparepart', data
           , {
           headers: {
               'Content-Type': 'multipart/form-data'

@@ -163,7 +163,7 @@ export default {
   methods: {
     
     fetchsales() {
-      axios.get('/api/sales/')
+      axios.get('/P3L-Web/public/api/sales')
       .then(response => this.sales = response.data)
     },
     
@@ -182,7 +182,7 @@ export default {
       confirm('Are you sure you want to delete this item?') && this.sales.splice(index, 1)
       console.log('deleted data');
 
-      axios.delete('/api/sales/'+item.id)
+      axios.delete('/P3L-Web/public/api/sales/'+item.id)
         .then(response => {
           console.log(response);
         })
@@ -200,7 +200,7 @@ export default {
       if (this.editedIndex > -1) {
         console.log('Edited Data');
 
-        axios.patch('/api/sales/'+this.editedItem.id,{
+        axios.patch('/P3L-Web/public/api/sales/'+this.editedItem.id,{
             Nomor_Telphone_Sales:this.editedItem.Nomor_Telphone_Sales,
             Nama_Sales:this.editedItem.Nama_Sales,
             Nama_Supplier:this.editedItem.Nama_Supplier,
@@ -214,7 +214,7 @@ export default {
         Object.assign(this.sales[this.editedIndex], this.editedItem)
       } else {
         console.log('created Data');
-        axios.post('/api/sales/',{
+        axios.post('/P3L-Web/public/api/sales',{
             Nomor_Telphone_Sales:this.editedItem.Nomor_Telphone_Sales,
             Nama_Sales:this.editedItem.Nama_Sales,
             Nama_Supplier:this.editedItem.Nama_Supplier,

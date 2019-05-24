@@ -45,7 +45,7 @@
     }),
     methods:{
         login(){
-          axios.post('/api/login', {
+          axios.post('/P3L-Web/public/api/login', {
             email: this.email,
             password: this.password
             }).then(response => {
