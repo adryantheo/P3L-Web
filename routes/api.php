@@ -13,6 +13,7 @@ Route::get('/kendaraan/all', 'KendaraanController@all');
 Route::get('/kendaraan/findKendaraan/{plat}', 'KendaraanController@findKendaraan');
 Route::get('/kustomer/findKustomer/{notelp}', 'KustomerController@findKustomer');
 Route::patch('/sales/{sales}', 'SalesController@update');
+Route::delete('/sales/{sales}', 'SalesController@destroy');
 Route::get('/sales/all', 'SalesController@all');
 Route::get('/pesanbarang/all', 'PesananBarangController@all');
 Route::delete('/pesanbarang/{pesanan_Barang}', 'PesananBarangController@destroy');
@@ -36,6 +37,7 @@ Route::get('/laporan/income/{tahun}', 'LaporanController@getIncomeYear');
 Route::get('/laporan/pendapatan/{tahun}/', 'LaporanController@getIncomeMonth');
 Route::get('/laporan/best/{tahun}/', 'LaporanController@getSparepart');
 Route::get('/laporan/most/{tahun}/', 'LaporanController@getJasa');
+Route::get('/laporan/most-number/{tahun}/', 'LaporanController@getJasaNumber');
 Route::get('/laporan/outcome/{tahun}/', 'LaporanController@getOutcome');
 Route::get('/laporan/stok/{tahun}/{Tipe}', 'LaporanController@getStok');
 
@@ -49,7 +51,7 @@ Route::resource('/transaksi', 'TransaksiController')->except(['paid', 'unpaid','
 Route::resource('/transaksi-service', 'TransaksiServiceController');
 Route::resource('/transaksi-sparepart', 'TransaksiSparepartController');
 Route::resource('/service', 'ServiceController');
-Route::resource('/sales', 'SalesController')->except(['update', 'all']);
+Route::resource('/sales', 'SalesController')->except(['update','destroy', 'all']);
 Route::resource('/sparepart', 'SparepartController')->except(['uploadGambar','update']);
 
 

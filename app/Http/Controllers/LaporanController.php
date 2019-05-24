@@ -55,6 +55,27 @@ class LaporanController extends Controller
 
     }
 
+    public function getJasaNumber(Request $request, $year){
+
+        for($i = 1; $i <= 12; $i++){
+            $epicSeller[$i] = DB::table('transaksis')
+                    ->join('transaksi__services', 'transaksis.id', '=', 'transaksi__services.transaksi_id')
+                    ->join('services', 'transaksi__services.service_id', '=', 'services.id')
+                    ->where('is_paid', '>', 0)
+                    ->whereYear('transaksis.created_at', '=', $year)  
+                    ->whereMonth('transaksis.created_at', '=', $i)
+                    ->orderBy('transaksi__services.Jumlah_Service','desc')
+                    // ->groupBy('transaksi__services.service_id')
+                    ->sum('transaksi__services.Jumlah_Service');
+                    // ->first();                    
+        } 
+
+        return response()->json([
+            'Best_Seller' => $epicSeller           
+        ]);
+
+    }
+
     public function getIncomeMonth(Request $request, $year){
 
         for($i = 1; $i <= 12; $i++){
@@ -97,7 +118,7 @@ class LaporanController extends Controller
             ->whereMonth('created_at', '=', $i)
             // ->sum('Total_Harga_Beli')
             ->select(DB::raw('sum(Total_Harga_Beli) AS Total')) 
-            ->get();
+            ->first();
             }
     
             return response()->json([

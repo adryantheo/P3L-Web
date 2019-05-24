@@ -3,6 +3,7 @@
         <v-flex>  
           <v-layout row align-center>
             <v-btn color="primary" :to="`/admin/laporan/pendapatan`">Pendapatan</v-btn>
+            <v-btn color="primary" :to="`/admin/laporan/pendapatan-cabang`">Pendapatan Cabang</v-btn>
             <v-btn color="primary" :to="`/admin/laporan/pengeluaran`">Pengeluaran</v-btn>
             <v-btn color="primary" :to="`/admin/laporan/jasa`">Penjualan Jasa</v-btn>
             <v-btn color="primary" :to="`/admin/laporan/sparepart`">Penjualan Sparepart</v-btn>

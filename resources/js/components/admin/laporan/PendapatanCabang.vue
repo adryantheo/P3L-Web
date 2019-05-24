@@ -7,11 +7,13 @@
                 <v-toolbar-title>Tahun</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-tooltip bottom>
+                  
                 </v-tooltip>
               </v-toolbar>
               <v-card-text>
                 <v-form>
                   <v-text-field prepend-icon="person" v-model="year" label="Tahun" type="text" :rules="[rules.required]" ></v-text-field>
+
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -20,44 +22,45 @@
               </v-card-actions>
             </v-card>
           </v-flex>
+
           <v-dialog v-model="dialog" max-width="800px">
             <template v-slot:activator="{ on }">
             </template>
            <v-card>
             <v-card-title>
-              <span class="headline">Laporan Penjualan Jasa {{this.year}}</span>
+              <span class="headline">Laporan Pendapatan Cabang {{this.year}}</span>
             </v-card-title>
             <v-card-text>
               <table style="width:100%" border="bold">
                       <tr>
                         <th>No</th>
-                        <th>Bulan</th>
-                        <th>Nama Service</th>
-                        <th>Jumlah Penjualan</th>
+                        <th>Cabang</th>
+                        <th>Pendapatan</th>
                       </tr>
                       <template v-for="(data, i) in cek">
                         <tr :key="i">
                           <td>{{i}}</td>
-                          <td>{{bulan[i]}}</td>
-                          <td>{{!!data.Nama_Service? data.Nama_Service:"-"}}</td>
-                           <td>{{!!data.Count? data.Count:0}}</td>
+                          <td>{{!!data.Nama_Cabang? data.Nama_Cabang:"-"}}</td>
+                          <td>Rp. {{!!data.Pendapatan? data.Pendapatan:0}}</td>
                         </tr>
                       </template>
-                    </table> 
-                  <v-btn color="primary" @click="printMe">Print</v-btn>
+                      
+                        <tr>
+                          <td colspan="2" align="right">Total</td>
+                          <td>Rp.  </td>
+                        </tr>                                            
+                </table>
+                <v-btn color="primary" @click="printMe">Print</v-btn>
             </v-card-text>
-            <div>
-              <apexchart width="500" type="bar" :options="chartOptions" :series="series"></apexchart>
-            </div>
           </v-card>
           </v-dialog>
         </v-layout>
 
-        <!-- print -->
+        <!-- PRINT -->
 
-        <div v-show="false" id="printMe">
+    <div v-show="false" id="printMe">
       <div class="ma-3">              
-        <div class="text-xs-center">                
+        <div class="text-xs-center">                  
             <p class="headline">ATMA AUTO</p>
             <p class="" >MOTORCYCLE SPAREPARTS AND SERVICES</p>
             <p class="">Jl. Babarsari No. 43 Yogyakarta 552181</p>
@@ -65,7 +68,7 @@
             <p class="">http://www.atmaauto.com</p>
             <hr>
             <br>
-            <p class="title">LAPORAN PENJUALAN JASA</p>
+            <p class="title">LAPORAN PENDAPATAN</p>
              <div class="text-xs-left">                  
                  <p>Tahun: {{this.year}}</p>
               </div>                                  
@@ -75,19 +78,22 @@
               <table style="width:100%" border="bold">
                       <tr>
                         <th>No</th>
-                        <th>Bulan</th>
-                        <th>Nama Service</th>
-                        <th>Jumlah Penjualan</th>
+                        <th>Cabang</th>
+                        <th>Pendapatan</th>
                       </tr>
                       <template v-for="(data, i) in cek">
                         <tr :key="i">
                           <td>{{i}}</td>
-                          <td>{{bulan[i]}}</td>
-                          <td>{{!!data.Nama_Service? data.Nama_Service:"-"}}</td>
-                           <td>{{!!data.Count? data.Count:0}}</td>
+                          <td>{{!!data.Nama_Cabang? data.Nama_Cabang:"-"}}</td>
+                          <td>Rp. {{!!data.Pendapatan? data.Pendapatan:0}}</td>
                         </tr>
                       </template>
-                </table> 
+                      
+                        <tr>
+                          <td colspan="2" align="right">Total</td>
+                          <td>Rp.  </td>
+                        </tr>                                            
+                </table>
           </div>
       </div>
     </div>
@@ -99,30 +105,13 @@
 
 
 <script>
-
   export default {
     props: ['nextUrl'],
     data: () => ({
-      
-      chartOptions: {
-        chart: {
-            id: 'vuechart-example'
-          },
-          xaxis: {
-            categories: ['Jan','Feb','Mar','Apr','May','June','July','Aug','Sep','Oct','Nov','Des']
-          }
-      },
 
-      series: [{
-        name: 'series-1',
-          data: []
-
-      }],
-
-      Best_Seller: [],
-      BS: [],
+      income: [],
       cek: [],
-      cek2: [],
+
       year: "",
       bulan: ['bulan','Jan','Feb','Mar','Apr','May','June','July','Aug','Sep','Oct','Nov','Des'],
            
@@ -135,54 +124,29 @@
       dialog: false,
       editedItem: {  
     },
+   
     }),
     computed: {
         formTitle () {
       return this.editedIndex === -1 ? 'Data User' : 'Data Tidak Ditemukan'
-    }
+    },
+
     },
     methods:{
-      
-      convert(){
-
-        let listOfObjects = Object.keys(this.cek.Count).map((key) =>{
-          return this.cek.Count[key]
-        })
-
-        console.log(this.listOfObjects);
-
-      },
-            
-       printMe(){
+        printMe(){
             this.$htmlToPaper('printMe');
         },
         cari(){
-          var Convert = [];
             this.dialog = true;
-            axios.get('/api/laporan/most/'+ this.year)
+            axios.get('/api/laporan/income/'+ this.year)
             .then(response =>{
-              this.Best_Seller = response.data
-              this.cek = this.Best_Seller.Best_Seller
-              this.Convert =JSON.parse(JSON.stringify(this.cek))
-              console.log(this.Convert);
+              this.income = response.data
+              this.cek = this.income.income;
+              
+              console.log(this.cek);
               })
 
-            axios.get('/api/laporan/most-number/'+ this.year)
-            .then(response =>{
-              let counter = new Array();
-              this.BS = response.data
-              if(this.BS){
-                this.BS.forEach(element=>{
-                  counter.push(element.Best_Seller);
-                });
-              }
-              console.log(counter);
-              // this.cek2 = this.BS.Best_Seller
-              // this.Convert =JSON.parse(JSON.stringify(this.cek2))
-              // this.data = this.Convert;
-              // console.log(this.Convert);
-              })
-  
+
         },
         
     }
