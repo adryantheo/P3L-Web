@@ -1,6 +1,6 @@
 P3L-Web Moved to P3L-8786
 
-# DON'T FORGET !!!!!!!!!!!!!!!!!/ User Instructions
+# Moved to P3L-8786 DON'T FORGET !!!!!!!!!!!!!!!!!/ User Instructions
 1. composer install (Power Shell/ CMD)
 2. rename .env.example file -> .env
 3. Setup db
